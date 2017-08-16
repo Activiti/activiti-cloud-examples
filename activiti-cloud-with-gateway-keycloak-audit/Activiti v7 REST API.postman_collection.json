@@ -1,0 +1,336 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Activiti v7 REST API",
+		"_postman_id": "e2f8c487-4f55-255a-ac32-ffd6510d9ff2",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "audit",
+			"description": "",
+			"item": [
+				{
+					"name": "audit events",
+					"request": {
+						"url": "http://localhost:8080/audit/v1/events",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gateway",
+			"description": "",
+			"item": [
+				{
+					"name": "routes",
+					"request": {
+						"url": "http://localhost:8080/application/routes",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "keycloak",
+			"description": "",
+			"item": [
+				{
+					"name": "getKeycloakToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var tokens=JSON.parse(responseBody); ",
+									"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); "
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://activiti-cloud-keycloak:8180/auth/realms/springboot/protocol/openid-connect/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "activiti",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "hruser",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "runtime-bundle1",
+			"description": "",
+			"item": [
+				{
+					"name": "getProcessInstances",
+					"request": {
+						"url": "http://localhost:8080/runtime-bundle1/v1/process-instances",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "startProcess",
+					"request": {
+						"url": "http://localhost:8080/runtime-bundle1/v1/process-instances",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"aget\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getProcessVariables",
+					"request": {
+						"url": "http://localhost:8080/runtime-bundle1/process-instances/19/variables",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTasks",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/runtime-bundle1/v1/tasks?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"runtime-bundle1",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTask",
+					"request": {
+						"url": "http://localhost:8080/runtime-bundle1/v1/tasks/16",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "claimTask",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/runtime-bundle1/v1/tasks/17/claim?assignee=john",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"runtime-bundle1",
+								"v1",
+								"tasks",
+								"17",
+								"claim"
+							],
+							"query": [
+								{
+									"key": "assignee",
+									"value": "john",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "completeTask",
+					"request": {
+						"url": "http://localhost:8080/runtime-bundle1/tasks/17/complete",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getProcessDefinitions",
+					"request": {
+						"url": "http://localhost:8080/runtime-bundle1/v1/process-definitions",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
