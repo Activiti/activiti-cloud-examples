@@ -12,9 +12,9 @@ Various docker container properties can be modified by environment variables. Se
 
 1) Add this entry to your hosts file - 127.0.0.1       activiti-cloud-keycloak
 2) Run using docker-compose up from this directory (if you get a no such image error do docker-compose down first)
-5) Go to http://localhost:8080/runtime-bundle1/v1/process-instances in browser or postman. If using postman collection hit keycloak token endpoint (on host activiti-keycloak) first.
-5) For browser to reach the endpoint you'll need to enter testuser/password at the keycloak prompt
-7) To create process instances you'll need to use the postman collection
+3) Use postman to hit keycloak token endpoint (on host activiti-cloud-keycloak).
+4) Hit e.g. http://localhost:8080/runtime-bundle1/v1/process-instances using postman (not browser).
+5) Explore the various endpoints using the collection to start and progress process instances.
 
 ## Gateway and Service Registration
 
