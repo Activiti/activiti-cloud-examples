@@ -15,6 +15,16 @@ services:
       - activiti-cloud-keycloak:activiti-keycloak
       - rabbitmq:rabbitmq
       - activiti-cloud-registry:activiti-cloud-registry
+    environment:
+      - PORT=8181
+  activiti-cloud-query:
+    image: activiti/activiti-cloud-query:latest
+    links:
+      - activiti-cloud-keycloak:activiti-keycloak
+      - rabbitmq:rabbitmq
+      - activiti-cloud-registry:activiti-cloud-registry
+    environment:
+      - PORT=8182
   activiti-cloud-registry:
     image: activiti/activiti-cloud-registry:latest
     ports:

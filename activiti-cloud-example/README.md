@@ -19,10 +19,11 @@ be included.
 5) You can find all the runtime bundles registered in the system by executing the request inside the gateway folder called routes
 6) In order to start a new Runtime Bundle (by default there is no Runtime Bundle) you need to:\
     6.1) cd runtime-bundle-docker-example/ \
-    6.2) docker build -t "myrb1" . (to build a new docker image called "myrb1" using the Dockerfile located in that directory)\
+    6.2) docker build -t "myrb1" . (to build a new docker image called "myrb1" using the Dockerfile located in current directory, denoted by '.')\
     6.3) docker run --network=activiticloudexample_default --link=activiti-cloud-keycloak:activiti-cloud-keycloak --link=rabbitmq:rabbitmq --link=activiti-cloud-registry:acti-cloud-registry --link=rb-postgres \
             --name=activiti-cloud-runtime-bundle1 -e "HOST=activiti-cloud-runtime-bundle1" \
             -e "NAME=bundle1" -e "PORT=8081" myrb1 \
     *) Notice that links are necessary to make sure that our runtime bundle can "talk" with other services. \
-            -e set environment variables needed to differentiate runtime bundles between each other.      
+            -e set environment variables needed to differentiate runtime bundles between each other.    
+    6.4) To start another runtime bundle run the previous command again but replacing all the '1's with '2's
 
