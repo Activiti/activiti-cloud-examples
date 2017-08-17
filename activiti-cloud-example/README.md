@@ -4,19 +4,16 @@ This example shows how to start the Activiti Cloud Infrastructure and how you ca
 These Runtime Bundles provides us with a way to isolate Process Runtimes. Each Runtime Bundle will be in charge of executing a certain sets of 
 Process Definitions. 
 
-The REST endpoints are also secured using keycloak as an identity provider. 
+This example shows how to start the infrastructure services using Docker Compose and how to create and run your own runtime bundles (as many as you want).
+The services started by docker compose are: rabbit-mq, activiti-cloud-query, activiti-cloud-audit, activiti-cloud-keycloak, activiit-cloud-registry, activiti-cloud-gateway, postgresql.
 
-Audit data is recored in a separate service, also running behind the gateway.
-
-The process definitions are deployed from the process-definitions directory, which is mounted as a docker volume.
-
-Various docker container properties can be modified by environment variables. See the properties files for the repos of the images for values marked with ${}.
+Now when you want to create your own Runtime Bundles you will need to build and run your own docker images. Inside the runtime-bundle-docker-example a Dockerfile is provided which extends our base Runtime Bundle Docker Image and it defines which process definitions will 
+be included. 
 
 ## Quickstart
 
 1) Add this entry to your hosts (/etc/hosts) file - 127.0.0.1       activiti-cloud-keycloak
-2) Run using docker-compose up -d from this directory to start all the infrastructure services \
-(rabbit-mq, activiti-cloud-query, activiti-cloud-audit, activiti-cloud-keycloak, activiit-cloud-registry, activiti-cloud-gateway, postgresql)
+2) Run using docker-compose up -d from this directory to start all the infrastructure services 
 3) Load (Chrome Plugin)Postman collection located in this directory 
 4) Go to the keycloak folder and send the getKeycloakToken request
 5) You can find all the runtime bundles registered in the system by executing the request inside the gateway folder called routes
