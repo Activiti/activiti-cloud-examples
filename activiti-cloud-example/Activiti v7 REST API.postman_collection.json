@@ -117,13 +117,101 @@
 			]
 		},
 		{
+			"name": "query",
+			"description": "",
+			"item": [
+				{
+					"name": "tasks",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/query/v1/tasks?assignee=hruser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "assignee",
+									"value": "hruser",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "process instances",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/query/v1/process-instances?page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"v1",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "runtime-bundle1",
 			"description": "",
 			"item": [
 				{
 					"name": "getProcessInstances",
 					"request": {
-						"url": "http://localhost:8080/runtime-bundle1/v1/process-instances",
+						"url": "http://localhost:8080/bundle1/v1/process-instances",
 						"method": "GET",
 						"header": [
 							{
@@ -140,7 +228,7 @@
 				{
 					"name": "startProcess",
 					"request": {
-						"url": "http://localhost:8080/runtime-bundle1/v1/process-instances",
+						"url": "http://localhost:8080/bundle1/v1/process-instances",
 						"method": "POST",
 						"header": [
 							{
@@ -165,7 +253,7 @@
 				{
 					"name": "getProcessVariables",
 					"request": {
-						"url": "http://localhost:8080/runtime-bundle1/process-instances/19/variables",
+						"url": "http://localhost:8080/bundle1/v1/process-instances/6/variables",
 						"method": "GET",
 						"header": [
 							{
@@ -183,14 +271,14 @@
 					"name": "getTasks",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/runtime-bundle1/v1/tasks?page=0&size=10",
+							"raw": "http://localhost:8080/bundle1/v1/tasks?page=0&size=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"runtime-bundle1",
+								"bundle1",
 								"v1",
 								"tasks"
 							],
@@ -226,7 +314,7 @@
 				{
 					"name": "getTask",
 					"request": {
-						"url": "http://localhost:8080/runtime-bundle1/v1/tasks/16",
+						"url": "http://localhost:8080/bundle1/v1/tasks/14",
 						"method": "GET",
 						"header": [
 							{
@@ -249,17 +337,17 @@
 					"name": "claimTask",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/runtime-bundle1/v1/tasks/17/claim?assignee=john",
+							"raw": "http://localhost:8080/bundle1/v1/tasks/14/claim?assignee=john",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"runtime-bundle1",
+								"bundle1",
 								"v1",
 								"tasks",
-								"17",
+								"14",
 								"claim"
 							],
 							"query": [
@@ -293,7 +381,7 @@
 				{
 					"name": "completeTask",
 					"request": {
-						"url": "http://localhost:8080/runtime-bundle1/tasks/17/complete",
+						"url": "http://localhost:8080/bundle1/v1/tasks/14/complete",
 						"method": "POST",
 						"header": [
 							{
@@ -316,7 +404,7 @@
 				{
 					"name": "getProcessDefinitions",
 					"request": {
-						"url": "http://localhost:8080/runtime-bundle1/v1/process-definitions",
+						"url": "http://localhost:8080/bundle1/v1/process-definitions",
 						"method": "GET",
 						"header": [
 							{
