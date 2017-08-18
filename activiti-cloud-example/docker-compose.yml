@@ -16,7 +16,7 @@ services:
       - rabbitmq:rabbitmq
       - activiti-cloud-registry:activiti-cloud-registry
     environment:
-      - PORT=8181
+      - ACT_AUDIT_PORT=8181
   activiti-cloud-query:
     image: activiti/activiti-cloud-query:latest
     links:
@@ -24,7 +24,7 @@ services:
       - rabbitmq:rabbitmq
       - activiti-cloud-registry:activiti-cloud-registry
     environment:
-      - PORT=8182
+      - ACT_Q_PORT=8182
   activiti-cloud-registry:
     image: activiti/activiti-cloud-registry:latest
     ports:
