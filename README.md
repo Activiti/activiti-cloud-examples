@@ -20,7 +20,7 @@ be included. You can also modify the containers by setting any of the variables 
 5) You can find all the runtime bundles registered in the system by executing the request inside the gateway folder called routes
 6) In order to start a new Runtime Bundle (by default there is no Runtime Bundle started) you need to:\
     6.1) cd docker-runtime-bundle/ \
-    6.2) docker build -t "my-runtime-bundle" . (to build a new docker image called "my-runtime-bundle" using the Dockerfile located in current directory, denoted by '.')\
+    6.2) docker build -t "my-docker-runtime-bundle" . (to build a new docker image called "my-runtime-bundle" using the Dockerfile located in current directory, denoted by '.')\
     6.3) cd .. 
 7) docker-compose -f rb-docker-compose.yml up -d (to start a new runtime bunlde using the previously generated image)
     *) look into the rb-docker-compose.yml file if you want to start a different runtime bundle. This docker compose is starting
