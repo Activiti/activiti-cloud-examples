@@ -1,0 +1,31 @@
+version: '2'
+services:
+  my-runtime-bundle:
+      image: my-runtime-bundle
+      external_links:
+        - activiti-cloud-keycloak
+        - activiti-cloud-registry
+        - rabbitmq
+      depends_on:
+        - rb-postgres
+      environment:
+        - ACT_RB_PORT=8081
+        - ACT_RB_HOST=my-runtime-bundle
+        - ACT_RB_APP_NAME=my-runtime-bundle
+      networks:
+        - infrastructure
+  rb-postgres:
+      image: postgres
+      ports:
+       - "5432:5432"
+      environment:
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_USER=postgres
+        - POSTGRES_DB=activitidb
+      networks:
+        - infrastructure
+networks:
+  infrastructure:
+    external:
+      name: infrastructure_default
+
