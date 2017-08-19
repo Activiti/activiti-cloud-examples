@@ -13,17 +13,21 @@ be included. You can also modify the containers by setting any of the variables 
 ## Quickstart
 
 1) Add this entry to your hosts (/etc/hosts) file - 127.0.0.1       activiti-cloud-keycloak
-2) Run using docker-compose up -d from this directory to start all the infrastructure services 
-3) Load (Chrome Plugin)Postman collection located in this directory 
+2) cd infrastructure/ 
+   2.1) Run > docker-compose up -d (to start all the infrastructure services) 
+3) Load (Chrome Plugin)Postman collection located in the root directory 
 4) Go to the keycloak folder and send the getKeycloakToken request
 5) You can find all the runtime bundles registered in the system by executing the request inside the gateway folder called routes
-6) In order to start a new Runtime Bundle (by default there is no Runtime Bundle) you need to:\
-    6.1) cd runtime-bundle-docker-example/ \
+6) In order to start a new Runtime Bundle (by default there is no Runtime Bundle started) you need to:\
+    6.1) cd docker-runtime-bundle/ \
     6.2) docker build -t "my-runtime-bundle" . (to build a new docker image called "my-runtime-bundle" using the Dockerfile located in current directory, denoted by '.')\
-    6.3) docker run --network=infrastructure_default --link=activiti-cloud-keycloak:activiti-cloud-keycloak --link=rabbitmq:rabbitmq --link=activiti-cloud-registry:acti-cloud-registry --link=rb-postgres \
-            --name=activiti-cloud-runtime-bundle1 -e "ACT_RB_HOST=activiti-cloud-runtime-bundle1" \
-            -e "ACT_RB_APP_NAME=bundle1" -e "ACT_RB_PORT=8081" my-runtime-bundle \
-    *) Notice that links are necessary to make sure that our runtime bundle can "talk" with other services. \
-            -e set environment variables needed to differentiate runtime bundles between each other.    
-    6.4) To start another runtime bundle run the previous command again but replacing all the '1's with '2's
-
+    6.3) cd .. 
+7) docker-compose -f rb-docker-compose.yml up -d (to start a new runtime bunlde using the previously generated image)
+    *) look into the rb-docker-compose.yml file if you want to start a different runtime bundle. This docker compose is starting
+    postgresql as the data store for the process engine, you can obviously change all these configurations and also choose to share the
+    same database instance for all your runtime bundles.     
+    
+## Question / Issues / Comments
+Please feel free to open an issue or get in touch with us if you have problems running these 
+examples. You can join us in [Gitter](https://gitter.im/Activiti/Activiti7?utm_source=share-link&utm_medium=link&utm_campaign=share-link) if you want assistance or have questions. 
+We welcome contributions.  
