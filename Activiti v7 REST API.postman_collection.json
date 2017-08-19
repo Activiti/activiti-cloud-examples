@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "Activiti v7 REST API",
-		"_postman_id": "e2f8c487-4f55-255a-ac32-ffd6510d9ff2",
+		"_postman_id": "4c62ae9e-65c0-060c-135d-b46b370d25ce",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -23,7 +23,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -46,7 +49,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -117,101 +123,13 @@
 			]
 		},
 		{
-			"name": "query",
-			"description": "",
-			"item": [
-				{
-					"name": "tasks",
-					"request": {
-						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?assignee=hruser",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"query",
-								"v1",
-								"tasks"
-							],
-							"query": [
-								{
-									"key": "assignee",
-									"value": "hruser",
-									"equals": true,
-									"description": ""
-								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "process instances",
-					"request": {
-						"url": {
-							"raw": "http://localhost:8080/query/v1/process-instances?page=0&size=20",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"query",
-								"v1",
-								"process-instances"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0",
-									"equals": true,
-									"description": ""
-								},
-								{
-									"key": "size",
-									"value": "20",
-									"equals": true,
-									"description": ""
-								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "runtime-bundle1",
 			"description": "",
 			"item": [
 				{
 					"name": "getProcessInstances",
 					"request": {
-						"url": "http://localhost:8080/bundle1/v1/process-instances",
+						"url": "http://localhost:8080/my-runtime-bundle/v1/process-instances",
 						"method": "GET",
 						"header": [
 							{
@@ -228,7 +146,7 @@
 				{
 					"name": "startProcess",
 					"request": {
-						"url": "http://localhost:8080/bundle1/v1/process-instances",
+						"url": "http://localhost:8080/runtime-bundle1/v1/process-instances",
 						"method": "POST",
 						"header": [
 							{
@@ -253,7 +171,7 @@
 				{
 					"name": "getProcessVariables",
 					"request": {
-						"url": "http://localhost:8080/bundle1/v1/process-instances/6/variables",
+						"url": "http://localhost:8080/runtime-bundle1/process-instances/19/variables",
 						"method": "GET",
 						"header": [
 							{
@@ -262,7 +180,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -271,14 +192,14 @@
 					"name": "getTasks",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/bundle1/v1/tasks?page=0&size=10",
+							"raw": "http://localhost:8080/runtime-bundle1/v1/tasks?page=0&size=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"bundle1",
+								"runtime-bundle1",
 								"v1",
 								"tasks"
 							],
@@ -306,7 +227,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -314,7 +238,7 @@
 				{
 					"name": "getTask",
 					"request": {
-						"url": "http://localhost:8080/bundle1/v1/tasks/14",
+						"url": "http://localhost:8080/runtime-bundle1/v1/tasks/16",
 						"method": "GET",
 						"header": [
 							{
@@ -328,7 +252,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -337,17 +264,17 @@
 					"name": "claimTask",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/bundle1/v1/tasks/14/claim?assignee=john",
+							"raw": "http://localhost:8080/runtime-bundle1/v1/tasks/17/claim?assignee=john",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"bundle1",
+								"runtime-bundle1",
 								"v1",
 								"tasks",
-								"14",
+								"17",
 								"claim"
 							],
 							"query": [
@@ -373,7 +300,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -381,7 +311,7 @@
 				{
 					"name": "completeTask",
 					"request": {
-						"url": "http://localhost:8080/bundle1/v1/tasks/14/complete",
+						"url": "http://localhost:8080/my-runtime-bundle/tasks/17/complete",
 						"method": "POST",
 						"header": [
 							{
@@ -404,7 +334,7 @@
 				{
 					"name": "getProcessDefinitions",
 					"request": {
-						"url": "http://localhost:8080/bundle1/v1/process-definitions",
+						"url": "http://localhost:8080/runtime-bundle1/v1/process-definitions",
 						"method": "GET",
 						"header": [
 							{
@@ -413,7 +343,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []

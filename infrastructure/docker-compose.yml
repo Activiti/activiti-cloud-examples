@@ -35,12 +35,3 @@ services:
      - activiti-cloud-registry
     ports:
      - "8080:8080"
-  rb-postgres:
-      image: postgres
-      ports:
-       - "5432:5432"
-      environment:
-       - POSTGRES_PASSWORD=password
-       - POSTGRES_USER=postgres
-       - POSTGRES_DB=activitidb
-
