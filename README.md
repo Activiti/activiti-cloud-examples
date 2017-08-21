@@ -15,7 +15,7 @@ be included. You can also modify the containers by setting any of the variables 
 1) Add this entry to your hosts (/etc/hosts) file - 127.0.0.1       activiti-cloud-keycloak
 2) cd infrastructure/ 
    2.1) Run > docker-compose up -d (to start all the infrastructure services) 
-3) Load the json Postman collection into Postman (e.g. chrome plugin) located in the root directory 
+3) Load the json Postman collection  located in the root directory into Postman (e.g. chrome plugin)
 4) Go to the keycloak folder and send the getKeycloakToken request
 5) You can find all the routes registered in the system (e.g. the infrastructure query and audit services) by executing the request inside the gateway folder called routes
 6) In order to create and start a new Runtime Bundle (by default there is no Runtime Bundle started) you have two options:\
