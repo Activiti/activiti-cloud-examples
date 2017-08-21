@@ -35,7 +35,7 @@ be included. You can also modify the containers by setting any of the variables 
     same database instance for all your runtime bundles.
 8) When the runtime-bundle is started, it will be registered with the gateway through eureka. Wait for its registration and then you can start instances of its process definitions using postman. 
     
-To customise runtime-bundles to use different processes, modify either docker-runtime-bundle or maven-runtime-bundle before building it in step 6. You can start multiple load-balanced instances of the same runtime bundle by repeating step 6 using a different host and container name but the same ACT_RB_APP_NAME.
+To customise runtime-bundles to use different processes, modify either docker-runtime-bundle or maven-runtime-bundle before building it in step 6. You can start multiple instances of the same runtime bundle by adding them into the compose in step 6 using different host and container name and the same ACT_RB_APP_NAME.
     
 ## Question / Issues / Comments
 Please feel free to open an issue or get in touch with us if you have problems running these 
