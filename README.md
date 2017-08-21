@@ -14,6 +14,8 @@ be included. You can also modify the containers by setting any of the variables 
 
 ## Quickstart
 
+Ensure you have docker installed and increase the memory allocation to at least 3GB.
+
 1. Add this entry to your hosts (`/etc/hosts`) file:
 
     `127.0.0.1       activiti-cloud-keycloak`

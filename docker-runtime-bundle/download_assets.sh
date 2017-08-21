@@ -1,0 +1,2 @@
+#!/bin/sh
+wget https://maven.atlassian.com/3rdparty/postgresql/postgresql/9.4.1208-jdbc42-atlassian-hosted/postgresql-9.4.1208-jdbc42-atlassian-hosted.jar -O lib/postgresql-9.4.1208-jdbc42-atlassian-hosted.jar
