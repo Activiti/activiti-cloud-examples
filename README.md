@@ -33,7 +33,7 @@ be included. You can also modify the containers by setting any of the variables 
         *) look into the rb-docker-compose.yml file if you want to start a different runtime bundle. This docker compose is starting
     postgresql as the data store for the process engine, you can obviously change all these configurations and also choose to share the
     same database instance for all your runtime bundles.
-8) When the runtime-bundle is started, it will be registered with the gateway through eureka. Wait for its registration and then you can start its 
+8) When the runtime-bundle is started, it will be registered with the gateway through eureka. Wait for its registration and then you can start instances of its process definitions using postman. 
     
 To customise runtime-bundles to use different processes, modify either docker-runtime-bundle or maven-runtime-bundle before building it in step 6. You can start multiple load-balanced instances of the same runtime bundle by repeating step 6 using a different host and container name but the same ACT_RB_APP_NAME.
     
