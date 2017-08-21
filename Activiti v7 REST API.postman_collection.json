@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "Activiti v7 REST API",
-		"_postman_id": "4c62ae9e-65c0-060c-135d-b46b370d25ce",
+		"_postman_id": "656a9eac-cea3-cbff-7461-31d18c586f99",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -12,7 +12,7 @@
 			"description": "",
 			"item": [
 				{
-					"name": "audit events",
+					"name": "getAuditEvents",
 					"request": {
 						"url": "http://localhost:8080/audit/v1/events",
 						"method": "GET",
@@ -123,7 +123,7 @@
 			]
 		},
 		{
-			"name": "runtime-bundle1",
+			"name": "my-runtime-bundle",
 			"description": "",
 			"item": [
 				{
@@ -146,7 +146,7 @@
 				{
 					"name": "startProcess",
 					"request": {
-						"url": "http://localhost:8080/runtime-bundle1/v1/process-instances",
+						"url": "http://localhost:8080/my-runtime-bundle/v1/process-instances",
 						"method": "POST",
 						"header": [
 							{
@@ -171,7 +171,7 @@
 				{
 					"name": "getProcessVariables",
 					"request": {
-						"url": "http://localhost:8080/runtime-bundle1/process-instances/19/variables",
+						"url": "http://localhost:8080/my-runtime-bundle/v1/process-instances/{processInstanceId}/variables",
 						"method": "GET",
 						"header": [
 							{
@@ -192,14 +192,14 @@
 					"name": "getTasks",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/runtime-bundle1/v1/tasks?page=0&size=10",
+							"raw": "http://localhost:8080/my-runtime-bundle/v1/tasks?page=0&size=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"runtime-bundle1",
+								"my-runtime-bundle",
 								"v1",
 								"tasks"
 							],
@@ -238,7 +238,7 @@
 				{
 					"name": "getTask",
 					"request": {
-						"url": "http://localhost:8080/runtime-bundle1/v1/tasks/16",
+						"url": "http://localhost:8080/my-runtime-bundle/v1/tasks/{taskId}",
 						"method": "GET",
 						"header": [
 							{
@@ -264,23 +264,23 @@
 					"name": "claimTask",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/runtime-bundle1/v1/tasks/17/claim?assignee=john",
+							"raw": "http://localhost:8080/my-runtime-bundle/v1/tasks/{taskId}/claim?assignee=hruser",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"runtime-bundle1",
+								"my-runtime-bundle",
 								"v1",
 								"tasks",
-								"17",
+								"{taskId}",
 								"claim"
 							],
 							"query": [
 								{
 									"key": "assignee",
-									"value": "john",
+									"value": "hruser",
 									"equals": true,
 									"description": ""
 								}
@@ -311,14 +311,13 @@
 				{
 					"name": "completeTask",
 					"request": {
-						"url": "http://localhost:8080/my-runtime-bundle/tasks/17/complete",
+						"url": "http://localhost:8080/my-runtime-bundle/v1/tasks/{taskId}/complete",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "Bearer {{kcAccessToken}}",
-								"description": "",
-								"disabled": true
+								"description": ""
 							},
 							{
 								"key": "Content-Type",
@@ -334,7 +333,125 @@
 				{
 					"name": "getProcessDefinitions",
 					"request": {
-						"url": "http://localhost:8080/runtime-bundle1/v1/process-definitions",
+						"url": "http://localhost:8080/my-runtime-bundle/v1/process-definitions",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "query",
+			"description": "",
+			"item": [
+				{
+					"name": "queryProcessInstances",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"v1",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "lastModifiedFrom",
+									"value": "2011-12-03",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "lastModifiedTo",
+									"value": "2040-12-03",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "queryTasks",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/query/v1/tasks?priority=50&page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "priority",
+									"value": "50",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [
 							{
