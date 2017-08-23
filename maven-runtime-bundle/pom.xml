@@ -10,6 +10,7 @@
   <version>7-201708-EA-SNAPSHOT</version>
 
   <properties>
+    <version.activiti.cloud>${project.version}</version.activiti.cloud>
     <postgres.version>9.4.1212.jre7</postgres.version>
     <spring.boot.version>2.0.0.M3</spring.boot.version>
     <junit.version>4.12</junit.version>
@@ -23,6 +24,15 @@
     <dependencies>
       <!-- Spring Boot -->
       <dependency>
+        <groupId>org.activiti.cloud</groupId>
+        <artifactId>activiti-cloud-dependencies</artifactId>
+        <version>${version.activiti.cloud}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- Spring Boot -->
+      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>${spring.boot.version}</version>
@@ -34,9 +44,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.activiti</groupId>
+      <groupId>org.activiti.cloud</groupId>
       <artifactId>activiti-cloud-starter-runtime-bundle</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.postgresql</groupId>
