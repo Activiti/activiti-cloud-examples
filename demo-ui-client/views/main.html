@@ -29,10 +29,10 @@
         <p/>
 
         
-        <div ng-show="isUser"> <!-- Need to have the user role to seee this -->
-        	<h3>Activiti Cloud Demo Diagnostics</h3>
+        <div ng-show="isUser"> <!-- Need to have the user role to see this -->
+        	<h3>Activiti Cloud Demo</h3>
 
-	        <button name="getRoutes" ng-click="getRoutes()">Query Gateway Routes</button>
+            <input type="text" ng-model="routesUrl" size="80">&nbsp;&nbsp;<button name="getRoutes" ng-click="getRoutes()">Query Gateway Routes</button>
         	<p/>
 
             <div ng-show="gwroutes">
@@ -42,7 +42,7 @@
 	        </ul>
             </div>
 
-            <button name="getAuditEvents" ng-click="getAuditEvents()">Query Audit Events</button>
+            <input type="text" ng-model="auditUrl" size="80">&nbsp;&nbsp;<button name="getAuditEvents" ng-click="getAuditEvents()">Query Audit Events</button>
             <p/>
 
             <div ng-show="auditEvents">
@@ -52,7 +52,7 @@
             </ul>
             </div>
 
-            <button name="getProcessInstances" ng-click="getProcessInstances()">Query Process Instances</button>
+            <input type="text" ng-model="processInstancesUrl" size="80">&nbsp;&nbsp;<button name="getProcessInstances" ng-click="getProcessInstances()">Query Process Instances</button>
             <p/>
 
             <div ng-show="processInstances">
@@ -62,13 +62,44 @@
             </ul>
             </div>
 
-            <button name="getTasks" ng-click="getTasks()">Query Tasks</button>
+            <input type="text" ng-model="tasksUrl" size="80">&nbsp;&nbsp;<button name="getTasks" ng-click="getTasks()">Query Tasks</button>
             <p/>
             <div ng-show="tasks">
             Tasks:
             <ul ng-repeat="task in tasks">
                 <li>{{task}}</li>
             </ul>
+            </div>
+
+            <input type="text" ng-model="processDefinitionsUrl" size="80">&nbsp;&nbsp;<button name="getProcessDefinitions" ng-click="getProcessDefinitions()">Query Process Definitions</button>
+            <p/>
+            <div ng-show="processDefinitions">
+                Tasks:
+                <ul ng-repeat="processDefinition in processDefinitions">
+                    <li>{{processDefinition}}</li>
+                </ul>
+            </div>
+
+            <input type="text" ng-model="startProcessUrl" size="80">&nbsp;&nbsp;<button name="startProcess" ng-click="startProcess()">Start Process</button>
+            <p/>
+            Using POST body:
+            <p/>
+            <textarea ng-model="startProcessPostBody" rows="9" cols="70" ></textarea>
+            <p/>
+            <div ng-show="startProcessResponse">
+                {{startProcessResponse}}
+            </div>
+
+            <input type="text" ng-model="claimTaskUrl" size="80">&nbsp;&nbsp;<button name="claimTask" ng-click="claimTask()">Claim Task</button>
+            <p/>
+            <div ng-show="claimTaskResponse">
+                {{claimTaskResponse}}
+            </div>
+
+            <input type="text" ng-model="completeTaskUrl" size="80">&nbsp;&nbsp;<button name="completeTask" ng-click="completeTask()">Complete Task</button>
+            <p/>
+            <div ng-show="completeTaskResponse">
+                {{completeTaskResponse}}
             </div>
 
         </div>
