@@ -5,26 +5,28 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-  activiti-cloud-keycloak:
-    image: activiti/activiti-cloud-keycloak:latest
+  activiti-cloud-sso-idm:
+    image: activiti/activiti-cloud-sso-idm:latest
     ports:
       - "8180:8180"
   activiti-cloud-audit:
     image: activiti/activiti-cloud-audit:latest
     links:
-      - activiti-cloud-keycloak:activiti-keycloak
+      - activiti-cloud-sso-idm:activiti-cloud-sso-idm
       - rabbitmq:rabbitmq
       - activiti-cloud-registry:activiti-cloud-registry
     environment:
       - ACT_AUDIT_PORT=8181
+      - ACT_KEYCLOAK_URL=http://activiti-cloud-sso-idm:8180/auth
   activiti-cloud-query:
     image: activiti/activiti-cloud-query:latest
     links:
-      - activiti-cloud-keycloak:activiti-keycloak
+      - activiti-cloud-sso-idm:activiti-cloud-sso-idm
       - rabbitmq:rabbitmq
       - activiti-cloud-registry:activiti-cloud-registry
     environment:
       - ACT_Q_PORT=8182
+      - ACT_KEYCLOAK_URL=http://activiti-cloud-sso-idm:8180/auth
   activiti-cloud-registry:
     image: activiti/activiti-cloud-registry:latest
     ports:
@@ -35,3 +37,5 @@ services:
      - activiti-cloud-registry
     ports:
      - "8080:8080"
+    environment:
+     - ACT_KEYCLOAK_URL=http://activiti-cloud-sso-idm:8180/auth

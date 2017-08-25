@@ -1,6 +1,6 @@
 {
   "realm": "springboot",
-  "auth-server-url": "http://activiti-cloud-keycloak:8180/auth",
+  "auth-server-url": "http://activiti-cloud-sso-idm:8180/auth",
   "ssl-required": "external",
   "resource": "activiti",
   "public-client": true,

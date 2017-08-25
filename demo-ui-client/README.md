@@ -4,7 +4,7 @@ This demo just shows how to access Activiti 7 Cloud endpoints from a web client.
 
 ## How to run
 
-First follow the steps to start the services using docker-compose (and have activiti-cloud-keycloak hostname mapped in your hosts file).
+First follow the steps to start the services using docker-compose (and have activiti-cloud-sso-idm hostname mapped in your hosts file).
 
 This demo is tested using the indexzero http-server. First install npm then go this this directory and do:
 
