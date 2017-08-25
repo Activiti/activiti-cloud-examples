@@ -5,7 +5,7 @@ These Runtime Bundles provides us with a way to isolate Process Runtimes. Each R
 Process Definitions. 
 
 This example shows how to start the infrastructure services using Docker Compose and how to create and run your own runtime bundles (as many as you want).
-The services started by docker compose are: `rabbit-mq`, `activiti-cloud-query`, `activiti-cloud-audit`, `activiti-cloud-keycloak`, `activiti-cloud-registry`, `activiti-cloud-gateway`, `postgresql`.
+The services started by docker compose are: `rabbit-mq`, `activiti-cloud-query`, `activiti-cloud-audit`, `activiti-cloud-sso-idm`, `activiti-cloud-registry`, `activiti-cloud-gateway`, `postgresql`.
 
 Now when you want to create your own Runtime Bundles you will want to build and run your own docker images. Inside the 
 [docker-runtime-bundle](https://github.com/Activiti/activiti-cloud-examples/tree/master/docker-runtime-bundle) a 
@@ -18,7 +18,7 @@ Ensure you have docker installed and increase the memory allocation to at least 
 
 1. Add this entry to your hosts (`/etc/hosts`) file:
 
-    `127.0.0.1       activiti-cloud-keycloak`
+    `127.0.0.1       activiti-cloud-sso-idm`
 2. `cd infrastructure/`
     1. Run > `docker-compose up -d` (to start all the infrastructure services) 
 3. Load the json Postman collection  located in the root directory into Postman (e.g. chrome plugin)
