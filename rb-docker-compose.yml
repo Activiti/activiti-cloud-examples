@@ -18,7 +18,6 @@ services:
         - ACT_RB_PORT=8081
         - ACT_RB_HOST=my-runtime-bundle
         - ACT_RB_APP_NAME=my-runtime-bundle
-        - ACT_KEYCLOAK_URL=http://activiti-cloud-sso-idm:8180/auth
       networks:
         - infrastructure
   # We decided to configure our runtime bundle against a PostgreSQL instance

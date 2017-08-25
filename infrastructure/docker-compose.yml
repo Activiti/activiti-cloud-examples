@@ -17,7 +17,6 @@ services:
       - activiti-cloud-registry:activiti-cloud-registry
     environment:
       - ACT_AUDIT_PORT=8181
-      - ACT_KEYCLOAK_URL=http://activiti-cloud-sso-idm:8180/auth
   activiti-cloud-query:
     image: activiti/activiti-cloud-query:latest
     links:
@@ -26,7 +25,6 @@ services:
       - activiti-cloud-registry:activiti-cloud-registry
     environment:
       - ACT_Q_PORT=8182
-      - ACT_KEYCLOAK_URL=http://activiti-cloud-sso-idm:8180/auth
   activiti-cloud-registry:
     image: activiti/activiti-cloud-registry:latest
     ports:
@@ -37,5 +35,3 @@ services:
      - activiti-cloud-registry
     ports:
      - "8080:8080"
-    environment:
-     - ACT_KEYCLOAK_URL=http://activiti-cloud-sso-idm:8180/auth
