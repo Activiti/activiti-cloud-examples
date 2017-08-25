@@ -17,6 +17,7 @@
 *.zip
 *.tar.gz
 *.rar
+dist
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 gompiled class file
@@ -47,3 +48,6 @@ hs_err_pid*
 **.idea/**
 .idea/
 *.iml
+
+#node
+node_modules
