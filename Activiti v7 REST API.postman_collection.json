@@ -12,7 +12,7 @@
 			"description": "",
 			"item": [
 				{
-					"name": "getAuditEvents",
+					"name": "getEvents",
 					"request": {
 						"url": "http://localhost:8080/audit/v1/events",
 						"method": "GET",
@@ -28,6 +28,88 @@
 							"raw": ""
 						},
 						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getEventsByProcessInstanceId",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/audit/v1/events?processInstanceId={processInstanceId}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"audit",
+								"v1",
+								"events"
+							],
+							"query": [
+								{
+									"key": "processInstanceId",
+									"value": "{processInstanceId}",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getEventsByType",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/audit/v1/events?eventType={eventType}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"audit",
+								"v1",
+								"events"
+							],
+							"query": [
+								{
+									"key": "eventType",
+									"value": "{eventType}",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Filter events based on event type:\n- ProcessStartedEvent\n- TaskAssignedEvent\n- ..."
 					},
 					"response": []
 				}
