@@ -1,0 +1,178 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: rabbitmq
+      labels:
+        app: infrastructure
+        serviceType: message-broker
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:management
+          ports:
+          - containerPort: 5672
+          - containerPort: 15672
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-sso-idm
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-sso-idm
+      labels:
+        app: infrastructure
+        serviceType: sso-idm
+    spec:
+      containers:
+      - name: activiti-cloud-sso-idm
+        image: activiti/activiti-cloud-sso-idm:latest
+        ports:
+        - containerPort: 8180
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-sso-idm
+  namespace: default
+spec:
+  selector:
+    serviceType: sso-idm
+  ports:
+    - port: 8180
+      targetPort: 8180
+  type: ClusterIP
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-gateway
+  labels:
+    app: infrastructure
+    serviceType: gateway
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-gateway
+      labels:
+        app: infrastructure
+        serviceType: gateway
+    spec:
+      containers:
+        - name: activiti-cloud-gateway
+          image: activiti/activiti-cloud-gateway:latest
+          ports:
+          - containerPort: 8080
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-registry
+  labels:
+    app: infrastructure
+    serviceType: registry
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-registry
+      labels:
+        app: infrastructure
+        serviceType: registry
+    spec:
+      containers:
+        - name: activiti-cloud-registry
+          image: activiti/activiti-cloud-registry:latest
+          ports:
+          - containerPort: 8761
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-audit
+  labels:
+    app: infrastructure
+    serviceType: audit
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-audit
+      labels:
+        app: infrastructure
+        serviceType: audit
+    spec:
+      containers:
+        - name: activiti-cloud-audit
+          image: activiti/activiti-cloud-audit:latest
+          ports:
+            - containerPort: 8181
+          env:
+          - name: ACT_AUDIT_PORT
+            value: "8181"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: default
+spec:
+  selector:
+    serviceType: message-broker
+  ports:
+    - port: 5672
+      name: broker
+      targetPort: 5672
+    - port: 15672
+      name: admin
+      targetPort: 15672
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-registry
+  namespace: default
+spec:
+  selector:
+    serviceType: registry
+  ports:
+    - port: 8761
+      targetPort: 8761
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-audit
+  namespace: default
+spec:
+  selector:
+    serviceType: audit
+  ports:
+    - port: 8181
+      targetPort: 8181
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: entrypoint
+  namespace: default
+spec:
+  selector:
+    serviceType: gateway
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30080 # uncomment for minikube, comment for Kube
+  type: NodePort #NodePort for minikube, LoadBalancer for Kube
