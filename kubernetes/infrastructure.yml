@@ -174,5 +174,5 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
-      #nodePort: 30080
-  type: LoadBalancer #NodePort for minikube, LoadBalancer for Kube
+      nodePort: 30080 # uncomment for minikube, comment for Kube
+  type: NodePort #NodePort for minikube, LoadBalancer for Kube
