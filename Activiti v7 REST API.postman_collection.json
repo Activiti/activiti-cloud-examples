@@ -160,7 +160,7 @@
 						}
 					],
 					"request": {
-						"url": "http://activiti-cloud-sso-idm:8180/auth/realms/springboot/protocol/openid-connect/token",
+						"url": "http://activiti-cloud-sso-idm:30081/auth/realms/springboot/protocol/openid-connect/token",
 						"method": "POST",
 						"header": [
 							{

@@ -1,7 +1,7 @@
 {
   "realm": "springboot",
-  "auth-server-url": "http://activiti-cloud-sso-idm:8180/auth",
-  "ssl-required": "external",
+  "auth-server-url": "http://activiti-cloud-sso-idm:30081/auth",
+  "ssl-required": "none",
   "resource": "activiti",
   "public-client": true,
   "enable-cors": true,

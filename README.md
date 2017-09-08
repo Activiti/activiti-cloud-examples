@@ -19,8 +19,8 @@ Ensure you have docker installed and increase the memory allocation to at least 
 1. Add this entry to your hosts (`/etc/hosts`) file:
 
     `127.0.0.1       activiti-cloud-sso-idm`
-2. `cd infrastructure/`
-    1. Run > `docker-compose up -d` (to start all the infrastructure services) 
+2. `cd docker/`
+    1. Run > `docker-compose -f infrastructure-docker.yml up -d` (to start all the infrastructure services) 
 3. Load the json Postman collection  located in the root directory into Postman (e.g. chrome plugin)
 4. Go to the `keycloak` folder and send the `getKeycloakToken` request
 5. You can find all the routes registered in the system (e.g. the infrastructure query and audit services) by executing the request inside the `gateway` folder called `routes`
