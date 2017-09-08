@@ -37,7 +37,10 @@ spec:
         image: activiti/activiti-cloud-sso-idm:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8180
+        - containerPort: 30081
+        env:
+        - name: PORT_OFFSET
+          value: "22001"
 ---
 apiVersion: v1
 kind: Service
@@ -48,8 +51,8 @@ spec:
   selector:
     serviceType: sso-idm
   ports:
-    - port: 8180
-      targetPort: 8180
+    - port: 30081
+      targetPort: 30081
       nodePort: 30081 # uncomment for minikube, comment for Kube
   type: NodePort #NodePort for minikube, LoadBalancer for Kube
 ---
