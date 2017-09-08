@@ -5,15 +5,18 @@ appControllers.controller('MainController', ['$rootScope', '$scope', '$http', 'a
         $scope.status = 'running...';
         $scope.profile = authorization.profile;
         $scope.isUser = authorization.hasRealmRole('user');
-        $scope.routesUrl = "http://localhost:8080/application/routes";
-        $scope.auditUrl = "http://localhost:8080/audit/v1/events";
-        $scope.tasksUrl = "http://localhost:8080/query/v1/tasks";
-        $scope.processInstancesUrl = "http://localhost:8080/query/v1/process-instances";
-        $scope.processDefinitionsUrl = "http://localhost:8080/my-runtime-bundle/v1/process-definitions";
-        $scope.startProcessUrl = "http://localhost:8080/my-runtime-bundle/v1/process-instances";
+
+        $scope.gatewayUrl = "http://localhost:8080"; //will be port 30080 for minikube on a minikube IP
+
+        $scope.routesUrl = $scope.gatewayUrl + "/application/routes";
+        $scope.auditUrl = $scope.gatewayUrl + "/audit/v1/events";
+        $scope.tasksUrl = $scope.gatewayUrl + "/query/v1/tasks";
+        $scope.processInstancesUrl = $scope.gatewayUrl + "/query/v1/process-instances";
+        $scope.processDefinitionsUrl = $scope.gatewayUrl + "/my-runtime-bundle/v1/process-definitions";
+        $scope.startProcessUrl = $scope.gatewayUrl + "/my-runtime-bundle/v1/process-instances";
         $scope.startProcessPostBody = "{\n\"processDefinitionId\": \"SimpleProcess:1:4\",         \n\"variables\": {         \n\"firstName\": \"Paulo\",         \n\"lastName\": \"Silva\",         \n\"aget\": 25     \n},\n\"commandType\":\"StartProcessInstanceCmd\"\n}";
-        $scope.claimTaskUrl = "http://localhost:8080/my-runtime-bundle/v1/tasks/{taskId}/claim?assignee=testuser";
-        $scope.completeTaskUrl = "http://localhost:8080/my-runtime-bundle/v1/tasks/{taskId}/complete";
+        $scope.claimTaskUrl = $scope.gatewayUrl + "/my-runtime-bundle/v1/tasks/{taskId}/claim?assignee=testuser";
+        $scope.completeTaskUrl = $scope.gatewayUrl + "/my-runtime-bundle/v1/tasks/{taskId}/complete";
 
         $scope.getRoutes = function() {
             $http.get($scope.routesUrl).success(function(data) {

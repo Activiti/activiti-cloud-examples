@@ -6,6 +6,8 @@ This demo just shows how to access Activiti 7 Cloud endpoints from a web client.
 
 First follow the steps to start the services using docker-compose (and have activiti-cloud-sso-idm hostname mapped in your hosts file).
 
+Alternatively use the steps in the kubernetes folder to start using minikube. If doing so then change gatewayUrl in main-controller and auth server url in keycloak.json (see kubernetes README).
+
 This demo is tested using the indexzero http-server. First install npm then go this this directory and do:
 
 npm install -g http-server

@@ -22,34 +22,39 @@ spec:
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: activiti-cloud-sso-idm
+  name: activiti-cloud-sso-idm-kub
 spec:
   replicas: 1
   template:
     metadata:
-      name: activiti-cloud-sso-idm
+      name: activiti-cloud-sso-idm-kub
       labels:
         app: infrastructure
         serviceType: sso-idm
     spec:
       containers:
-      - name: activiti-cloud-sso-idm
+      - name: activiti-cloud-sso-idm-kub
         image: activiti/activiti-cloud-sso-idm:latest
+        imagePullPolicy: Always
         ports:
-        - containerPort: 8180
+        - containerPort: 30081
+        env:
+        - name: PORT_OFFSET
+          value: "22001"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: activiti-cloud-sso-idm
+  name: activiti-cloud-sso-idm-kub
   namespace: default
 spec:
   selector:
     serviceType: sso-idm
   ports:
-    - port: 8180
-      targetPort: 8180
-  type: ClusterIP
+    - port: 30081
+      targetPort: 30081
+      nodePort: 30081 # uncomment for minikube, comment for Kube
+  type: NodePort #NodePort for minikube, LoadBalancer for Kube
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -70,8 +75,12 @@ spec:
       containers:
         - name: activiti-cloud-gateway
           image: activiti/activiti-cloud-gateway:latest
+          imagePullPolicy: Always
           ports:
           - containerPort: 8080
+          env:
+          - name: ACT_KEYCLOAK_URL
+            value: "http://activiti-cloud-sso-idm-kub:30081/auth"
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -92,6 +101,7 @@ spec:
       containers:
         - name: activiti-cloud-registry
           image: activiti/activiti-cloud-registry:latest
+          imagePullPolicy: Always
           ports:
           - containerPort: 8761
 ---
@@ -114,11 +124,42 @@ spec:
       containers:
         - name: activiti-cloud-audit
           image: activiti/activiti-cloud-audit:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8181
           env:
           - name: ACT_AUDIT_PORT
             value: "8181"
+          - name: ACT_KEYCLOAK_URL
+            value: "http://activiti-cloud-sso-idm-kub:30081/auth"
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-query
+  labels:
+    app: infrastructure
+    serviceType: query
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-query
+      labels:
+        app: infrastructure
+        serviceType: query
+    spec:
+      containers:
+        - name: activiti-cloud-query
+          image: activiti/activiti-cloud-query:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8181
+          env:
+          - name: ACT_QUERY_PORT
+            value: "8182"
+          - name: ACT_KEYCLOAK_URL
+            value: "http://activiti-cloud-sso-idm-kub:30081/auth"
 ---
 apiVersion: v1
 kind: Service
@@ -161,6 +202,19 @@ spec:
   ports:
     - port: 8181
       targetPort: 8181
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-query
+  namespace: default
+spec:
+  selector:
+    serviceType: query
+  ports:
+    - port: 8182
+      targetPort: 8182
   type: ClusterIP
 ---
 apiVersion: v1
