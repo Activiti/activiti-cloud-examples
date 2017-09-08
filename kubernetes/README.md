@@ -13,7 +13,7 @@ To find entrypoint IP (should be on 30080) do 'minikube service entrypoint'. Use
 
 The IP from the minikube service entrypoint should be added in the etc/hosts file as mapped to activiti-cloud-sso-idm-kub.
 
-For SSO also change activiti-cloud-sso-idm to activiti-cloud-sso-idm-kub in keycloak.json in the demo UI client.
+For SSO also change activiti-cloud-sso-idm to activiti-cloud-sso-idm-kub and port from 8180 to 30081 in keycloak.json in the demo UI client.
 
 To stop infra do kubectl delete -f infrastructure.yml
 

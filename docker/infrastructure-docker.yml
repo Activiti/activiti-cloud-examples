@@ -8,7 +8,7 @@ services:
   activiti-cloud-sso-idm:
     image: activiti/activiti-cloud-sso-idm:latest
     ports:
-      - "30081:30081"
+      - "8180:8180"
   activiti-cloud-audit:
     image: activiti/activiti-cloud-audit:latest
     links:
