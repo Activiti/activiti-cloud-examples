@@ -35,5 +35,5 @@ services:
 networks:
   infrastructure:
     external:
-      name: infrastructure_default
+      name: docker_default
 
