@@ -2,12 +2,12 @@
 
 Steps to run:
 
-First install minikube - https://github.com/kubernetes/minikube
-Go to this directory.
-minikube start
-minikube dashboard
-kubectl create -f infrastructure.yml
-kubectl create -f runtime-bundle.yml (but get infrastructure running first)
+1. First install minikube - https://github.com/kubernetes/minikube
+2. Go to this directory.
+3. minikube start
+4. minikube dashboard
+5. kubectl create -f infrastructure.yml
+6. kubectl create -f runtime-bundle.yml (but get infrastructure running first)
 
 To find entrypoint IP look at the dashboard IP or do 'minikube service entrypoint'. Use this IP and port 30080 in Postman and demo-ui-client for all gateway URLs (i.e. all but SSO).
 
