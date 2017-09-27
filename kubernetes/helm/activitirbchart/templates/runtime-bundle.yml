@@ -1,0 +1,60 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.rb.name }}"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: "{{ .Values.rb.name }}"
+      labels:
+        app: "{{ .Values.rb.name }}"
+        serviceType: runtime-bundle
+    spec:
+      containers:
+        - name: "{{ .Values.rb.name }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag  }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: ACT_RB_HOST
+            value: "{{ .Release.Name }}-{{ .Values.rb.name }}"
+          - name: ACT_RB_APP_NAME
+            value: "{{ .Values.rb.name }}"
+          - name: ACT_RB_DB_URI
+            value: jdbc:postgresql://127.0.0.1:5432/activitidb
+          - name: ACT_KEYCLOAK_URL
+            value: "http://{{ .Values.infra.release.name }}-activiti-cloud-sso-idm-kub:30081/auth"
+          - name: ACT_EUREKA_URL
+            value: "http://{{ .Values.infra.release.name }}-activiti-cloud-registry:8761/eureka/"
+          - name: ACT_RABBITMQ_HOST
+            value: "{{ .Values.infra.release.name }}-rabbitmq"
+          - name: debug
+            value: "{{ .Values.rb.debug }}"
+          - name: trace
+            value: "{{ .Values.rb.trace }}"
+        - name: rb-postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+          - name: POSTGRES_PASSWORD
+            value: password
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: activitidb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.rb.name }}"
+  namespace: default
+spec:
+  selector:
+    serviceType: runtime-bundle
+  ports:
+    - port: {{ .Values.rb.port }}
+      targetPort: {{ .Values.rb.port }}
+  type: ClusterIP
+---

@@ -24,6 +24,10 @@ spec:
             value: jdbc:postgresql://127.0.0.1:5432/activitidb
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
+          - name: ACT_EUREKA_URL
+            value: "http://activiti-cloud-registry:8761/eureka/"
+          - name: ACT_RABBITMQ_HOST
+            value: "rabbitmq"
         - name: rb-postgres
           image: postgres
           ports:

@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for Activiti 7 Infrastructure on Kubernetes (see https://github.com/Activiti/)
+name: activitirbchart
+version: 0.1.0
