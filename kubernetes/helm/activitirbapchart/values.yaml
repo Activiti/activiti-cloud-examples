@@ -13,6 +13,8 @@ rb:
   port: 8081
   debug: false
   trace: false
+  db:
+    release: dbreleasename
 infra:
   release:
     name: infrareleasename

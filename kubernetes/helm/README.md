@@ -2,21 +2,29 @@
 
 ### Installing services
 
-A helm install will have a name - either allocated automatically or you can specify (using --name). To install without a name do:
+A helm install will have a name - either allocated automatically or you can specify (using --name) to have a repeatable script. To install without a name do:
 
 helm install ./activitiinfrachart
 
-from this directory. The output will give you a release name (in the 'NAME:' section).
+from this directory. The output will give you a release name (in the 'NAME:' section). Note the infrastructure release name (you can also find it in dashboard).
 
-Use this release name when installing activitirbchart by doing
+Install a runtime bundle database:
 
-helm install --set infra.release.name=namefrompreviousoutput ./activitirbchart
+helm install ./activitirbdbchart/
+
+Again note the name.
+
+Use the infrastructure release name and rb db name when installing activitirbchart by doing
+
+helm install --set infra.release.name=infrastructurereleasename --set rb.db.release.name=rbdbreleasename ./activitirbapchart
+
+e.g. helm install  --set infra.release.name=wobbly-mouse --set rb.db.release.name=washed-bat ./activitirbapchart/
+
+To create more RB aps simply repeat the command and they will be automatically load-balanced. Or you can scale using the Scale button under deployments in the kub dashboard.
 
 The runtime bundle will now be installed by helm as a further release but it will access services from the infrastructure release.
 
-The activitirbchart is set up with an example rb - to use your own you'll need to specify that name as the value of the --image.repository parameter (and the image.tag parameter if not 'latest')
-
-If you run the same command again you should get a second instance of the RB and zuul should loadbalance between them.
+The activitirbapchart is set up with an example rb - to use your own you'll need to specify that name as the value of the --image.repository parameter (and the image.tag parameter if not 'latest')
 
 To remove a release do helm delete releasename . To see all releases do helm list --all
 

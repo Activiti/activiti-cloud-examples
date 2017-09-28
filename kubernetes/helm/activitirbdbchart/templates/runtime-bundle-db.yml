@@ -1,0 +1,40 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.rb.name }}-db"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: "{{ .Values.rb.name }}-db"
+      labels:
+        app: "{{ .Values.rb.name }}-db"
+        serviceType: runtime-bundle-db
+    spec:
+      containers:
+        - name: rb-postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+          - name: POSTGRES_PASSWORD
+            value: password
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: activitidb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.rb.name }}-db"
+  namespace: default
+spec:
+  selector:
+    serviceType: runtime-bundle-db
+  ports:
+    - port: 5432
+      targetPort: 5432
+  type: ClusterIP
+---
