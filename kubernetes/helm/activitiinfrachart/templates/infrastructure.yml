@@ -34,8 +34,7 @@ spec:
     spec:
       containers:
       - name: activiti-cloud-sso-idm-kub
-#tag is latest for cloud-sso-idm-kub as sso-idm is customisation for keycloak and not on activiti release cycle
-        image: activiti/activiti-cloud-sso-idm:latest
+        image: "activiti/activiti-cloud-sso-idm:{{ .Values.image.tag  }}"
         imagePullPolicy: Always
         ports:
         - containerPort: 30081
