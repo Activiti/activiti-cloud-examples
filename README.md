@@ -27,7 +27,7 @@ Ensure you have docker installed and increase the memory allocation to at least 
 6. In order to create and start a new Runtime Bundle (by default there is no Runtime Bundle started) you have two options:
     1. Docker Option (No Java, No Maven Needed, this is the quickest path)
         1. `cd docker-runtime-bundle/` 
-        2. `docker build -t "my-docker-runtime-bundle" .` (to build a new docker image called `my-docker-runtime-bundle` using the Dockerfile located in current directory, denoted by `'.'`)
+        2. `docker build -t "rb-my-app" .` (to build a new docker image called `rb-my-app` using the Dockerfile located in current directory, denoted by `'.'`)
         3. `cd ..`
     2. Maven Option
         1. `cd maven-runtime-bundle/` 
