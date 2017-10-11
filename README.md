@@ -20,10 +20,10 @@ Ensure you have docker installed and increase the memory allocation to at least 
 
     `127.0.0.1       activiti-cloud-sso-idm`
 2. `cd docker/`
-    1. Run > `docker-compose -f infrastructure-docker.yml up -d` (to start all the infrastructure services except audit service) 
+    1. Run > `docker-compose -f infrastructure-docker.yml up -d` (to start all the infrastructure services except audit service) 
     2. Start audit service
-        1. If you use audit service with JPA, Run > `docker-compose -f audit-docker-compose.yml up -d`
-        2. If you use audit service with MongoDB, Run > 'docker-compose -f audit-docker-compose.mongo.yml up -d'
+        1. If you use JPA, Run > `docker-compose -f audit-docker-compose.yml up -d`
+        2. If you use MongoDB, Run > `docker-compose -f audit-docker-compose.mongo.yml up -d`
 3. Load the json Postman collection  located in the root directory into Postman (e.g. chrome plugin)
 4. Go to the `keycloak` folder and send the `getKeycloakToken` request
 5. You can find all the routes registered in the system (e.g. the infrastructure query and audit services) by executing the request inside the `gateway` folder called `routes`
