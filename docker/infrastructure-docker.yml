@@ -9,14 +9,6 @@ services:
     image: activiti/activiti-cloud-sso-idm:latest
     ports:
       - "8180:8180"
-  activiti-cloud-audit:
-    image: activiti/activiti-cloud-audit:latest
-    links:
-      - activiti-cloud-sso-idm:activiti-cloud-sso-idm
-      - rabbitmq:rabbitmq
-      - activiti-cloud-registry:activiti-cloud-registry
-    environment:
-      - ACT_AUDIT_PORT=8181
   activiti-cloud-query:
     image: activiti/activiti-cloud-query:latest
     links:

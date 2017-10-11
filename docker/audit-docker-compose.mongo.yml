@@ -1,0 +1,31 @@
+version: '2'
+services:
+  activiti-cloud-audit:
+      image: activiti/activiti-cloud-audit-mongodb:latest
+      external_links:
+        - activiti-cloud-sso-idm:activiti-cloud-sso-idm
+        - rabbitmq:rabbitmq
+        - activiti-cloud-registry:activiti-cloud-registry
+      depends_on:
+        - mongo
+      # You can launch as many Runtime Bundles as you want by changing these Env variables
+      environment:
+        - ACT_AUDIT_PORT=8181
+        - ACT_AUDIT_MONGO_HOST=mongo
+        - ACT_AUDIT_MONGO_PORT=27017
+        - ACT_AUDIT_MONGO_DB=activitidb
+      networks:
+        - infrastructure
+  # We decided to configure our runtime bundle against a PostgreSQL instance
+  mongo:
+      image: mongo
+      ports:
+       - "27017:27017"
+      networks:
+        - infrastructure
+# we will join the infrastructure network defined by the infrastructure docker compose.
+networks:
+  infrastructure:
+    external:
+      name: docker_default
+
