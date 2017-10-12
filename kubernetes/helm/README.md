@@ -48,7 +48,7 @@ The external endpoint for the entry point (gateway) should be used for the gatew
 
 The values.yaml file for a chart specify default values for parameters. The use of the parameter can be found in the .yml files in the templates directory for the chart. More parameters can be added by following this pattern. Note that some defaults may not be appropriate for production. For example, using tag 'latest' for infrastructure docker images takes the latest tag which might be a snapshot. See the tags of the docker images in https://hub.docker.com/u/activiti/dashboard/ to find the tag of the most recent release version.
 
-To enable debug logging add a debug param e.g. helm install --set infra.release.name=wobbly-mouse --set rb.debug=true ./activitirbchart
+To enable debug logging add a debug param e.g. helm install --set infra.release.name=infrastructurereleasename --set rb.db.release.name=rbdbreleasename --set rb.debug=true ./activitirbapchart
 
 For more using helm see https://github.com/kubernetes/helm/blob/master/docs/using_helm.md
 
