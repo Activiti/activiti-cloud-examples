@@ -17,6 +17,23 @@ services:
       - activiti-cloud-registry:activiti-cloud-registry
     environment:
       - ACT_AUDIT_PORT=8181
+  # activiti-cloud-audit:
+      # image: activiti/activiti-cloud-audit-mongodb:latest
+      # external_links:
+        # - activiti-cloud-sso-idm:activiti-cloud-sso-idm
+        # - rabbitmq:rabbitmq
+        # - activiti-cloud-registry:activiti-cloud-registry
+      # depends_on:
+        # - mongo
+      # environment:
+        # - ACT_AUDIT_PORT=8181
+        # - ACT_AUDIT_MONGO_HOST=mongo
+        # - ACT_AUDIT_MONGO_PORT=27017
+        # - ACT_AUDIT_MONGO_DB=activitidb
+  # mongo:
+      # image: mongo
+      # ports:
+       # - "27017:27017"
   activiti-cloud-query:
     image: activiti/activiti-cloud-query:latest
     links:
