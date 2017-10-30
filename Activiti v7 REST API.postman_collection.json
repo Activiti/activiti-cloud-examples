@@ -205,13 +205,13 @@
 			]
 		},
 		{
-			"name": "my-runtime-bundle",
+			"name": "rb-my-app",
 			"description": "",
 			"item": [
 				{
 					"name": "getProcessInstances",
 					"request": {
-						"url": "http://localhost:8080/my-runtime-bundle/v1/process-instances",
+						"url": "http://localhost:8080/rb-my-app/v1/process-instances",
 						"method": "GET",
 						"header": [
 							{
@@ -228,7 +228,7 @@
 				{
 					"name": "startProcess",
 					"request": {
-						"url": "http://localhost:8080/my-runtime-bundle/v1/process-instances",
+						"url": "http://localhost:8080/rb-my-app/v1/process-instances",
 						"method": "POST",
 						"header": [
 							{
@@ -253,7 +253,7 @@
 				{
 					"name": "getProcessVariables",
 					"request": {
-						"url": "http://localhost:8080/my-runtime-bundle/v1/process-instances/{processInstanceId}/variables",
+						"url": "http://localhost:8080/rb-my-app/v1/process-instances/{processInstanceId}/variables",
 						"method": "GET",
 						"header": [
 							{
@@ -274,14 +274,14 @@
 					"name": "getTasks",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/my-runtime-bundle/v1/tasks?page=0&size=10",
+							"raw": "http://localhost:8080/rb-my-app/v1/tasks?page=0&size=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"my-runtime-bundle",
+								"rb-my-app",
 								"v1",
 								"tasks"
 							],
@@ -320,7 +320,7 @@
 				{
 					"name": "getTask",
 					"request": {
-						"url": "http://localhost:8080/my-runtime-bundle/v1/tasks/{taskId}",
+						"url": "http://localhost:8080/rb-my-app/v1/tasks/{taskId}",
 						"method": "GET",
 						"header": [
 							{
@@ -346,14 +346,14 @@
 					"name": "claimTask",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/my-runtime-bundle/v1/tasks/{taskId}/claim?assignee=hruser",
+							"raw": "http://localhost:8080/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"my-runtime-bundle",
+								"rb-my-app",
 								"v1",
 								"tasks",
 								"{taskId}",
@@ -393,7 +393,7 @@
 				{
 					"name": "completeTask",
 					"request": {
-						"url": "http://localhost:8080/my-runtime-bundle/v1/tasks/{taskId}/complete",
+						"url": "http://localhost:8080/rb-my-app/v1/tasks/{taskId}/complete",
 						"method": "POST",
 						"header": [
 							{
@@ -415,7 +415,7 @@
 				{
 					"name": "getProcessDefinitions",
 					"request": {
-						"url": "http://localhost:8080/my-runtime-bundle/v1/process-definitions",
+						"url": "http://localhost:8080/rb-my-app/v1/process-definitions",
 						"method": "GET",
 						"header": [
 							{

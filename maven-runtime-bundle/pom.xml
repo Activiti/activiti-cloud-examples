@@ -97,8 +97,8 @@
         <configuration>
           <images>
             <image>
-              <name>my-maven-runtime-bundle</name>
-              <alias>my-maven-runtime-bundle</alias>
+              <name>rb-my-app</name>
+              <alias>rb-my-app</alias>
               <build>
                 <from>openjdk:alpine</from>
                 <assembly>

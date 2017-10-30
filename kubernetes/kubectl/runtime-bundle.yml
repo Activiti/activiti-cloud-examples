@@ -21,7 +21,7 @@ spec:
           - name: ACT_RB_APP_NAME
             value: rb-my-app
           - name: ACT_RB_DB_URI
-            value: jdbc:postgresql://rb-postgres:5432/activitidb
+            value: jdbc:postgresql://127.0.0.1:5432/activitidb
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
           - name: ACT_EUREKA_URL
