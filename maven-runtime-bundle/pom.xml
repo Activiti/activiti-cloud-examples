@@ -7,7 +7,7 @@
 
   <packaging>jar</packaging>
   <name>Activiti Cloud :: Runtime Bundle</name>
-  <version>7-201709-EA-SNAPSHOT</version>
+  <version>7-201710-EA-SNAPSHOT</version>
 
   <properties>
     <version.activiti.cloud>${project.version}</version.activiti.cloud>
