@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: salaboy/rb-my-app
+  repository: ryandawsonuk/rb-my-app
   tag: latest
   pullPolicy: IfNotPresent
 rb:

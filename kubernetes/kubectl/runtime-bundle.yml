@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: rb-my-app
-          image: salaboy/rb-my-app:latest
+          image: ryandawsonuk/rb-my-app:latest
           env:
           - name: ACT_RB_HOST
             value: rb-my-app
