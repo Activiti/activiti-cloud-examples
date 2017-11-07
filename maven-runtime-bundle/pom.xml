@@ -7,12 +7,12 @@
 
   <packaging>jar</packaging>
   <name>Activiti Cloud :: Runtime Bundle</name>
-  <version>7-201710-EA-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
 
   <properties>
-    <version.activiti.cloud>${project.version}</version.activiti.cloud>
+    <version.activiti.cloud>7-201710-EA</version.activiti.cloud>
     <postgres.version>9.4.1212.jre7</postgres.version>
-    <spring.boot.version>2.0.0.M3</spring.boot.version>
+    <spring.boot.version>2.0.0.M5</spring.boot.version>
     <junit.version>4.12</junit.version>
 
     <!-- plugins -->
@@ -101,7 +101,7 @@
         <configuration>
           <images>
             <image>
-              <name>rb-my-app</name>
+              <name>activiti/rb-my-app</name>
               <alias>rb-my-app</alias>
               <build>
                 <from>openjdk:alpine</from>

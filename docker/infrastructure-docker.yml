@@ -6,48 +6,15 @@ services:
       - "5672:5672"
       - "15672:15672"
   activiti-cloud-sso-idm:
-    image: activiti/activiti-cloud-sso-idm:latest
+    image: activiti/activiti-cloud-sso-idm:7-201710-EA
     ports:
       - "8180:8180"
-  activiti-cloud-audit:
-    image: activiti/activiti-cloud-audit:latest
-    links:
-      - activiti-cloud-sso-idm:activiti-cloud-sso-idm
-      - rabbitmq:rabbitmq
-      - activiti-cloud-registry:activiti-cloud-registry
-    environment:
-      - ACT_AUDIT_PORT=8181
-  # activiti-cloud-audit:
-      # image: activiti/activiti-cloud-audit-mongodb:latest
-      # external_links:
-        # - activiti-cloud-sso-idm:activiti-cloud-sso-idm
-        # - rabbitmq:rabbitmq
-        # - activiti-cloud-registry:activiti-cloud-registry
-      # depends_on:
-        # - mongo
-      # environment:
-        # - ACT_AUDIT_PORT=8181
-        # - ACT_AUDIT_MONGO_HOST=mongo
-        # - ACT_AUDIT_MONGO_PORT=27017
-        # - ACT_AUDIT_MONGO_DB=activitidb
-  # mongo:
-      # image: mongo
-      # ports:
-       # - "27017:27017"
-  activiti-cloud-query:
-    image: activiti/activiti-cloud-query:latest
-    links:
-      - activiti-cloud-sso-idm:activiti-cloud-sso-idm
-      - rabbitmq:rabbitmq
-      - activiti-cloud-registry:activiti-cloud-registry
-    environment:
-      - ACT_QUERY_PORT=8182
   activiti-cloud-registry:
-    image: activiti/activiti-cloud-registry:latest
+    image: activiti/activiti-cloud-registry:7-201710-EA
     ports:
      - "8761:8761"
   activiti-cloud-gateway:
-    image: activiti/activiti-cloud-gateway:latest
+    image: activiti/activiti-cloud-gateway:7-201710-EA
     depends_on:
      - activiti-cloud-registry
     ports:
