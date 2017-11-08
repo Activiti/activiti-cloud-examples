@@ -1,4 +1,12 @@
 # Activiti Cloud Example
+[![Join the chat at https://gitter.im/Activiti/Activiti7](https://badges.gitter.im/Activiti/Activiti7.svg)](https://gitter.im/Activiti/Activiti7?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+<p>
+  <a href='https://github.com/Activiti/Activiti/blob/master/LICENSE.txt'>
+       <img src='https://img.shields.io/hexpm/l/plug.svg' alt='license' />
+  </a>
+  <a href="https://cla-assistant.io/Activiti/Activiti"><img src="https://cla-assistant.io/readme/badge/Activiti/Activiti" alt="CLA assistant" /></a>
+</p>
 
 This example shows how to start the Activiti Cloud Infrastructure and how you can provide your Domain Specific Runtime Bundles.
 These Runtime Bundles provides us with a way to isolate Process Runtimes. Each Runtime Bundle will be in charge of executing a certain sets of 
