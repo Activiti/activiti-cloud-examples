@@ -16,7 +16,21 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-audit
-          image: activiti/activiti-cloud-audit:7-201710-EA
+          image: activiti/activiti-cloud-audit:latest
+          readinessProbe:
+            httpGet:
+              path: /application/status
+              port: 8181
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /application/status
+              port: 8181
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
           imagePullPolicy: Always
           ports:
             - containerPort: 8181
@@ -25,6 +39,8 @@ spec:
             value: "8181"
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
+          - name: ACT_KEYCLOAK_PATTERNS
+            value: "/v1/*"
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
