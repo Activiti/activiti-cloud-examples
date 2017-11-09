@@ -2,10 +2,10 @@ version: '2'
 services:
   activiti-cloud-audit:
     image: activiti/activiti-cloud-audit:7-201710-EA
-    links:
-      - activiti-cloud-sso-idm:activiti-cloud-sso-idm
-      - rabbitmq:rabbitmq
-      - activiti-cloud-registry:activiti-cloud-registry
+    external_links:
+      - activiti-cloud-sso-idm
+      - activiti-cloud-registry
+      - rabbitmq
     environment:
       - ACT_AUDIT_PORT=8181
     # activiti-cloud-audit:
@@ -27,10 +27,10 @@ services:
          # - "27017:27017"
   activiti-cloud-query:
     image: activiti/activiti-cloud-query:7-201710-EA
-    links:
-      - activiti-cloud-sso-idm:activiti-cloud-sso-idm
-      - rabbitmq:rabbitmq
-      - activiti-cloud-registry:activiti-cloud-registry
+    external_links:
+      - activiti-cloud-sso-idm
+      - activiti-cloud-registry
+      - rabbitmq
     environment:
       - ACT_QUERY_PORT=8182
   # We define the name and the base image of our Runtime Bundle
