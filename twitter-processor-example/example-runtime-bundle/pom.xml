@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.activiti.cloud</groupId>
-    <artifactId>activiti-cloud-connectors-parent</artifactId>
-    <version>7-201711-EA-salaboy_1514_twitter_connector-SNAPSHOT</version>
+    <groupId>org.activiti.cloud.examples</groupId>
+    <artifactId>twitter-processor-example</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>example-runtime-bundle</artifactId>
@@ -17,27 +17,6 @@
     <postgres.version>9.4.1212.jre7</postgres.version>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <!-- Spring Boot -->
-      <dependency>
-        <groupId>org.activiti.cloud</groupId>
-        <artifactId>activiti-cloud-dependencies</artifactId>
-        <version>${version.activiti.cloud}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <!-- Spring Boot -->
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring.boot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -91,6 +70,7 @@
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
+        <version>${maven.docker.plugin.version}</version>
         <configuration>
           <images>
             <image>

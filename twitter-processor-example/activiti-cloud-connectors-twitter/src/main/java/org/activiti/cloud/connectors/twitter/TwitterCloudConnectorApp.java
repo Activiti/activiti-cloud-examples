@@ -55,7 +55,7 @@ public class TwitterCloudConnectorApp implements CommandLineRunner {
                 if (lang.equals("en")) {
                     //System.out.println("> Tweet: " + status.getText() + "\n");
                     //System.out.println("\t > Lang: " + status.getLang() + "\n");
-                    StartProcessInstanceCmd startProcessInstanceCmd = new StartProcessInstanceCmd("tweet-processor:1:01937677-cd23-11e7-93c0-936684dc4390",
+                    StartProcessInstanceCmd startProcessInstanceCmd = new StartProcessInstanceCmd("tweet-processor:1:5e14f8fb-cd2b-11e7-b359-0fb42deb0414",
                                                                                                   vars);
                     runtimeCmdProducer.send(MessageBuilder.withPayload(startProcessInstanceCmd).build());
                 }

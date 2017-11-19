@@ -47,7 +47,7 @@ public class RankingCloudConnector implements CommandLineRunner {
         System.out.println("#  Prize time!!! starting Prize Process");
         System.out.println("#################################################################################");
         Map<String, Object> vars = new HashMap<>();
-        StartProcessInstanceCmd startProcessInstanceCmd = new StartProcessInstanceCmd("tweet-prize:1:01939d88-cd23-11e7-93c0-936684dc4390",
+        StartProcessInstanceCmd startProcessInstanceCmd = new StartProcessInstanceCmd("tweet-prize:1:5e15200c-cd2b-11e7-b359-0fb42deb0414",
                                                                                       vars);
         runtimeCmdProducer.send(MessageBuilder.withPayload(startProcessInstanceCmd).build());
     }

@@ -1,21 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-
-  <parent>
-    <groupId>org.activiti.cloud</groupId>
-    <artifactId>activiti-cloud-parent</artifactId>
-    <version>7-201711-EA-SNAPSHOT</version>
-  </parent>
-
-
+  <groupId>org.activiti.cloud.examples</groupId>
   <artifactId>twitter-processor-example</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
 
   <modules>
-    <module>activiti-cloud-connectors-starter</module>
     <module>activiti-cloud-connectors-twitter</module>
     <module>activiti-cloud-connectors-ranking</module>
     <module>activiti-cloud-connectors-3rd-party</module>
@@ -24,10 +16,46 @@
 
   <properties>
     <version.activiti>7-201711-EA-SNAPSHOT</version.activiti>
-    <version.activiti.cloud>7-201711-EA-SNAPSHOT</version.activiti.cloud>
+    <version.activiti.cloud>7-201711-EA-salaboy__1566_tx__for__integration__events-SNAPSHOT</version.activiti.cloud>
+
+    <jdk.version>1.8</jdk.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Plugins non managed -->
+    <maven.docker.plugin.version>0.21.0</maven.docker.plugin.version>
+    <spring-boot-maven-plugin.version>1.5.4.RELEASE</spring-boot-maven-plugin.version>
+    <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
+    <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <!-- Spring Boot -->
+      <dependency>
+        <groupId>org.activiti.cloud</groupId>
+        <artifactId>activiti-cloud-dependencies</artifactId>
+        <version>${version.activiti.cloud}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
 
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>${jdk.version}</source>
+          <target>${jdk.version}</target>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+          <optimize>true</optimize>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <repositories>
     <repository>
       <id>spring-milestones</id>
