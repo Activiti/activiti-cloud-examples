@@ -1,0 +1,18 @@
+rabbitmq:
+  image: rabbitmq:management
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+activiti-cloud-sso-idm:
+  image: activiti/activiti-cloud-sso-idm:latest
+  ports:
+    - "8180:8180"
+# We decided to configure our runtime bundle against a PostgreSQL instance
+rb-postgres:
+    image: postgres
+    ports:
+     - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=activitidb    

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2017 Alfresco, Inc. and/or its affiliates.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.activiti.org/processdef"
+             xmlns:activiti="http://activiti.org/bpmn"
+             xmlns:modeler="http://activiti.com/modeler"
+             modeler:version="1.0en" modeler:exportDateTime="20170630121657099" modeler:modelId="31031"
+             modeler:modelVersion="1" modeler:modelLastUpdated="1498821235111">
+
+  <process id="tweet-processor" name="tweet-processor">
+
+    <extensionElements>
+      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="message" modeler:variableType="string"/>
+      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="user" modeler:variableType="string"/>
+      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="lang" modeler:variableType="string"/>
+      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="filterApplied" modeler:variableType="string"/>
+      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="approved" modeler:variableType="boolean"/>
+      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="shout" modeler:variableType="string"/>
+    </extensionElements>
+
+    <startEvent id="start"/>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="serviceTaskFilter"/>
+
+    <serviceTask id="serviceTaskFilter" name="Filter English Tweet" implementation="Filter English Tweet"/>
+
+    <sequenceFlow id="flow2" sourceRef="serviceTaskFilter" targetRef="exclusiveGw"/>
+
+
+    <exclusiveGateway id="exclusiveGw" name="Approved?"/>
+
+    <sequenceFlow id="flow4" sourceRef="exclusiveGw" targetRef="serviceTaskProcessTweet">
+      <conditionExpression xsi:type="tFormalExpression">${approved == true}</conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow5" sourceRef="exclusiveGw" targetRef="endNoRank">
+      <conditionExpression xsi:type="tFormalExpression">${approved == false}</conditionExpression>
+    </sequenceFlow>
+
+    <serviceTask id="serviceTaskProcessTweet" name="Process English Tweet" implementation="Process English Tweet"/>
+
+    <sequenceFlow id="flow3" sourceRef="serviceTaskProcessTweet" targetRef="serviceTaskRank"/>
+
+    <serviceTask id="serviceTaskRank" name="Rank Tweet" implementation="Rank Tweet"/>
+
+    <sequenceFlow id="flow6" sourceRef="serviceTaskRank" targetRef="end"/>
+
+
+    <endEvent name="Tweet was Ranked" id="end"/>
+
+    <endEvent name="Tweet was Discarded" id="endNoRank"/>
+
+  </process>
+
+</definitions>
