@@ -1,7 +1,7 @@
 # This uses the generic Activiti Cloud Runtime Bundle
 #  to create a domain specific image using the process definitions
 #  located under the /processes/ directory
-FROM activiti/activiti-cloud-runtime-bundle:7-201710-EA
+FROM activiti/activiti-cloud-runtime-bundle:latest
 COPY /processes/ /processes/
 
 #download postgres driver and put in lib dir
