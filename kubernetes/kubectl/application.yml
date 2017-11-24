@@ -85,7 +85,7 @@ spec:
     spec:
       containers:
         - name: rb-my-app
-          image: salaboy/rb-my-app:latest
+          image: activiti/example-runtime-bundle:latest
           env:
           - name: ACT_RB_HOST
             value: rb-my-app
