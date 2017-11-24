@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FilterController {
 
-    public static String currentFilter = "TRUMP";
+    public static String currentFilter = "OXFORD";
 
     @RequestMapping(method = RequestMethod.GET, path = "/filter")
     public String getCurrentFilter() {

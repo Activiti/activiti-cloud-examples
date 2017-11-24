@@ -3,7 +3,7 @@ services:
   activiti-cloud-connector-twitter:
       image: activiti-cloud-connector-twitter
       environment:
-        - TWEET_PROCESS_DEF=tweet-processor:1:96984971-d0ff-11e7-98dc-0242ac140005
+        - TWEET_PROCESS_DEF=tweet-processor:1:2ef2d39d-d13f-11e7-8988-0242ac140005
       external_links:
         - rabbitmq
       networks:
@@ -12,7 +12,7 @@ services:
   activiti-cloud-connector-ranking:
       image: activiti-cloud-connector-ranking
       environment:
-        - PRIZE_PROCESS_DEF=tweet-prize:1:96987082-d0ff-11e7-98dc-0242ac140005
+        - PRIZE_PROCESS_DEF=tweet-prize:1:2ef321be-d13f-11e7-8988-0242ac140005
       external_links:
         - rabbitmq
       networks:

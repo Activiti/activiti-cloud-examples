@@ -82,8 +82,8 @@ public class TweetRankConnector {
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Get Tweets Rank'")
     public synchronized void getRanks(IntegrationRequestEvent event) throws InterruptedException {
 
-        String filter = "TRUMP";
-
+//        String filter = "TRUMP";
+        String filter = "OXFORD";
         List<RankingController.RankedUser> rankedUsers = RankingController.ranking.get(filter);
 
         Map<String, Object> results = new HashMap<>();

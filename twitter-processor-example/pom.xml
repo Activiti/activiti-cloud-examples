@@ -1,6 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.activiti.cloud</groupId>
+    <artifactId>activiti-cloud-parent</artifactId>
+    <version>7-201711-EA-SNAPSHOT</version>
+  </parent>
+
   <groupId>org.activiti.cloud.examples</groupId>
   <artifactId>twitter-processor-example</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -16,8 +22,8 @@
 
   <properties>
     <version.activiti>7-201711-EA-SNAPSHOT</version.activiti>
-    <version.activiti.cloud>7-201711-EA-salaboy__1566_tx__for__integration__events-SNAPSHOT</version.activiti.cloud>
-
+    <version.activiti.cloud>7-201711-EA-SNAPSHOT</version.activiti.cloud>
+    <version.activiti.cloud.connectors>7-201711-EA-salaboy_1514_twitter_connector-SNAPSHOT</version.activiti.cloud.connectors>
     <jdk.version>1.8</jdk.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Plugins non managed -->
@@ -27,19 +33,6 @@
     <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <!-- Spring Boot -->
-      <dependency>
-        <groupId>org.activiti.cloud</groupId>
-        <artifactId>activiti-cloud-dependencies</artifactId>
-        <version>${version.activiti.cloud}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-    </dependencies>
-  </dependencyManagement>
 
   <build>
     <plugins>

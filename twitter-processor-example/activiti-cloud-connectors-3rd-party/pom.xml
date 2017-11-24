@@ -72,64 +72,7 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>io.fabric8</groupId>
-        <artifactId>docker-maven-plugin</artifactId>
-        <version>${maven.docker.plugin.version}</version>
-        <configuration>
-          <images>
-            <image>
-              <name>rabbitmq</name>
-              <alias>rabbitmq</alias>
-              <run>
-                <ports>
-                  <port>5672:5672</port>
-                  <port>15672:15672</port>
-                </ports>
-                <wait>
-                  <log>Server startup complete</log>
-                  <time>15000</time>
-                </wait>
-              </run>
-            </image>
 
-          </images>
-        </configuration>
-
-        <!-- Connect start/stop to pre- and
-             post-integration-test phase, respectively if you want to start
-             your docker containers during integration tests -->
-        <executions>
-          <execution>
-            <id>build</id>
-            <phase>package</phase>
-            <goals>
-              <goal>build</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>start</id>
-            <configuration>
-              <skip>${skipTests}</skip>
-            </configuration>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>start</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>stop</id>
-            <configuration>
-              <skip>${skipTests}</skip>
-            </configuration>
-            <phase>post-integration-test</phase>
-            <goals>
-              <goal>stop</goal>
-              <goal>remove</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
