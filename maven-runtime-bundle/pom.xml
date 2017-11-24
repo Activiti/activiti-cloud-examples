@@ -10,7 +10,7 @@
   <version>1.0.0-SNAPSHOT</version>
 
   <properties>
-    <version.activiti.cloud>7-201710-EA</version.activiti.cloud>
+    <version.activiti.cloud>7-201711-EA-SNAPSHOT</version.activiti.cloud>
     <postgres.version>9.4.1212.jre7</postgres.version>
     <spring.boot.version>2.0.0.M5</spring.boot.version>
     <junit.version>4.12</junit.version>
