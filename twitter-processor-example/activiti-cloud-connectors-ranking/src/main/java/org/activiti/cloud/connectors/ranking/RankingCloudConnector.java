@@ -6,6 +6,7 @@ import java.util.Map;
 import org.activiti.cloud.connectors.starter.configuration.EnableActivitiCloudConnector;
 import org.activiti.cloud.services.api.commands.StartProcessInstanceCmd;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +22,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 public class RankingCloudConnector implements CommandLineRunner {
 
+    @Value("${activiti.prizeProcessDefinitionId}")
+    private String prizeProcessDefinitionId;
+
     @Autowired
     private MessageChannel runtimeCmdProducer;
 
@@ -31,7 +35,7 @@ public class RankingCloudConnector implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        System.out.println(">>> Using Process Definition: " + prizeProcessDefinitionId);
     }
 
     @Scheduled(fixedRate = 60000)
@@ -47,7 +51,7 @@ public class RankingCloudConnector implements CommandLineRunner {
         System.out.println("#  Prize time!!! starting Prize Process");
         System.out.println("#################################################################################");
         Map<String, Object> vars = new HashMap<>();
-        StartProcessInstanceCmd startProcessInstanceCmd = new StartProcessInstanceCmd("tweet-prize:1:5e15200c-cd2b-11e7-b359-0fb42deb0414",
+        StartProcessInstanceCmd startProcessInstanceCmd = new StartProcessInstanceCmd(prizeProcessDefinitionId,
                                                                                       vars);
         runtimeCmdProducer.send(MessageBuilder.withPayload(startProcessInstanceCmd).build());
     }

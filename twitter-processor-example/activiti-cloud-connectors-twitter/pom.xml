@@ -125,6 +125,35 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>${maven.docker.plugin.version}</version>
+        <configuration>
+          <images>
+            <image>
+              <name>activiti-cloud-connector-twitter</name>
+              <alias>activiti-cloud-connector-twitter</alias>
+              <build>
+                <from>openjdk:alpine</from>
+                <assembly>
+                  <descriptorRef>artifact</descriptorRef>
+                </assembly>
+                <cmd>java -jar maven/${project.artifactId}-${project.version}.jar</cmd>
+              </build>
+            </image>
+          </images>
+        </configuration>
+        <executions>
+          <execution>
+            <id>docker:build</id>
+            <phase>install</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
