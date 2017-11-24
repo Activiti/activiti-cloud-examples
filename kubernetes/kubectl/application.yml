@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-query
-          image: activiti/activiti-cloud-query:7-201710-EA
+          image: activiti/activiti-cloud-query:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8181
@@ -85,7 +85,7 @@ spec:
     spec:
       containers:
         - name: rb-my-app
-          image: salaboy/rb-my-app:latest
+          image: activiti/example-runtime-bundle:latest
           env:
           - name: ACT_RB_HOST
             value: rb-my-app
