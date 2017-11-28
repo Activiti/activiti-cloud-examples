@@ -35,8 +35,7 @@ public class Twitter4JConnector {
         System.out.println(" I'm tweeting to a Winner: " + event.getVariables().get("winner") + " \n");
         System.out.println("#################################################################################");
 
-        IntegrationResultEvent ire = new IntegrationResultEvent(UUID.randomUUID().toString(),
-                                                                event.getExecutionId(),
+        IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
                                                                 results);
 
       //  System.out.println("I'm sending back an integratrion Result: " + ire);
