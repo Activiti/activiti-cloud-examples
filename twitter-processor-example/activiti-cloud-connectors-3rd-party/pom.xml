@@ -16,15 +16,13 @@
   <dependencies>
     <dependency>
       <groupId>org.activiti.cloud</groupId>
-      <artifactId>activiti-cloud-connectors-starter</artifactId>
+      <artifactId>activiti-cloud-starter-connector</artifactId>
     </dependency>
-
     <dependency>
       <groupId>es.moki.ratelimitj</groupId>
       <artifactId>ratelimitj-core</artifactId>
       <version>${ratelimitj.version}</version>
     </dependency>
-
     <dependency>
       <groupId>es.moki.ratelimitj</groupId>
       <artifactId>ratelimitj-inmemory</artifactId>

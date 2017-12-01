@@ -12,7 +12,7 @@
   <dependencies>
     <dependency>
       <groupId>org.activiti.cloud</groupId>
-      <artifactId>activiti-cloud-connectors-starter</artifactId>
+      <artifactId>activiti-cloud-starter-connector</artifactId>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

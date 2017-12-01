@@ -89,8 +89,7 @@ public class TwitterProcessingConnector {
                 results.put("shout",
                             shout.getOUTPUT());
 
-                IntegrationResultEvent ire = new IntegrationResultEvent(UUID.randomUUID().toString(),
-                                                                        event.getExecutionId(),
+                IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
                                                                         results);
 
                 //  System.out.println("I'm sending back an integratrion Result: " + ire);
@@ -123,8 +122,7 @@ public class TwitterProcessingConnector {
                         false);
         }
 
-        IntegrationResultEvent ire = new IntegrationResultEvent(UUID.randomUUID().toString(),
-                                                                event.getExecutionId(),
+        IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
                                                                 results);
         integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
     }
