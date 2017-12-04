@@ -6,11 +6,11 @@ services:
       - "5672:5672"
       - "15672:15672"
   activiti-cloud-sso-idm:
-    image: activiti/activiti-cloud-sso-idm:7-201710-EA
+    image: activiti/activiti-cloud-sso-idm:7-201711-EA
     ports:
       - "8180:8180"
   activiti-cloud-audit:
-    image: activiti/activiti-cloud-audit:7-201710-EA
+    image: activiti/activiti-cloud-audit:7-201711-EA
     restart: always
     links:
       - activiti-cloud-sso-idm:activiti-cloud-sso-idm
@@ -23,7 +23,7 @@ services:
       - ACT_AUDIT_PORT=8181
       - ACT_CLOUD_CONFIG_FAIL_FAST=true
   activiti-cloud-query:
-    image: activiti/activiti-cloud-query:7-201710-EA
+    image: activiti/activiti-cloud-query:7-201711-EA
     restart: always
     links:
       - activiti-cloud-sso-idm:activiti-cloud-sso-idm
@@ -36,12 +36,12 @@ services:
       - ACT_QUERY_PORT=8182
       - ACT_CLOUD_CONFIG_FAIL_FAST=true
   activiti-cloud-registry:
-    image: activiti/activiti-cloud-registry:7-201710-EA
+    image: activiti/activiti-cloud-registry:7-201711-EA
     restart: always
     ports:
      - "8761:8761"
   activiti-cloud-gateway:
-    image: activiti/activiti-cloud-gateway:7-201710-EA
+    image: activiti/activiti-cloud-gateway:7-201711-EA
     restart: always
     links:
      - activiti-cloud-registry
@@ -53,7 +53,7 @@ services:
     ports:
       - "8080:8080"
   activiti-cloud-config-server:
-    image: activiti/activiti-cloud-config-server ## this needs to be  7-201710-EA
+    image: activiti/activiti-cloud-config-server ## this needs to be  7-201711-EA
     ports:
       - "8888:8888"
     environment:

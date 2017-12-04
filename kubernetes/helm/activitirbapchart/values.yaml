@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: activiti/example-runtime-bundle:latest
-  tag: latest
+  repository: activiti/example-runtime-bundle
+  tag: 7-201711-EA
   pullPolicy: IfNotPresent
 rb:
   name: rb-my-app
