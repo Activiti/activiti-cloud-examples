@@ -53,7 +53,7 @@ services:
     ports:
       - "8080:8080"
   activiti-cloud-config-server:
-    image: activiti/activiti-cloud-config-server ## this needs to be  latest
+    image: activiti/activiti-cloud-config-server ## this needs to be versioned if and when we publish image, currently build locally
     ports:
       - "8888:8888"
     environment:
