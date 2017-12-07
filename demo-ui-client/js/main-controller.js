@@ -12,11 +12,11 @@ appControllers.controller('MainController', ['$rootScope', '$scope', '$http', 'a
         $scope.auditUrl = $scope.gatewayUrl + "/audit/v1/events";
         $scope.tasksUrl = $scope.gatewayUrl + "/query/v1/tasks";
         $scope.processInstancesUrl = $scope.gatewayUrl + "/query/v1/process-instances";
-        $scope.processDefinitionsUrl = $scope.gatewayUrl + "/my-runtime-bundle/v1/process-definitions";
-        $scope.startProcessUrl = $scope.gatewayUrl + "/my-runtime-bundle/v1/process-instances";
+        $scope.processDefinitionsUrl = $scope.gatewayUrl + "/rb-my-app/v1/process-definitions";
+        $scope.startProcessUrl = $scope.gatewayUrl + "/rb-my-app/v1/process-instances";
         $scope.startProcessPostBody = "{\n\"processDefinitionId\": \"SimpleProcess:1:4\",         \n\"variables\": {         \n\"firstName\": \"Paulo\",         \n\"lastName\": \"Silva\",         \n\"aget\": 25     \n},\n\"commandType\":\"StartProcessInstanceCmd\"\n}";
-        $scope.claimTaskUrl = $scope.gatewayUrl + "/my-runtime-bundle/v1/tasks/{taskId}/claim?assignee=testuser";
-        $scope.completeTaskUrl = $scope.gatewayUrl + "/my-runtime-bundle/v1/tasks/{taskId}/complete";
+        $scope.claimTaskUrl = $scope.gatewayUrl + "/rb-my-app/v1/tasks/{taskId}/claim?assignee=testuser";
+        $scope.completeTaskUrl = $scope.gatewayUrl + "/rb-my-app/v1/tasks/{taskId}/complete";
 
         $scope.getRoutes = function() {
             $http.get($scope.routesUrl).success(function(data) {
