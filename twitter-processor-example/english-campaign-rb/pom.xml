@@ -11,7 +11,7 @@
   <artifactId>example-runtime-bundle</artifactId>
 
   <packaging>jar</packaging>
-  <name>Activiti Cloud :: Example Runtime Bundle</name>
+  <name>Activiti Cloud :: Twitter Campaign (English)</name>
 
   <properties>
     <postgres.version>9.4.1212.jre7</postgres.version>

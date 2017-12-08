@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.activiti.cloud</groupId>
     <artifactId>activiti-cloud-parent</artifactId>
-    <version>7-201711-EA-SNAPSHOT</version>
+    <version>7-201712-EA-SNAPSHOT</version>
   </parent>
 
   <groupId>org.activiti.cloud.examples</groupId>
@@ -17,13 +17,12 @@
     <module>activiti-cloud-connectors-twitter</module>
     <module>activiti-cloud-connectors-ranking</module>
     <module>activiti-cloud-connectors-3rd-party</module>
-    <module>example-runtime-bundle</module>
+    <module>english-campaign-rb</module>
   </modules>
 
   <properties>
-    <version.activiti>7-201711-EA-SNAPSHOT</version.activiti>
-    <version.activiti.cloud>7-201711-EA-SNAPSHOT</version.activiti.cloud>
-    <version.activiti.cloud.connectors>7-201711-EA-salaboy_1514_twitter_connector-SNAPSHOT</version.activiti.cloud.connectors>
+    <version.activiti>7-201712-EA-SNAPSHOT</version.activiti>
+    <version.activiti.cloud>7-201712-EA-SNAPSHOT</version.activiti.cloud>
     <jdk.version>1.8</jdk.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Plugins non managed -->

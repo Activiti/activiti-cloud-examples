@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import twitter4j.TwitterStream;
@@ -14,10 +15,8 @@ import twitter4j.TwitterStreamFactory;
 @EnableActivitiCloudConnector
 @ComponentScan({"org.activiti.cloud.connectors.starter", "org.activiti.cloud.connectors.twitter"})
 @EnableScheduling
+@EnableBinding(CampaignMessageChannels.class)
 public class TwitterCloudConnectorApp implements CommandLineRunner {
-
-    @Autowired
-    private LanguageMappingsController languageMappingsController;
 
     @Autowired
     private LangAwareTwitterStatusListener langAwareTwitterStatusListener;
@@ -30,15 +29,8 @@ public class TwitterCloudConnectorApp implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        initialize();
-
         TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
         twitterStream.addListener(langAwareTwitterStatusListener);
         twitterStream.sample();
-    }
-
-    private void initialize() {
-        languageMappingsController.setLanguageMapping("en",
-                                                      "processDefIdHere");
     }
 }

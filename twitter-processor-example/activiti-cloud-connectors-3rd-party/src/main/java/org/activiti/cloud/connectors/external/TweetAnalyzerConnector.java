@@ -1,4 +1,4 @@
-package org.activiti.cloud.connectors.twitter;
+package org.activiti.cloud.connectors.external;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,26 +11,26 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
-import twitter4j.TwitterException;
 
 @Component
-public class Twitter4JConnector {
+public class TweetAnalyzerConnector {
 
     @Autowired
     private MessageChannel integrationResultsProducer;
 
-    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Tweet'")
-    public void tweet(IntegrationRequestEvent event) throws TwitterException {
-        //Twitter twitter = TwitterFactory.getSingleton();
+    public TweetAnalyzerConnector() {
 
-        //System.out.println("Just received an integration request event: " + event);
+    }
+
+    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Analyze English Tweet'")
+    public synchronized void analyzeEnglishTweet(IntegrationRequestEvent event) throws InterruptedException {
+
+        String tweet = String.valueOf(event.getVariables().get("text"));
 
         Map<String, Object> results = new HashMap<>();
 
-        System.out.println("#################################################################################");
-        System.out.println("#  Prize time!!! You WON!!! ");
-        System.out.println(" I'm tweeting to a Winner: " + event.getVariables().get("winner") + " \n");
-        System.out.println("#################################################################################");
+        results.put("attitude",
+                    "positive");
 
         IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
                                                                 results);

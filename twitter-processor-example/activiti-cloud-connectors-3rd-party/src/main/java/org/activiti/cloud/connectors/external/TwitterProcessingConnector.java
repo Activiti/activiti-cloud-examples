@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import es.moki.ratelimitj.core.limiter.request.RequestLimitRule;
@@ -58,7 +57,7 @@ public class TwitterProcessingConnector {
 
         // System.out.println("Just recieved an integration request event: " + event);
 
-        String message = String.valueOf(event.getVariables().get("message"));
+        String tweet = String.valueOf(event.getVariables().get("text"));
 
         boolean sent = false;
         while (!sent) {
@@ -68,7 +67,7 @@ public class TwitterProcessingConnector {
 
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                HttpEntity<Shout> request = new HttpEntity<>(new Shout(message),
+                HttpEntity<Shout> request = new HttpEntity<>(new Shout(tweet),
                                                              headers);
                 ResponseEntity<Shout> response = restTemplate
                         .exchange("http://API.SHOUTCLOUD.IO/V1/SHOUT",
@@ -77,7 +76,7 @@ public class TwitterProcessingConnector {
                                   Shout.class);
 
                 if (!response.getStatusCode().is2xxSuccessful()) {
-                    System.out.println(">>> XXXXX Error Calling my shouty service for; " + message);
+                    System.out.println(">>> XXXXX Error Calling my shouty service for; " + tweet);
                     return;
                 }
 
@@ -100,30 +99,5 @@ public class TwitterProcessingConnector {
                 Thread.sleep(1000);
             }
         }
-    }
-
-    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Filter English Tweet'")
-    public synchronized void filterEnglish(IntegrationRequestEvent event) throws InterruptedException {
-
-        // System.out.println("Just received an integration request event: " + event);
-
-        String message = String.valueOf(event.getVariables().get("message"));
-
-        Map<String, Object> results = new HashMap<>();
-        results.put("filterApplied",
-                    FilterController.currentFilter);
-        if (message.toLowerCase().contains(FilterController.currentFilter.toLowerCase())) {
-            System.out.println(" >>> YYYY : Tweet was approved to be ranked: " + message);
-            results.put("approved",
-                        true);
-        } else {
-            //System.out.println(" >>> NNNN: Tweet was not approved to be ranked!");
-            results.put("approved",
-                        false);
-        }
-
-        IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
-                                                                results);
-        integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
     }
 }

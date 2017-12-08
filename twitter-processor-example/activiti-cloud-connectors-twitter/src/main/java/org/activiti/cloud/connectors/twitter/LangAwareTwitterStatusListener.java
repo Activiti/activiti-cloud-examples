@@ -1,9 +1,6 @@
 package org.activiti.cloud.connectors.twitter;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.activiti.cloud.services.api.commands.StartProcessInstanceCmd;
+import org.activiti.cloud.connectors.twitter.model.Tweet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -17,38 +14,21 @@ import twitter4j.StatusListener;
 public class LangAwareTwitterStatusListener implements StatusListener {
 
     @Autowired
-    private LanguageMappingsController languageMappingsController;
-
-    @Autowired
-    private MessageChannel runtimeCmdProducer;
-
+    private MessageChannel campaignProducer;
 
     public void onStatus(Status status) {
-        //Start a process
-        Map<String, Object> vars = new HashMap<>();
-        String lang = status.getLang();
-        vars.put("message",
-                 status.getText());
-        vars.put("lang",
-                 lang);
-        vars.put("user",
-                 status.getUser().getName());
-        vars.put("location",
-                 status.getUser().getLocation());
 
-        if (languageMappingsController.getLanguageMapping(lang) != null) {
-            requestStartNewProcessInstanceForTweet(vars,
-                                                   lang);
-        } else {
-            // Log no process defined for language lang
-        }
+        Tweet t = new Tweet(status.getText(),
+                            status.getUser().getScreenName(),
+                            status.getLang());
+
+        processTwitterWithCampaigns(t);
     }
 
-    private void requestStartNewProcessInstanceForTweet(Map<String, Object> vars,
-                                                        String lang) {
-        StartProcessInstanceCmd startProcessInstanceCmd = new StartProcessInstanceCmd(languageMappingsController.getLanguageMapping(lang),
-                                                                                      vars);
-        runtimeCmdProducer.send(MessageBuilder.withPayload(startProcessInstanceCmd).build());
+    private void processTwitterWithCampaigns(Tweet t) {
+        System.out.println("Tweet Recieved Launching Campaigns: " + t.getAuthor() + " -> says: " + t.getText());
+        campaignProducer.send(MessageBuilder.withPayload(t).setHeader("lang",
+                                                                      t.getLang()).build());
     }
 
     public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {

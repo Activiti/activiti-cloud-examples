@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
@@ -35,29 +34,33 @@ public class TweetRankConnector {
         return builder.build();
     }
 
-    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Rank Tweet'")
+    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Rank English Tweet'")
     public synchronized void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
 
-        //  System.out.println("Just recieved an integration request event: " + event);
-        String user = String.valueOf(event.getVariables().get("user"));
-        String filterApplied = String.valueOf(event.getVariables().get("filterApplied"));
-        List<RankingController.RankedUser> rankedUsersForFilter = RankingController.ranking.get(filterApplied);
+        String author = String.valueOf(event.getVariables().get("author"));
+        String campaign = String.valueOf(event.getVariables().get("campaign"));
+        String attitude = String.valueOf(event.getVariables().get("attitude"));
+        String processedMessage = String.valueOf(event.getVariables().get("shout"));
+
+        System.out.println(">>> Just Received a Tweet from: " + author + " related to the campaign: " + campaign + " with attitude: " + attitude + " - > " + processedMessage);
+
+        List<RankingController.RankedUser> rankedUsersForFilter = RankingController.ranking.get(campaign);
         if (rankedUsersForFilter == null) {
-            RankingController.ranking.put(filterApplied,
+            RankingController.ranking.put(campaign,
                                           new ArrayList<>());
         }
-        List<RankingController.RankedUser> rankedUsers = RankingController.ranking.get(filterApplied);
+        List<RankingController.RankedUser> rankedUsers = RankingController.ranking.get(campaign);
         boolean found = false;
         for (RankingController.RankedUser ru : rankedUsers) {
-            if (ru.getUserName().equals(user)) {
+            if (ru.getUserName().equals(author)) {
                 ru.setNroOfTweets(ru.getNroOfTweets() + 1);
                 found = true;
             }
         }
         if (!found) {
-            RankingController.ranking.get(filterApplied).add(new RankingController.RankedUser(1,
-                                                                                              user));
-            RankingController.ranking.get(filterApplied).sort(new Comparator<RankingController.RankedUser>() {
+            RankingController.ranking.get(campaign).add(new RankingController.RankedUser(1,
+                                                                                         author));
+            RankingController.ranking.get(campaign).sort(new Comparator<RankingController.RankedUser>() {
                 @Override
                 public int compare(RankingController.RankedUser o1,
                                    RankingController.RankedUser o2) {
@@ -66,16 +69,11 @@ public class TweetRankConnector {
             });
         }
 
-        String message = String.valueOf(event.getVariables().get("shout"));
-
-        System.out.println(">>> I should rank this tweet: " + message);
-
         Map<String, Object> results = new HashMap<>();
 
         IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
                                                                 results);
 
-        //System.out.println("I'm sending back an integratrion Result: " + ire);
         integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
     }
 
@@ -83,7 +81,7 @@ public class TweetRankConnector {
     public synchronized void getRanks(IntegrationRequestEvent event) throws InterruptedException {
 
 //        String filter = "TRUMP";
-        String filter = "OXFORD";
+        String filter = "TRUMP";
         List<RankingController.RankedUser> rankedUsers = RankingController.ranking.get(filter);
 
         Map<String, Object> results = new HashMap<>();
