@@ -27,7 +27,9 @@
   <process id="tweet-prize" name="tweet-prize">
 
     <extensionElements>
-      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="top3" modeler:variableType="object"/>
+      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="campaign" modeler:variableType="string"/>
+      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="top" modeler:variableType="object"/>
+      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="nroTopAuthors" modeler:variableType="int"/>
       <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="prizes" modeler:variableType="object"/>
     </extensionElements>
 
@@ -48,7 +50,7 @@
     <!--<sequenceFlow id="flow3" sourceRef="serviceTaskPrizes" targetRef="serviceTaskTweet"/>-->
 
     <serviceTask id="serviceTaskTweet" name="Tweet Winners" implementation="Tweet">
-      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${top3}" activiti:elementVariable="winner">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${top}" activiti:elementVariable="winner">
       </multiInstanceLoopCharacteristics>
     </serviceTask>
 

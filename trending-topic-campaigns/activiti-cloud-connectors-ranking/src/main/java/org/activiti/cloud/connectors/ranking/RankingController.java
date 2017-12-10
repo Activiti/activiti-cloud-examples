@@ -14,9 +14,9 @@ public class RankingController {
 
     public static Map<String, List<RankedUser>> ranking = new ConcurrentHashMap<>();
 
-    @RequestMapping(method = RequestMethod.GET, path = "/rank/{filter}")
-    public List<RankedUser> getRanking(@PathParam("filter") String filter) {
-        return ranking.get(filter);
+    @RequestMapping(method = RequestMethod.GET, path = "/rank/{topic}")
+    public List<RankedUser> getRanking(@PathParam("topic") String topic) {
+        return ranking.get(topic);
     }
 
     public static class RankedUser {

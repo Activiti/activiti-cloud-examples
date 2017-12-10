@@ -8,6 +8,7 @@
   </parent>
 
   <artifactId>activiti-cloud-connectors-ranking</artifactId>
+  <name>Activiti Cloud :: Activiti Ranking Cloud Connector</name>
 
   <dependencies>
     <dependency>

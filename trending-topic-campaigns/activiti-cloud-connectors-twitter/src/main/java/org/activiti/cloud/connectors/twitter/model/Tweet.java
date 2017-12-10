@@ -28,4 +28,13 @@ public class Tweet {
     public String getLang() {
         return lang;
     }
+
+    @Override
+    public String toString() {
+        return "Tweet{" +
+                "text='" + text + '\'' +
+                ", author='" + author + '\'' +
+                ", lang='" + lang + '\'' +
+                '}';
+    }
 }

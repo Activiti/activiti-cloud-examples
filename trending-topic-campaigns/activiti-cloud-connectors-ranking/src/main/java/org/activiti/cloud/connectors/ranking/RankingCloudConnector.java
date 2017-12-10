@@ -22,12 +22,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 public class RankingCloudConnector implements CommandLineRunner {
 
-    @Value("${activiti.prizeProcessDefinitionId}")
-    private String prizeProcessDefinitionId;
-
-    @Autowired
-    private MessageChannel runtimeCmdProducer;
-
     public static void main(String[] args) {
         SpringApplication.run(RankingCloudConnector.class,
                               args);
@@ -35,7 +29,7 @@ public class RankingCloudConnector implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(">>> Using Process Definition: " + prizeProcessDefinitionId);
+
     }
 
     @Scheduled(fixedRate = 60000)
@@ -46,13 +40,5 @@ public class RankingCloudConnector implements CommandLineRunner {
                 System.out.println("Ranked User: " + ru);
             }
         }
-
-        System.out.println("#################################################################################");
-        System.out.println("#  Prize time!!! starting Prize Process");
-        System.out.println("#################################################################################");
-        Map<String, Object> vars = new HashMap<>();
-        StartProcessInstanceCmd startProcessInstanceCmd = new StartProcessInstanceCmd(prizeProcessDefinitionId,
-                                                                                      vars);
-        runtimeCmdProducer.send(MessageBuilder.withPayload(startProcessInstanceCmd).build());
     }
 }

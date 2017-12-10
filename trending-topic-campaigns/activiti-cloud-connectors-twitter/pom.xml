@@ -8,6 +8,7 @@
   </parent>
 
   <artifactId>activiti-cloud-connectors-twitter</artifactId>
+  <name>Activiti Cloud :: Activiti Twitter Cloud Connector</name>
   <properties>
     <twitter4j.version>[4.0,)</twitter4j.version>
   </properties>

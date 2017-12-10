@@ -16,6 +16,8 @@ public class ApplicationTest {
 	@Value("${spring.activiti.process-definition-location-prefix:}")
 	private String procPath;
 
+
+
 	//for test purposes the env variable ACT_RB_PROCESSES_PATH is as set in pom.xml using surefire
 	@Test
 	public void contextLoads() throws Exception {

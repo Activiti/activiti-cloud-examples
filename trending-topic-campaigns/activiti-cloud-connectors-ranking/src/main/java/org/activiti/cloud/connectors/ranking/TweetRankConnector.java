@@ -11,28 +11,16 @@ import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 @Component
 public class TweetRankConnector {
 
     @Autowired
     private MessageChannel integrationResultsProducer;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        // Do any additional configuration here
-        return builder.build();
-    }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Rank English Tweet'")
     public synchronized void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
@@ -44,20 +32,37 @@ public class TweetRankConnector {
 
         System.out.println(">>> Just Received a Tweet from: " + author + " related to the campaign: " + campaign + " with attitude: " + attitude + " - > " + processedMessage);
 
-        List<RankingController.RankedUser> rankedUsersForFilter = RankingController.ranking.get(campaign);
-        if (rankedUsersForFilter == null) {
-            RankingController.ranking.put(campaign,
-                                          new ArrayList<>());
-        }
-        List<RankingController.RankedUser> rankedUsers = RankingController.ranking.get(campaign);
-        boolean found = false;
-        for (RankingController.RankedUser ru : rankedUsers) {
+        rankAuthorForCampaign(campaign,
+                              author);
+
+        Map<String, Object> results = new HashMap<>();
+
+        IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
+                                                                results);
+
+        integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
+    }
+
+    private void rankAuthorForCampaign(String campaign,
+                                       String author) {
+        List<RankingController.RankedUser> rankedUsersForCampaign = initCampaignRankings(campaign);
+
+        rankAuthorInCampaign(rankedUsersForCampaign,
+                             author,
+                             campaign);
+    }
+
+    private void rankAuthorInCampaign(List<RankingController.RankedUser> rankedUsersForCampaign,
+                                      String author,
+                                      String campaign) {
+        boolean userFoundInCampaignRanking = false;
+        for (RankingController.RankedUser ru : rankedUsersForCampaign) {
             if (ru.getUserName().equals(author)) {
                 ru.setNroOfTweets(ru.getNroOfTweets() + 1);
-                found = true;
+                userFoundInCampaignRanking = true;
             }
         }
-        if (!found) {
+        if (!userFoundInCampaignRanking) {
             RankingController.ranking.get(campaign).add(new RankingController.RankedUser(1,
                                                                                          author));
             RankingController.ranking.get(campaign).sort(new Comparator<RankingController.RankedUser>() {
@@ -68,41 +73,52 @@ public class TweetRankConnector {
                 }
             });
         }
+    }
 
-        Map<String, Object> results = new HashMap<>();
-
-        IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
-                                                                results);
-
-        integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
+    private List<RankingController.RankedUser> initCampaignRankings(String campaign) {
+        List<RankingController.RankedUser> rankedUsersForCampaign = RankingController.ranking.get(campaign);
+        if (rankedUsersForCampaign == null) {
+            RankingController.ranking.put(campaign,
+                                          new ArrayList<>());
+        }
+        return rankedUsersForCampaign;
     }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Get Tweets Rank'")
     public synchronized void getRanks(IntegrationRequestEvent event) throws InterruptedException {
 
-//        String filter = "TRUMP";
-        String filter = "TRUMP";
-        List<RankingController.RankedUser> rankedUsers = RankingController.ranking.get(filter);
+        String campaign = String.valueOf(event.getVariables().get("campaign"));
+        int top = Integer.valueOf(event.getVariables().get("nroTopAuthors").toString());
+
+        Map<String, Object> topAuthorsInCampaign = extractTopAuthorsFromCampaign(campaign,
+                                                                                 top);
+
+        IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
+                                                                topAuthorsInCampaign);
+
+        integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
+    }
+
+    private Map<String, Object> extractTopAuthorsFromCampaign(String campaign,
+                                                              int top) {
+        List<RankingController.RankedUser> rankedUsers = RankingController.ranking.get(campaign);
 
         Map<String, Object> results = new HashMap<>();
+
         if (rankedUsers != null) {
-            if (rankedUsers.size() > 3) {
-                results.put("top3",
+            if (rankedUsers.size() > top) {
+                results.put("top",
                             rankedUsers.subList(0,
-                                                3));
+                                                top));
             } else {
-                results.put("top3",
+                results.put("top",
                             rankedUsers);
             }
         } else {
-            results.put("top3",
+            results.put("top",
                         Collections.EMPTY_LIST);
         }
 
-        IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
-                                                                results);
-
-        //System.out.println("I'm sending back an integratrion Result: " + ire);
-        integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
+        return results;
     }
 }

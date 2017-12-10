@@ -19,7 +19,6 @@ public class TweetAnalyzerConnector {
     private MessageChannel integrationResultsProducer;
 
     public TweetAnalyzerConnector() {
-
     }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Analyze English Tweet'")

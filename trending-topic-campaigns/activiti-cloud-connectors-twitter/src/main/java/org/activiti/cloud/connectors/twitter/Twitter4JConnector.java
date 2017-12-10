@@ -23,8 +23,6 @@ public class Twitter4JConnector {
     public void tweet(IntegrationRequestEvent event) throws TwitterException {
         //Twitter twitter = TwitterFactory.getSingleton();
 
-        //System.out.println("Just received an integration request event: " + event);
-
         Map<String, Object> results = new HashMap<>();
 
         System.out.println("#################################################################################");
@@ -35,7 +33,6 @@ public class Twitter4JConnector {
         IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
                                                                 results);
 
-        //  System.out.println("I'm sending back an integratrion Result: " + ire);
         integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
     }
 }

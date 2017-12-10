@@ -14,6 +14,7 @@ import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.context.annotation.Bean;
@@ -36,13 +37,25 @@ public class TwitterProcessingConnector {
     @Autowired
     private RestTemplate restTemplate;
 
-    RequestRateLimiter requestRateLimiter;
+    @Value("${sla.requests}")
+    private int requestPerMinute;
+
+    @Value("${sla.enabled}")
+    private boolean slaEnabled;
+
+    private static final int WAIT_FOR_SLA = 1000;
+
+    private static final String SHOUT_SERVICE = "shoutApi";
+
+    private static final String SHOUT_SERVICE_URL = "http://API.SHOUTCLOUD.IO/V1/SHOUT";
+
+    private RequestRateLimiter requestRateLimiter;
 
     public TwitterProcessingConnector() {
 
         Set<RequestLimitRule> rules = Collections.singleton(RequestLimitRule.of(1,
                                                                                 TimeUnit.MINUTES,
-                                                                                60)); // 50 request per minute, per key
+                                                                                requestPerMinute)); // request per minute, per key
         requestRateLimiter = new InMemorySlidingWindowRequestRateLimiter(rules);
     }
 
@@ -55,49 +68,75 @@ public class TwitterProcessingConnector {
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Process English Tweet'")
     public synchronized void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
 
-        // System.out.println("Just recieved an integration request event: " + event);
-
         String tweet = String.valueOf(event.getVariables().get("text"));
 
-        boolean sent = false;
-        while (!sent) {
-            boolean overLimit = requestRateLimiter.overLimitWhenIncremented("shoutApi");
-            System.out.println(">>>>> !!!!! Over Limit --> ??" + overLimit);
-            if (!overLimit) {
+        if (slaEnabled) {
+            slaEnabledRequestHandling(tweet,
+                                      event);
+        } else {
+            peformRequest(tweet,
+                          event);
+        }
+    }
 
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_JSON);
-                HttpEntity<Shout> request = new HttpEntity<>(new Shout(tweet),
-                                                             headers);
-                ResponseEntity<Shout> response = restTemplate
-                        .exchange("http://API.SHOUTCLOUD.IO/V1/SHOUT",
-                                  HttpMethod.POST,
-                                  request,
-                                  Shout.class);
+    private void peformRequest(String tweet,
+                               IntegrationRequestEvent event) {
+        Shout shout = executeRequestToShoutService(tweet);
 
-                if (!response.getStatusCode().is2xxSuccessful()) {
-                    System.out.println(">>> XXXXX Error Calling my shouty service for; " + tweet);
-                    return;
-                }
+        completeIntegrationRequest(event,
+                                   shout);
+    }
 
-                Shout shout = response.getBody();
+    private void slaEnabledRequestHandling(String tweet,
+                                           IntegrationRequestEvent event) {
+        boolean serviceRequestSent = false;
 
-                System.out.println("Shout: " + shout);
-                Map<String, Object> results = new HashMap<>();
+        while (!serviceRequestSent) {
+            boolean slaOverLimit = requestRateLimiter.overLimitWhenIncremented(SHOUT_SERVICE);
+            if (!slaOverLimit) {
 
-                results.put("shout",
-                            shout.getOUTPUT());
-
-                IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
-                                                                        results);
-
-                //  System.out.println("I'm sending back an integratrion Result: " + ire);
-                integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
-                sent = true;
+                peformRequest(tweet,
+                              event);
+                serviceRequestSent = true;
             } else {
                 System.out.println(">> Waiting for SLAs allowance ...");
-                Thread.sleep(1000);
+                try {
+                    Thread.sleep(WAIT_FOR_SLA);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
+    }
+
+    private Shout executeRequestToShoutService(String tweet) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Shout> request = new HttpEntity<>(new Shout(tweet),
+                                                     headers);
+        ResponseEntity<Shout> response = restTemplate
+                .exchange(SHOUT_SERVICE_URL,
+                          HttpMethod.POST,
+                          request,
+                          Shout.class);
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            throw new IllegalStateException("Error Calling my shouty service for tweet: " + tweet);
+        }
+
+        return response.getBody();
+    }
+
+    private void completeIntegrationRequest(IntegrationRequestEvent event,
+                                            Shout shout) {
+        Map<String, Object> results = new HashMap<>();
+
+        results.put("text",
+                    shout.getOUTPUT());
+
+        IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
+                                                                results);
+
+        integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
     }
 }
