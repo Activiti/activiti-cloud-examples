@@ -41,6 +41,8 @@ spec:
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
           - name: ACT_KEYCLOAK_PATTERNS
             value: "/v1/*"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -85,6 +87,8 @@ spec:
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
           - name: ACT_KEYCLOAK_PATTERNS
             value: "/v1/*"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -137,6 +141,8 @@ spec:
             value: password
           - name: ACT_RB_DB_PLATFORM
             value: "org.hibernate.dialect.PostgreSQLDialect"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
         - name: rb-postgres
           image: postgres
           ports:
