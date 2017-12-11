@@ -42,7 +42,7 @@ spec:
           - name: ACT_KEYCLOAK_PATTERNS
             value: "/v1/*"
           - name: SPRING_PROFILES_ACTIVE
-            value: minikube
+            value: kube
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -88,7 +88,7 @@ spec:
           - name: ACT_KEYCLOAK_PATTERNS
             value: "/v1/*"
           - name: SPRING_PROFILES_ACTIVE
-            value: minikube
+            value: kube
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -142,7 +142,7 @@ spec:
           - name: ACT_RB_DB_PLATFORM
             value: "org.hibernate.dialect.PostgreSQLDialect"
           - name: SPRING_PROFILES_ACTIVE
-            value: minikube
+            value: kube
         - name: rb-postgres
           image: postgres
           ports:
