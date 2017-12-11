@@ -28,7 +28,7 @@ public class TweetRankConnector {
         String author = String.valueOf(event.getVariables().get("author"));
         String campaign = String.valueOf(event.getVariables().get("campaign"));
         String attitude = String.valueOf(event.getVariables().get("attitude"));
-        String processedMessage = String.valueOf(event.getVariables().get("shout"));
+        String processedMessage = String.valueOf(event.getVariables().get("text"));
 
         System.out.println(">>> Just Received a Tweet from: " + author + " related to the campaign: " + campaign + " with attitude: " + attitude + " - > " + processedMessage);
 

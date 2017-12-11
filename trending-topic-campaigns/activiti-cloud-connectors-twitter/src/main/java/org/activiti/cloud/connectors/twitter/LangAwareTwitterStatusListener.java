@@ -26,7 +26,6 @@ public class LangAwareTwitterStatusListener implements StatusListener {
     }
 
     private void processTwitterWithCampaigns(Tweet t) {
-        System.out.println("Tweet Recieved Launching Campaigns: " + t.getAuthor() + " -> says: " + t.getText());
         campaignProducer.send(MessageBuilder.withPayload(t).setHeader("lang",
                                                                       t.getLang()).build());
     }

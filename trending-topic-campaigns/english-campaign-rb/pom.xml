@@ -74,8 +74,8 @@
         <configuration>
           <images>
             <image>
-              <name>my-maven-runtime-bundle</name>
-              <alias>my-maven-runtime-bundle</alias>
+              <name>english-campaign-rb</name>
+              <alias>english-campaign-rb</alias>
               <build>
                 <from>openjdk:alpine</from>
                 <assembly>

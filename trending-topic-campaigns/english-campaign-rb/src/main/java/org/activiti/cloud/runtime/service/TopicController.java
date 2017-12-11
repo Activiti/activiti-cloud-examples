@@ -26,14 +26,7 @@ public class TopicController {
     }
 
     public boolean matchTopic(String text) {
-        System.out.println("Matching " + text + "with " + currentTopic);
-        boolean match = text.toLowerCase().contains(currentTopic.toLowerCase());
-        if (match) {
-            System.out.println("new " + currentTopic.toLowerCase() + " tweet found!");
-        } else {
-            System.out.println("NO MATCH");
-        }
-        return match;
+        return text.toLowerCase().contains(currentTopic.toLowerCase());
     }
 }
 
