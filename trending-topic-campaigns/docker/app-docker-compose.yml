@@ -9,8 +9,6 @@ services:
         - ACT_RB_DB_USER=postgres
         - ACT_RB_DB_PASS=password
         - ACT_RB_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
-        - SLA_ENABLED=true
-        - SLA_REQUESTS=60
       external_links:
         - rabbitmq
         - rb-postgres
