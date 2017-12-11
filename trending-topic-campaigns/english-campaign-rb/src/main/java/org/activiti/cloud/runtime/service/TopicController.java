@@ -16,11 +16,6 @@ public class TopicController {
         return currentTopic;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/topic")
-    public void setCurrentTopic(String filter) {
-        currentTopic = filter;
-    }
-
     public TopicController() {
         System.out.println("TopicController Created for topic: " + currentTopic);
     }

@@ -10,11 +10,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 public class ApplicationTest {
 
-    //for test purposes the env variable ACT_RB_PROCESSES_PATH is as set in pom.xml using surefire
+
     @Test
     public void contextLoads() throws Exception {
-        //check variable has been resolved for path to processes
-        //first check it's not the default
+
 
     }
 }

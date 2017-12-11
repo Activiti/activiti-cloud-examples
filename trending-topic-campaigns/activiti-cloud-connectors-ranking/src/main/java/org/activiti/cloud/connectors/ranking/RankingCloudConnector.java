@@ -35,7 +35,11 @@ public class RankingCloudConnector implements CommandLineRunner {
     @Scheduled(fixedRate = 60000)
     public void timerMessageSource() {
         System.out.println("Printing (local) Ranking: ");
+        if(RankingController.ranking == null || RankingController.ranking.keySet() == null || RankingController.ranking.keySet().isEmpty()){
+            System.out.println("No ranking set");
+        }
         for (String key : RankingController.ranking.keySet()) {
+            System.out.println("Campaign being ranked is "+key);
             for (RankingController.RankedUser ru : RankingController.ranking.get(key)) {
                 System.out.println("Ranked User: " + ru);
             }

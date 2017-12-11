@@ -14,8 +14,6 @@ import twitter4j.TwitterStreamFactory;
 @SpringBootApplication
 @EnableActivitiCloudConnector
 @ComponentScan({"org.activiti.cloud.connectors.starter", "org.activiti.cloud.connectors.twitter"})
-@EnableScheduling
-@EnableBinding(CampaignMessageChannels.class)
 public class TwitterCloudConnectorApp implements CommandLineRunner {
 
     @Autowired

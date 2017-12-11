@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import twitter4j.TwitterException;
 
 @Component
+
 public class Twitter4JConnector {
 
     @Autowired

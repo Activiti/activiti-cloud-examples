@@ -28,6 +28,9 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
+
+
 @Component
 public class TwitterProcessingConnector {
 
@@ -53,11 +56,18 @@ public class TwitterProcessingConnector {
 
     public TwitterProcessingConnector() {
 
-        Set<RequestLimitRule> rules = Collections.singleton(RequestLimitRule.of(1,
-                                                                                TimeUnit.MINUTES,
-                                                                                requestPerMinute)); // request per minute, per key
-        requestRateLimiter = new InMemorySlidingWindowRequestRateLimiter(rules);
+
     }
+
+    @PostConstruct
+    public void init(){
+        Set<RequestLimitRule> rules = Collections.singleton(RequestLimitRule.of(1,
+                TimeUnit.MINUTES,
+                requestPerMinute)); // request per minute, per key
+        requestRateLimiter = new InMemorySlidingWindowRequestRateLimiter(rules);
+        System.out.println("Rate limit - postconstruct - rpm " + requestPerMinute);
+    }
+
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {

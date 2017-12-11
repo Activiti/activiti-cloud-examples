@@ -21,7 +21,7 @@ services:
       environment:
         - ACT_RABBITMQ_HOST=rabbitmq
         - SLA_ENABLED=true
-        - SLA_REQUESTS=60
+        - SLA_REQUESTS=1000000
       external_links:
         - rabbitmq
       networks:

@@ -2,6 +2,7 @@ package org.activiti.cloud.connectors.twitter;
 
 import org.activiti.cloud.connectors.twitter.model.Tweet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
 
 @Component
+@EnableBinding(CampaignMessageChannels.class)
 public class LangAwareTwitterStatusListener implements StatusListener {
 
     @Autowired

@@ -9,6 +9,7 @@ services:
         - ACT_RB_DB_USER=postgres
         - ACT_RB_DB_PASS=password
         - ACT_RB_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+        - CAMPAIGN_TOPIC=trump
       external_links:
         - rabbitmq
         - rb-postgres
