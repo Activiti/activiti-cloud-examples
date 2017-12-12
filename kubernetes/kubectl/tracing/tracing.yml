@@ -331,7 +331,7 @@ items:
        type: local
   spec:
     capacity:
-      storage: 10Gi
+      storage: 1Gi
     accessModes:
      - ReadWriteOnce
     hostPath:
