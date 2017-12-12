@@ -1,18 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: rb-my-app
+  name: english-campaign-rb
 spec:
   replicas: 1
   template:
     metadata:
-      name: rb-my-app
+      name: english-campaign-rb
       labels:
-        app: rb-my-app
+        app: english-campaign-rb
         serviceType: runtime-bundle
     spec:
       containers:
-        - name: rb-my-app
+        - name: english-campaign-rb
           image: english-campaign-rb
           readinessProbe:
             httpGet:
