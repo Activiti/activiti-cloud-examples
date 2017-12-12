@@ -1,0 +1,181 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-connector-3rd-party
+  labels:
+    app: infrastructure
+    serviceType: connector-3rd-party
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-connector-3rd-party
+      labels:
+        app: infrastructure
+        serviceType: connector-3rd-party
+    spec:
+      containers:
+        - name: activiti-cloud-connector-3rd-party
+          image: activiti-cloud-connector-3rd-party:latest
+          readinessProbe:
+            httpGet:
+              path: /application/status
+              port: 8084
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /application/status
+              port: 8084
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8084
+          env:
+          - name: SERVER_PORT
+            value: "8084"
+          - name: ACT_RABBITMQ_HOST
+            value: "rabbitmq"
+          - name: SLA_ENABLED
+            value: "true"
+          - name: SLA_REQUESTS
+            value: "1000000"
+          - name: SPRING_APPLICATION_NAME
+            value: "activiti-cloud-connector-3rd-party"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-connector-3rd-party
+  namespace: default
+spec:
+  selector:
+    serviceType: connector-3rd-party
+  ports:
+    - port: 8084
+      targetPort: 8084
+  type: ClusterIP
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-connector-ranking
+  labels:
+    app: infrastructure
+    serviceType: connector-ranking
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-connector-ranking
+      labels:
+        app: infrastructure
+        serviceType: connector-ranking
+    spec:
+      containers:
+        - name: activiti-cloud-connector-ranking
+          image: activiti-cloud-connector-ranking:latest
+          readinessProbe:
+            httpGet:
+              path: /application/status
+              port: 8083
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /application/status
+              port: 8083
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8083
+          env:
+          - name: SERVER_PORT
+            value: "8083"
+          - name: ACT_RABBITMQ_HOST
+            value: "rabbitmq"
+          - name: SPRING_APPLICATION_NAME
+            value: "activiti-cloud-connector-ranking"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-connector-ranking
+  namespace: default
+spec:
+  selector:
+    serviceType: connector-ranking
+  ports:
+    - port: 8083
+      targetPort: 8083
+  type: ClusterIP
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-connector-twitter
+  labels:
+    app: infrastructure
+    serviceType: connector-twitter
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-connector-twitter
+      labels:
+        app: infrastructure
+        serviceType: connector-twitter
+    spec:
+      containers:
+        - name: activiti-cloud-connector-twitter
+          image: activiti-cloud-connector-twitter:latest
+          readinessProbe:
+            httpGet:
+              path: /application/status
+              port: 8082
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /application/status
+              port: 8082
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8082
+          env:
+          - name: SERVER_PORT
+            value: "8082"
+          - name: ACT_RABBITMQ_HOST
+            value: "rabbitmq"
+          - name: SPRING_APPLICATION_NAME
+            value: "activiti-cloud-connector-twitter"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-connector-twitter
+  namespace: default
+spec:
+  selector:
+    serviceType: connector-twitter
+  ports:
+    - port: 8082
+      targetPort: 8082
+  type: ClusterIP
+---
