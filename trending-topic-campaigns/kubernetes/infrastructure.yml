@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: rabbitmq
+      labels:
+        app: infrastructure
+        serviceType: message-broker
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:management
+          ports:
+          - containerPort: 5672
+          - containerPort: 15672
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-sso-idm-kub
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-sso-idm-kub
+      labels:
+        app: infrastructure
+        serviceType: sso-idm
+    spec:
+      containers:
+      - name: activiti-cloud-sso-idm-kub
+        image: activiti/activiti-cloud-sso-idm:7-201710-EA
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 30081
+        env:
+        - name: PORT_OFFSET
+          value: "22001"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-sso-idm-kub
+  namespace: default
+spec:
+  selector:
+    serviceType: sso-idm
+  ports:
+    - port: 30081
+      targetPort: 30081
+      nodePort: 30081 # uncomment for minikube, comment for Kube
+  type: NodePort #NodePort for minikube, LoadBalancer for Kube
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: default
+spec:
+  selector:
+    serviceType: message-broker
+  ports:
+    - port: 5672
+      name: broker
+      targetPort: 5672
+    - port: 15672
+      name: admin
+      targetPort: 15672
+  type: ClusterIP
