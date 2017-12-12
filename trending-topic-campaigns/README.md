@@ -4,16 +4,17 @@ This example has a runtime bundle that represents a twitter marketing campaign i
 
 ## To run with docker-compose
 
-First do mvn clean install from this directory then do docker-compose -f <FILE_NAME> up for each of the docker descriptor files. Either do this in separate windows to follow the logs or use -d option and kitematic.
+First do mvn clean install from this directory then do `docker-compose -f <FILE_NAME> up` for each of the docker descriptor files. Either do this in separate windows to follow the logs or use `-d` option and kitematic.
 
 ## To run with minikube
 
 From this directory do:
 
-eval $(minikube docker-env)
-mvn clean install
+`eval $(minikube docker-env)`
 
-Then do kubectl create -f <FILE_NAME> for each of the kubernetes descriptor files.
+`mvn clean install`
+
+Then do `kubectl create -f <FILE_NAME>` for each of the kubernetes descriptor files.
 
 ## What you'll see
 
