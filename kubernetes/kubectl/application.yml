@@ -41,6 +41,8 @@ spec:
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
           - name: ACT_KEYCLOAK_PATTERNS
             value: "/v1/*"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -60,15 +62,33 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-query
-          image: activiti/activiti-cloud-query:7-201710-EA
+          image: activiti/activiti-cloud-query:latest
+          readinessProbe:
+            httpGet:
+              path: /application/status
+              port: 8182
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /application/status
+              port: 8182
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
           imagePullPolicy: Always
           ports:
-            - containerPort: 8181
+            - containerPort: 8182
           env:
           - name: ACT_QUERY_PORT
             value: "8182"
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
+          - name: ACT_KEYCLOAK_PATTERNS
+            value: "/v1/*"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -85,7 +105,21 @@ spec:
     spec:
       containers:
         - name: rb-my-app
-          image: activiti/example-runtime-bundle2
+          image: activiti/example-runtime-bundle:latest
+          readinessProbe:
+            httpGet:
+              path: /application/status
+              port: 8081
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /application/status
+              port: 8081
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
           env:
           - name: ACT_RB_HOST
             value: rb-my-app
@@ -95,6 +129,8 @@ spec:
             value: jdbc:postgresql://127.0.0.1:5432/activitidb
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
+          - name: ACT_KEYCLOAK_PATTERNS
+            value: "/v1/*"
           - name: ACT_EUREKA_URL
             value: "http://activiti-cloud-registry:8761/eureka/"
           - name: ACT_RABBITMQ_HOST
@@ -105,6 +141,8 @@ spec:
             value: password
           - name: ACT_RB_DB_PLATFORM
             value: "org.hibernate.dialect.PostgreSQLDialect"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
         - name: rb-postgres
           image: postgres
           ports:

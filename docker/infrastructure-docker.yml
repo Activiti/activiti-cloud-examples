@@ -6,15 +6,15 @@ services:
       - "5672:5672"
       - "15672:15672"
   activiti-cloud-sso-idm:
-    image: activiti/activiti-cloud-sso-idm:7-201710-EA
+    image: activiti/activiti-cloud-sso-idm:latest
     ports:
       - "8180:8180"
   activiti-cloud-registry:
-    image: activiti/activiti-cloud-registry:7-201710-EA
+    image: activiti/activiti-cloud-registry:latest
     ports:
      - "8761:8761"
   activiti-cloud-gateway:
-    image: activiti/activiti-cloud-gateway:7-201710-EA
+    image: activiti/activiti-cloud-gateway:latest
     depends_on:
      - activiti-cloud-registry
     ports:

@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: ryandawsonuk/rb-my-app
+  repository: activiti/example-runtime-bundle
   tag: latest
   pullPolicy: IfNotPresent
 rb:
