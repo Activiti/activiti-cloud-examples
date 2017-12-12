@@ -13,12 +13,27 @@ spec:
     spec:
       containers:
         - name: rb-my-app
-          image: my-maven-runtime-bundle:latest
+          image: english-campaign-rb
+          readinessProbe:
+            httpGet:
+              path: /application/status
+              port: 8081
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /application/status
+              port: 8081
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
+          imagePullPolicy: IfNotPresent
           env:
           - name: ACT_RB_HOST
-            value: my-maven-runtime-bundle
+            value: rb-my-app
           - name: ACT_RB_APP_NAME
-            value: my-maven-runtime-bundle
+            value: rb-my-app
           - name: ACT_RB_DB_URI
             value: jdbc:postgresql://127.0.0.1:5432/activitidb
           - name: ACT_KEYCLOAK_URL
@@ -31,6 +46,10 @@ spec:
             value: password
           - name: ACT_RB_DB_PLATFORM
             value: "org.hibernate.dialect.PostgreSQLDialect"
+          - name: ACT_RB_PORT
+            value: "8081"
+          - name: CAMPAIGN_TOPIC
+            value: TRUMP
         - name: rb-postgres
           image: postgres
           ports:
