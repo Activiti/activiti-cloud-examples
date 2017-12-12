@@ -1,0 +1,34 @@
+version: '2'
+services:
+  activiti-cloud-connector-twitter:
+      image: activiti-cloud-connector-twitter
+      environment:
+        - ACT_RABBITMQ_HOST=rabbitmq
+      external_links:
+        - rabbitmq
+      networks:
+        - infrastructure
+  activiti-cloud-connector-ranking:
+      image: activiti-cloud-connector-ranking
+      environment:
+        - ACT_RABBITMQ_HOST=rabbitmq
+      external_links:
+        - rabbitmq
+      networks:
+        - infrastructure
+  activiti-cloud-connector-3rd-party:
+      image: activiti-cloud-connector-3rd-party
+      environment:
+        - ACT_RABBITMQ_HOST=rabbitmq
+        - SLA_ENABLED=true
+        - SLA_REQUESTS=1000000
+      external_links:
+        - rabbitmq
+      networks:
+        - infrastructure
+
+# we will join the infrastructure network defined by the infrastructure docker compose.
+networks:
+  infrastructure:
+    external:
+      name: docker_default

@@ -1,0 +1,59 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rb-my-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: rb-my-app
+      labels:
+        app: rb-my-app
+        serviceType: runtime-bundle
+    spec:
+      containers:
+        - name: rb-my-app
+          image: my-maven-runtime-bundle:latest
+          env:
+          - name: ACT_RB_HOST
+            value: my-maven-runtime-bundle
+          - name: ACT_RB_APP_NAME
+            value: my-maven-runtime-bundle
+          - name: ACT_RB_DB_URI
+            value: jdbc:postgresql://127.0.0.1:5432/activitidb
+          - name: ACT_KEYCLOAK_URL
+            value: "http://activiti-cloud-sso-idm-kub:30081/auth"
+          - name: ACT_RABBITMQ_HOST
+            value: "rabbitmq"
+          - name: ACT_RB_DB_USER
+            value: postgres
+          - name: ACT_RB_DB_PASS
+            value: password
+          - name: ACT_RB_DB_PLATFORM
+            value: "org.hibernate.dialect.PostgreSQLDialect"
+        - name: rb-postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+          - name: POSTGRES_PASSWORD
+            value: password
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: activitidb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rb-my-app
+  namespace: default
+spec:
+  selector:
+    serviceType: runtime-bundle
+  ports:
+    - port: 8081
+      targetPort: 8081
+      nodePort: 30080 # uncomment for minikube, comment for Kube
+  type: NodePort #NodePort for minikube, LoadBalancer for Kube
+---
