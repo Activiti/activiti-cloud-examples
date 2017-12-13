@@ -31,9 +31,9 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
           - name: ACT_RB_HOST
-            value: rb-my-app
+            value: english-campaign-rb
           - name: ACT_RB_APP_NAME
-            value: rb-my-app
+            value: english-campaign-rb
           - name: ACT_RB_DB_URI
             value: jdbc:postgresql://127.0.0.1:5432/activitidb
           - name: ACT_KEYCLOAK_URL
@@ -65,7 +65,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rb-my-app
+  name: english-campaign-rb
   namespace: default
 spec:
   selector:

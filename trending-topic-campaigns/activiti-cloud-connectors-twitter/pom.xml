@@ -82,7 +82,7 @@
                 <assembly>
                   <descriptorRef>artifact</descriptorRef>
                 </assembly>
-                <cmd>java -jar maven/${project.artifactId}-${project.version}.jar</cmd>
+                <cmd>java -Dtwitter4j.oauth.consumerKey=${TWITTER4J_OAUTH_CONSUMERKEY} -Dtwitter4j.oauth.consumerSecret=${TWITTER4J_OAUTH_CONSUMERSECRET} -Dtwitter4j.oauth.accessToken=${TWITTER4J_OAUTH_ACCESSTOKEN} -Dtwitter4j.oauth.accessTokenSecret=${TWITTER4J_OAUTH_ACCESSTOKENSECRET} -jar maven/${project.artifactId}-${project.version}.jar</cmd>
               </build>
             </image>
           </images>
