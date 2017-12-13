@@ -163,14 +163,14 @@ spec:
             value: "rabbitmq"
           - name: SPRING_APPLICATION_NAME
             value: "activiti-cloud-connector-twitter"
-          - name: TWITTER4J_OAUTH_CONSUMERKEY
-            value:
+          - name: TWITTER4J_OAUTH_CONSUMERKEY #get credentials replacing placeholders by signing up at apps.twitter.com
+            value: <TWITTER4J_OAUTH_CONSUMERKEY>
           - name: TWITTER4J_OAUTH_CONSUMERSECRET
-            value:
+            value: <TWITTER4J_OAUTH_CONSUMERSECRET>
           - name: TWITTER4J_OAUTH_ACCESSTOKEN
-            value:
+            value: <TWITTER4J_OAUTH_ACCESSTOKEN>
           - name: TWITTER4J_OAUTH_ACCESSTOKENSECRET
-            value: 
+            value: <TWITTER4J_OAUTH_ACCESSTOKENSECRET>
           - name: SPRING_PROFILES_ACTIVE
             value: kube
 ---
