@@ -3,11 +3,11 @@ services:
   activiti-cloud-connector-twitter:
       image: activiti-cloud-connector-twitter
       environment:
-        - ACT_RABBITMQ_HOST=rabbitmq
-        - TWITTER4J_OAUTH_CONSUMERKEY=
-        - TWITTER4J_OAUTH_CONSUMERSECRET=
-        - TWITTER4J_OAUTH_ACCESSTOKEN=
-        - TWITTER4J_OAUTH_ACCESSTOKENSECRET=
+        - ACT_RABBITMQ_HOST=rabbitmq  #get credentials replacing placeholders by signing up at apps.twitter.com
+        - TWITTER4J_OAUTH_CONSUMERKEY=<TWITTER4J_OAUTH_CONSUMERKEY>
+        - TWITTER4J_OAUTH_CONSUMERSECRET=<TWITTER4J_OAUTH_CONSUMERSECRET>
+        - TWITTER4J_OAUTH_ACCESSTOKEN=<TWITTER4J_OAUTH_ACCESSTOKEN>
+        - TWITTER4J_OAUTH_ACCESSTOKENSECRET=<TWITTER4J_OAUTH_ACCESSTOKENSECRET>
       external_links:
         - rabbitmq
       networks:
