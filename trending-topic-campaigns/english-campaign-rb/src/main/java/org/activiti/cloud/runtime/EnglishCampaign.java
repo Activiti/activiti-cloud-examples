@@ -1,5 +1,6 @@
 package org.activiti.cloud.runtime;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +42,8 @@ public class EnglishCampaign {
                  topicController.getCurrentTopic());
         vars.put("nroTopAuthors",
                  3);
+        vars.put("top",
+                 new ArrayList<>());
         runtimeService.startProcessInstanceByKey("tweet-prize",
                                                  vars);
     }

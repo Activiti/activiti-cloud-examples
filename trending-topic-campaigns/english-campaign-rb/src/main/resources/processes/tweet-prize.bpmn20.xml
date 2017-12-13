@@ -19,19 +19,10 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
              targetNamespace="http://www.activiti.org/processdef"
-             xmlns:activiti="http://activiti.org/bpmn"
-             xmlns:modeler="http://activiti.com/modeler"
-             modeler:version="1.0en" modeler:exportDateTime="20170630121657099" modeler:modelId="31031"
-             modeler:modelVersion="1" modeler:modelLastUpdated="1498821235111">
+             xmlns:activiti="http://activiti.org/bpmn">
 
   <process id="tweet-prize" name="tweet-prize">
 
-    <extensionElements>
-      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="campaign" modeler:variableType="string"/>
-      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="top" modeler:variableType="object"/>
-      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="nroTopAuthors" modeler:variableType="int"/>
-      <modeler:executionvariables xmlns:modeler="http://activiti.com/modeler" modeler:variableName="prizes" modeler:variableType="object"/>
-    </extensionElements>
 
     <startEvent id="start"/>
     <sequenceFlow id="flow1" sourceRef="start" targetRef="serviceTaskRank"/>

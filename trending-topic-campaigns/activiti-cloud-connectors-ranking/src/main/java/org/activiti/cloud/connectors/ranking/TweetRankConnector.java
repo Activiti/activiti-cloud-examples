@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
@@ -79,7 +80,7 @@ public class TweetRankConnector {
         List<RankingController.RankedUser> rankedUsersForCampaign = RankingController.ranking.get(campaign);
         if (rankedUsersForCampaign == null) {
             RankingController.ranking.put(campaign,
-                                          new ArrayList<>());
+                                          new CopyOnWriteArrayList<>());
         }
         return rankedUsersForCampaign;
     }
@@ -102,21 +103,19 @@ public class TweetRankConnector {
     private Map<String, Object> extractTopAuthorsFromCampaign(String campaign,
                                                               int top) {
         List<RankingController.RankedUser> rankedUsers = RankingController.ranking.get(campaign);
-
         Map<String, Object> results = new HashMap<>();
-
-        if (rankedUsers != null) {
-            if (rankedUsers.size() > top) {
-                results.put("top",
-                            rankedUsers.subList(0,
-                                                top));
-            } else {
-                results.put("top",
-                            rankedUsers);
-            }
-        } else {
+        if (rankedUsers == null || rankedUsers.isEmpty()) {
             results.put("top",
                         Collections.EMPTY_LIST);
+            return results;
+        }
+        if (rankedUsers.size() > top) {
+            results.put("top",
+                        new ArrayList<>(rankedUsers.subList(0,
+                                                            top)));
+        } else {
+            results.put("top",
+                        new ArrayList<>(rankedUsers));
         }
 
         return results;

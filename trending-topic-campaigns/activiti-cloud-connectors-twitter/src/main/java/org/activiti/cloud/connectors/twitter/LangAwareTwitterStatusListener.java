@@ -23,7 +23,7 @@ public class LangAwareTwitterStatusListener implements StatusListener {
         Tweet t = new Tweet(status.getText(),
                             status.getUser().getScreenName(),
                             status.getLang());
-
+        System.out.println("> Tweet: " + status.getText());
         processTwitterWithCampaigns(t);
     }
 
