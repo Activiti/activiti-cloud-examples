@@ -19,6 +19,11 @@
       <artifactId>activiti-cloud-starter-connector</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.activiti.cloud</groupId>
+      <artifactId>activiti-cloud-services-tracing</artifactId>
+    </dependency>
+
     <!-- This is a 3rd Party non managed Dep -->
     <dependency>
       <groupId>org.twitter4j</groupId>
