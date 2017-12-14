@@ -6,7 +6,6 @@ import java.util.Map;
 import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -15,10 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class TweetAnalyzerConnector {
 
-    @Autowired
-    private MessageChannel integrationResultsProducer;
+    private final MessageChannel integrationResultsProducer;
 
-    public TweetAnalyzerConnector() {
+    public TweetAnalyzerConnector(MessageChannel integrationResultsProducer) {
+        this.integrationResultsProducer = integrationResultsProducer;
     }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Analyze English Tweet'")
