@@ -18,7 +18,7 @@ package org.activiti.cloud.connectors.external;
 
 import org.activiti.cloud.connectors.external.model.Shout;
 
-public interface ShoutCallStrategy {
+public interface ShoutServiceClient {
 
     Shout shout(String tweet);
 

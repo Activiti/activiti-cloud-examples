@@ -20,24 +20,24 @@ import org.activiti.cloud.connectors.external.config.SLAProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ShoutCallStrategySelector {
+public class ShoutServiceClientSelector {
 
     private final SLAProperties slaProperties;
 
-    private final SimpleShoutClient simpleClient;
+    private final BasicShoutServiceClient basicShoutServiceClient;
 
-    private final SLAShoutClient slaShoutClient;
+    private final SLAShoutServiceClient slaShoutServiceClient;
 
-    public ShoutCallStrategySelector(SLAProperties slaProperties,
-                                     SimpleShoutClient simpleClient,
-                                     SLAShoutClient slaShoutClient) {
+    public ShoutServiceClientSelector(SLAProperties slaProperties,
+                                      BasicShoutServiceClient basicShoutServiceClient,
+                                      SLAShoutServiceClient slaShoutServiceClient) {
         this.slaProperties = slaProperties;
-        this.simpleClient = simpleClient;
-        this.slaShoutClient = slaShoutClient;
+        this.basicShoutServiceClient = basicShoutServiceClient;
+        this.slaShoutServiceClient = slaShoutServiceClient;
     }
 
-    public ShoutCallStrategy select() {
-        return slaProperties.isEnabled()? slaShoutClient : simpleClient;
+    public ShoutServiceClient select() {
+        return slaProperties.isEnabled()? slaShoutServiceClient : basicShoutServiceClient;
     }
 
 }

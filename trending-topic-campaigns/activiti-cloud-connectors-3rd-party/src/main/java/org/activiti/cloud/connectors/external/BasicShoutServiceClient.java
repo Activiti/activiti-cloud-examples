@@ -26,13 +26,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class SimpleShoutClient implements ShoutCallStrategy {
+public class BasicShoutServiceClient implements ShoutServiceClient {
 
     private static final String SHOUT_SERVICE_URL = "http://API.SHOUTCLOUD.IO/V1/SHOUT";
 
     private final RestTemplate restTemplate;
 
-    public SimpleShoutClient(RestTemplate restTemplate) {
+    public BasicShoutServiceClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

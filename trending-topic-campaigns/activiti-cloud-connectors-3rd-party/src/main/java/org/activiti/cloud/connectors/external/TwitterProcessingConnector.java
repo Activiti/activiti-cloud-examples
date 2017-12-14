@@ -18,20 +18,20 @@ public class TwitterProcessingConnector {
 
     private final MessageChannel integrationResultsProducer;
 
-    private final ShoutCallStrategySelector strategySelector;
+    private final ShoutServiceClientSelector shoutServiceClientSelector;
 
     public TwitterProcessingConnector(MessageChannel integrationResultsProducer,
-                                      ShoutCallStrategySelector strategySelector) {
+                                      ShoutServiceClientSelector shoutServiceClientSelector) {
 
         this.integrationResultsProducer = integrationResultsProducer;
-        this.strategySelector = strategySelector;
+        this.shoutServiceClientSelector = shoutServiceClientSelector;
     }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Process English Tweet'")
     public synchronized void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
 
         String tweet = String.valueOf(event.getVariables().get("text"));
-        Shout shout = strategySelector.select().shout(tweet);
+        Shout shout = shoutServiceClientSelector.select().shout(tweet);
         completeIntegrationRequest(event,
                                    shout);
     }

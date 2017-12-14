@@ -20,19 +20,19 @@ import org.activiti.cloud.connectors.external.model.Shout;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SLAShoutClient implements ShoutCallStrategy {
+public class SLAShoutServiceClient implements ShoutServiceClient {
 
     private static final String SHOUT_SERVICE = "shoutApi";
 
     private static final int WAIT_FOR_SLA = 1000;
 
-    private final SimpleShoutClient simpleShoutClient;
+    private final BasicShoutServiceClient basicShoutServiceClient;
 
     private final RequestRateLimiterProvider requestRateLimiterProvider;
 
-    public SLAShoutClient(SimpleShoutClient simpleShoutClient,
-                          RequestRateLimiterProvider requestRateLimiterProvider) {
-        this.simpleShoutClient = simpleShoutClient;
+    public SLAShoutServiceClient(BasicShoutServiceClient basicShoutServiceClient,
+                                 RequestRateLimiterProvider requestRateLimiterProvider) {
+        this.basicShoutServiceClient = basicShoutServiceClient;
         this.requestRateLimiterProvider = requestRateLimiterProvider;
     }
 
@@ -45,7 +45,7 @@ public class SLAShoutClient implements ShoutCallStrategy {
             boolean slaOverLimit = requestRateLimiterProvider.getRequestRateLimiter().overLimitWhenIncremented(SHOUT_SERVICE);
             if (!slaOverLimit) {
 
-                shout = simpleShoutClient.shout(tweet);
+                shout = basicShoutServiceClient.shout(tweet);
                 serviceRequestSent = true;
             } else {
                 System.out.println(">> Waiting for SLAs allowance ...");
