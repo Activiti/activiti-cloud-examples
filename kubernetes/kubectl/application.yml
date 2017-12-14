@@ -19,14 +19,14 @@ spec:
           image: activiti/activiti-cloud-audit:latest
           readinessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8181
             initialDelaySeconds: 100
             timeoutSeconds: 1
             periodSeconds: 15
           livenessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8181
             initialDelaySeconds: 120
             timeoutSeconds: 1
@@ -65,14 +65,14 @@ spec:
           image: activiti/activiti-cloud-query:latest
           readinessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8182
             initialDelaySeconds: 100
             timeoutSeconds: 1
             periodSeconds: 15
           livenessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8182
             initialDelaySeconds: 120
             timeoutSeconds: 1
@@ -108,14 +108,14 @@ spec:
           image: activiti/example-runtime-bundle:latest
           readinessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8081
             initialDelaySeconds: 100
             timeoutSeconds: 1
             periodSeconds: 15
           livenessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8081
             initialDelaySeconds: 120
             timeoutSeconds: 1
