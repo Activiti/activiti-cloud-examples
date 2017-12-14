@@ -19,14 +19,14 @@ spec:
           image: activiti-cloud-connector-3rd-party:latest
           readinessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8084
             initialDelaySeconds: 100
             timeoutSeconds: 1
             periodSeconds: 15
           livenessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8084
             initialDelaySeconds: 120
             timeoutSeconds: 1
@@ -82,14 +82,14 @@ spec:
           image: activiti-cloud-connector-ranking:latest
           readinessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8083
             initialDelaySeconds: 100
             timeoutSeconds: 1
             periodSeconds: 15
           livenessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8083
             initialDelaySeconds: 120
             timeoutSeconds: 1
@@ -141,14 +141,14 @@ spec:
           image: activiti-cloud-connector-twitter:latest
           readinessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8082
             initialDelaySeconds: 100
             timeoutSeconds: 1
             periodSeconds: 15
           livenessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8082
             initialDelaySeconds: 120
             timeoutSeconds: 1
