@@ -14,15 +14,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 public class RankingCloudConnector implements CommandLineRunner {
 
-    public static void main(String[] args) {
-        SpringApplication.run(RankingCloudConnector.class,
-                              args);
-    }
-
     private final RankingService rankingService;
 
     public RankingCloudConnector(RankingService rankingService) {
         this.rankingService = rankingService;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(RankingCloudConnector.class,
+                              args);
     }
 
     @Override
