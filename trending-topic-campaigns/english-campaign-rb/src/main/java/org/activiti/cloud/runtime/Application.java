@@ -3,7 +3,6 @@ package org.activiti.cloud.runtime;
 import org.activiti.cloud.runtime.service.TopicController;
 import org.activiti.cloud.services.events.ProcessEngineChannels;
 import org.activiti.cloud.starter.configuration.ActivitiRuntimeBundle;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +15,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class Application implements CommandLineRunner {
 
-    @Autowired
-    private TopicController topicController;
+    private final TopicController topicController;
+
+    public Application(TopicController topicController) {
+        this.topicController = topicController;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class,

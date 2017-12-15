@@ -7,7 +7,6 @@ import java.util.Map;
 import org.activiti.cloud.runtime.model.Tweet;
 import org.activiti.cloud.runtime.service.TopicController;
 import org.activiti.engine.RuntimeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -15,11 +14,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class EnglishCampaign {
 
-    @Autowired
-    private RuntimeService runtimeService;
+    private final RuntimeService runtimeService;
 
-    @Autowired
-    private TopicController topicController;
+    private final TopicController topicController;
+
+    public EnglishCampaign(RuntimeService runtimeService,
+                           TopicController topicController) {
+        this.runtimeService = runtimeService;
+        this.topicController = topicController;
+    }
 
     @StreamListener(value = CampaignMessageChannels.CAMPAIGN_CHANNEL, condition = "headers['lang']=='en'")
     public void tweet(Tweet tweet) {
