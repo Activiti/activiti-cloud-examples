@@ -6,7 +6,6 @@ import java.util.Map;
 import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -17,13 +16,14 @@ import twitter4j.TwitterException;
 
 public class Twitter4JConnector {
 
-    @Autowired
-    private MessageChannel integrationResultsProducer;
+    private final MessageChannel integrationResultsProducer;
+
+    public Twitter4JConnector(MessageChannel integrationResultsProducer) {
+        this.integrationResultsProducer = integrationResultsProducer;
+    }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Tweet'")
     public void tweet(IntegrationRequestEvent event) throws TwitterException {
-        //Twitter twitter = TwitterFactory.getSingleton();
-
         Map<String, Object> results = new HashMap<>();
 
         System.out.println("#################################################################################");

@@ -1,7 +1,6 @@
 package org.activiti.cloud.connectors.twitter;
 
 import org.activiti.cloud.connectors.twitter.model.Tweet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -15,8 +14,11 @@ import twitter4j.StatusListener;
 @EnableBinding(CampaignMessageChannels.class)
 public class LangAwareTwitterStatusListener implements StatusListener {
 
-    @Autowired
-    private MessageChannel campaignProducer;
+    private final MessageChannel campaignProducer;
+
+    public LangAwareTwitterStatusListener(MessageChannel campaignProducer) {
+        this.campaignProducer = campaignProducer;
+    }
 
     public void onStatus(Status status) {
 
@@ -39,8 +41,7 @@ public class LangAwareTwitterStatusListener implements StatusListener {
     }
 
     @Override
-    public void onScrubGeo(long l,
-                           long l1) {
+    public void onScrubGeo(long userId, long upToStatusId) {
     }
 
     @Override
