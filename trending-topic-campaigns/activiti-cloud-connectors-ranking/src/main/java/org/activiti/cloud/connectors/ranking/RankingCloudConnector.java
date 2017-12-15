@@ -1,18 +1,10 @@
 package org.activiti.cloud.connectors.ranking;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.activiti.cloud.connectors.starter.configuration.EnableActivitiCloudConnector;
-import org.activiti.cloud.services.api.commands.StartProcessInstanceCmd;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -21,6 +13,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 @ComponentScan({"org.activiti.cloud.connectors.starter", "org.activiti.cloud.connectors.ranking"})
 @EnableScheduling
 public class RankingCloudConnector implements CommandLineRunner {
+
+    private final RankingService rankingService;
+
+    public RankingCloudConnector(RankingService rankingService) {
+        this.rankingService = rankingService;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(RankingCloudConnector.class,
@@ -35,12 +33,12 @@ public class RankingCloudConnector implements CommandLineRunner {
     @Scheduled(fixedRate = 60000)
     public void timerMessageSource() {
         System.out.println("Printing (local) Ranking: ");
-        if(RankingController.ranking == null || RankingController.ranking.keySet() == null || RankingController.ranking.keySet().isEmpty()){
+        if(rankingService.getRanking().keySet().isEmpty()){
             System.out.println("No ranking set");
         }
-        for (String key : RankingController.ranking.keySet()) {
+        for (String key : rankingService.getRanking().keySet()) {
             System.out.println("Campaign being ranked is "+key);
-            for (RankingController.RankedUser ru : RankingController.ranking.get(key)) {
+            for (RankedUser ru : rankingService.getRanking(key)) {
                 System.out.println("Ranked User: " + ru);
             }
         }
