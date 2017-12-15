@@ -8,7 +8,7 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>example-runtime-bundle</artifactId>
+  <artifactId>english-campaign-rb</artifactId>
 
   <packaging>jar</packaging>
   <name>Activiti Cloud :: Twitter Campaign (English)</name>
@@ -45,6 +45,11 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -93,22 +98,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <redirectTestOutputToFile>true</redirectTestOutputToFile>
-          <failIfNoTests>false</failIfNoTests>
-          <trimStackTrace>false</trimStackTrace>
-          <excludes>
-            <exclude>**/*TestCase.java</exclude>
-            <exclude>**/*IT.java</exclude>
-          </excludes>
-          <runOrder>alphabetical</runOrder>
-          <environmentVariables>
-            <ACT_RB_PROCESSES_PATH>${project.basedir}/src/test/resources/processes/</ACT_RB_PROCESSES_PATH>
-          </environmentVariables>
-        </configuration>
       </plugin>
     </plugins>
   </build>

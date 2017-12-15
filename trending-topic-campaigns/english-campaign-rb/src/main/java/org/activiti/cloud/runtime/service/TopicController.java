@@ -8,16 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TopicController {
 
-    @Value("${campaign.topic}")
-    private String currentTopic;
+
+    private final String currentTopic;
+
+    public TopicController( @Value("${campaign.topic}") String currentTopic) {
+        this.currentTopic = currentTopic;
+        System.out.println("TopicController Created for topic: " + this.currentTopic);
+    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/topic")
     public String getCurrentTopic() {
         return currentTopic;
-    }
-
-    public TopicController() {
-        System.out.println("TopicController Created for topic: " + currentTopic);
     }
 
     public boolean matchTopic(String text) {
