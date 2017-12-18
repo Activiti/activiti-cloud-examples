@@ -16,7 +16,7 @@
 
 package org.activiti.cloud.connectors.external;
 
-import org.activiti.cloud.connectors.external.config.SLAProperties;
+import org.activiti.cloud.connectors.external.processor.config.SLAProperties;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

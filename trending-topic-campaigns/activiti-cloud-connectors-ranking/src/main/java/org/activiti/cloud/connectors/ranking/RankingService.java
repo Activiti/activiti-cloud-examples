@@ -29,12 +29,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class RankingService {
 
-    private Map<String, List<RankedUser>> ranking = new ConcurrentHashMap<>();
+    private Map<String, List<RankedAuthor>> ranking = new ConcurrentHashMap<>();
 
-    public List<RankedUser> rank(String topic,
-                                 String username) {
-        List<RankedUser> rankedUsers = getCurrentRankedUsers(topic);
-        Optional<RankedUser> researchedUser = rankedUsers.stream()
+    public List<RankedAuthor> rank(String topic,
+                                   String username) {
+        List<RankedAuthor> rankedUsers = getCurrentRankedUsers(topic);
+        Optional<RankedAuthor> researchedUser = rankedUsers.stream()
                 .filter(user -> user.getUserName().equals(username))
                 .findFirst();
 
@@ -44,12 +44,12 @@ public class RankingService {
                     (o1, o2) ->
                             o2.getNroOfTweets() - o1.getNroOfTweets());
         } else {
-            rankedUsers.add(new RankedUser(username));
+            rankedUsers.add(new RankedAuthor(username));
         }
         return ranking.get(topic);
     }
 
-    private List<RankedUser> getCurrentRankedUsers(String topic) {
+    private List<RankedAuthor> getCurrentRankedUsers(String topic) {
         if (!ranking.containsKey(topic)) {
             ranking.put(topic,
                         new CopyOnWriteArrayList<>());
@@ -57,16 +57,16 @@ public class RankingService {
         return ranking.get(topic);
     }
 
-    public List<RankedUser> getRanking(String topic) {
+    public List<RankedAuthor> getRanking(String topic) {
         return Collections.unmodifiableList(getCurrentRankedUsers(topic));
     }
 
-    public Map<String, List<RankedUser>> getRanking() {
+    public Map<String, List<RankedAuthor>> getRanking() {
         return Collections.unmodifiableMap(ranking);
     }
 
-    public List<RankedUser> getTop(String topic, int topSize) {
-        List<RankedUser> top = getCurrentRankedUsers(topic)
+    public List<RankedAuthor> getTop(String topic, int topSize) {
+        List<RankedAuthor> top = getCurrentRankedUsers(topic)
                 .stream()
                 .limit(topSize)
                 .collect(Collectors.toList());

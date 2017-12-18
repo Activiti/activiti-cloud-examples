@@ -12,20 +12,20 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TweetRankConnector {
+public class UpdateAuthorRankConnector {
 
     private final MessageChannel integrationResultsProducer;
 
     private final RankingService rankingService;
 
-    public TweetRankConnector(MessageChannel integrationResultsProducer,
-                              RankingService rankingService) {
+    public UpdateAuthorRankConnector(MessageChannel integrationResultsProducer,
+                                     RankingService rankingService) {
         this.integrationResultsProducer = integrationResultsProducer;
         this.rankingService = rankingService;
     }
 
-    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Rank English Tweet'")
-    public synchronized void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
+    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Rank Author of English Tweet'")
+    public void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
 
         String author = String.valueOf(event.getVariables().get("author"));
         String campaign = String.valueOf(event.getVariables().get("campaign"));
@@ -46,7 +46,7 @@ public class TweetRankConnector {
 
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Get Tweets Rank'")
-    public synchronized void getRanks(IntegrationRequestEvent event) throws InterruptedException {
+    public void getRanks(IntegrationRequestEvent event) throws InterruptedException {
 
         String campaign = String.valueOf(event.getVariables().get("campaign"));
         int top = Integer.valueOf(event.getVariables().get("nroTopAuthors").toString());

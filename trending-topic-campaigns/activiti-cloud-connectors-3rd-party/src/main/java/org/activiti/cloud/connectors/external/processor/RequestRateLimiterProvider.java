@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.activiti.cloud.connectors.external;
+package org.activiti.cloud.connectors.external.processor;
 
 import java.util.Collections;
 import java.util.Set;
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 import es.moki.ratelimitj.core.limiter.request.RequestLimitRule;
 import es.moki.ratelimitj.core.limiter.request.RequestRateLimiter;
 import es.moki.ratelimitj.inmemory.request.InMemorySlidingWindowRequestRateLimiter;
-import org.activiti.cloud.connectors.external.config.SLAProperties;
+import org.activiti.cloud.connectors.external.processor.config.SLAProperties;
 import org.springframework.stereotype.Component;
 
 @Component

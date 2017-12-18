@@ -14,20 +14,20 @@ import twitter4j.TwitterException;
 
 @Component
 
-public class Twitter4JConnector {
+public class SendRewardConnector {
 
     private final MessageChannel integrationResultsProducer;
 
-    public Twitter4JConnector(MessageChannel integrationResultsProducer) {
+    public SendRewardConnector(MessageChannel integrationResultsProducer) {
         this.integrationResultsProducer = integrationResultsProducer;
     }
 
-    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Tweet'")
+    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='SendRewardToWinners'")
     public void tweet(IntegrationRequestEvent event) throws TwitterException {
         Map<String, Object> results = new HashMap<>();
 
         System.out.println("#################################################################################");
-        System.out.println("#  Prize time!!! You WON!!! ");
+        System.out.println("#  Reward time!!! You WON!!! ");
         System.out.println(" I'm tweeting to a Winner: " + event.getVariables().get("winner") + " \n");
         System.out.println("#################################################################################");
 
