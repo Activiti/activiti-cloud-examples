@@ -27,20 +27,12 @@
     <startEvent id="start"/>
     <sequenceFlow id="flow1" sourceRef="start" targetRef="serviceTaskRank"/>
 
-    <serviceTask id="serviceTaskRank" name="Get Ranking for Tweets" implementation="Get Tweets Rank"/>
+    <serviceTask id="serviceTaskRank" name="Get Ranking for Authors" implementation="Get Top Authors Ranked"/>
 
     <sequenceFlow id="flow2" sourceRef="serviceTaskRank" targetRef="serviceTaskTweet"/>
 
-    <!--<serviceTask id="serviceTaskPrizes" name="Fetch Prizes for Winners" implementation="Fetch Prizes">-->
-      <!--<multiInstanceLoopCharacteristics isSequential="true">-->
-        <!--<loopDataInputRef>top3</loopDataInputRef>-->
-        <!--<inputDataItem name="winner" />-->
-      <!--</multiInstanceLoopCharacteristics>-->
-    <!--</serviceTask>-->
 
-    <!--<sequenceFlow id="flow3" sourceRef="serviceTaskPrizes" targetRef="serviceTaskTweet"/>-->
-
-    <serviceTask id="serviceTaskTweet" name="Tweet Winners" implementation="Tweet">
+    <serviceTask id="serviceTaskTweet" name="Tweet Winners" implementation="SendRewardToWinners">
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${top}" activiti:elementVariable="winner">
       </multiInstanceLoopCharacteristics>
     </serviceTask>
