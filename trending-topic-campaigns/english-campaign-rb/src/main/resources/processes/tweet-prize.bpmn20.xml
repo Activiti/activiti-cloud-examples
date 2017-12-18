@@ -29,15 +29,15 @@
 
     <serviceTask id="serviceTaskRank" name="Get Ranking for Authors" implementation="Get Top Authors Ranked"/>
 
-    <sequenceFlow id="flow2" sourceRef="serviceTaskRank" targetRef="serviceTaskTweet"/>
+    <sequenceFlow id="flow2" sourceRef="serviceTaskRank" targetRef="serviceTaskSendReward"/>
 
 
-    <serviceTask id="serviceTaskTweet" name="Tweet Winners" implementation="SendRewardToWinners">
+    <serviceTask id="serviceTaskSendReward" name="Tweet Winners" implementation="SendRewardToWinners">
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${top}" activiti:elementVariable="winner">
       </multiInstanceLoopCharacteristics>
     </serviceTask>
 
-    <sequenceFlow id="flow4" sourceRef="serviceTaskTweet" targetRef="end"/>
+    <sequenceFlow id="flow4" sourceRef="serviceTaskSendReward" targetRef="end"/>
 
     <endEvent name="Tweet Ranks were published" id="end"/>
 
