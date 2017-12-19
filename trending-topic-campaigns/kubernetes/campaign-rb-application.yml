@@ -50,6 +50,8 @@ spec:
             value: "8081"
           - name: CAMPAIGN_TOPIC
             value: TRUMP
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
         - name: rb-postgres
           image: postgres
           ports:

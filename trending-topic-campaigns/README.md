@@ -20,6 +20,15 @@ From this directory do:
 
 Then do `kubectl create -f <FILE_NAME>` for each of the kubernetes descriptor files.
 
+If you also want distributed logging then do kubectl create -f logging/
+For distributed tracing do kubectl create -f tracing/
+
+For logging you'll need at least 10GB for minikube. If you don't want to use it remove or change the SPRING_PROFILES_ACTIVE entries in the kub yml files to !kube. See also https://activiti.gitbooks.io/activiti-7-developers-guide/content/components/activiti-cloud-infra/logging.html
+
 ## What you'll see
 
 In the logs for the ranking connector you'll see the tweets that are being matched to the campaign's topic. You'll also see the top-ranked authors based on tweets posted in the last period.
+
+To access kibana go to your minikube ip and port 30339 - user elastic and pass changeme.
+
+For zipkin go to your minikube ip and port 30335
