@@ -39,6 +39,8 @@ spec:
         ports:
         - containerPort: 30081
         env:
+#        - name: JAVA_OPTS
+#          value: -Xmx256m -Xms256m
         - name: PORT_OFFSET
           value: "22001"
 ---
@@ -79,6 +81,8 @@ spec:
           ports:
           - containerPort: 8080
           env:
+          - name: JAVA_OPTS
+            value: -Xmx64m -Xms64m
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
 ---
@@ -104,6 +108,9 @@ spec:
           imagePullPolicy: Always
           ports:
           - containerPort: 8761
+          env:
+          - name: JAVA_OPTS
+            value: -Xmx64m -Xms64m
 ---
 apiVersion: v1
 kind: Service
