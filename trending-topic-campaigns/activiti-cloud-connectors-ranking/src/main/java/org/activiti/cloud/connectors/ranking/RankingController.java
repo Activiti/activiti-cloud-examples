@@ -18,7 +18,7 @@ public class RankingController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/rank/{topic}")
-    public List<RankedUser> getRanking(@PathParam("topic") String topic) {
+    public List<RankedAuthor> getRanking(@PathParam("topic") String topic) {
         return rankingService.getRanking(topic);
     }
 

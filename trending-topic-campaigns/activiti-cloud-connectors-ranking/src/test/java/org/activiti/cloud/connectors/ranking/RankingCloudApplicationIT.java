@@ -16,36 +16,25 @@
 
 package org.activiti.cloud.connectors.ranking;
 
-public class RankedUser {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.junit4.SpringRunner;
 
-    private int nroOfTweets;
-    private String userName;
+import static org.assertj.core.api.Assertions.assertThat;
 
-    public RankedUser() {
-    }
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class RankingCloudApplicationIT {
 
-    public RankedUser(String userName) {
-        this.nroOfTweets = 1;
-        this.userName = userName;
-    }
+    @Autowired
+    private ApplicationContext context;
 
-    public int getNroOfTweets() {
-        return nroOfTweets;
-    }
-
-    public void incrementTweets() {
-        nroOfTweets ++;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    @Override
-    public String toString() {
-        return "RankedUser{" +
-                "nroOfTweets=" + nroOfTweets +
-                ", userName='" + userName + '\'' +
-                '}';
+    @Test
+    public void contextShouldLoad() throws Exception {
+        //then
+        assertThat(context).isNotNull();
     }
 }

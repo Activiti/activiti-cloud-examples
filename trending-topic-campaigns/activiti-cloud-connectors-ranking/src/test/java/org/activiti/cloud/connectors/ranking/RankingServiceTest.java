@@ -16,9 +16,9 @@
 
 package org.activiti.cloud.connectors.ranking;
 
-import java.util.List;
-
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -35,13 +35,13 @@ public class RankingServiceTest {
     @Test
     public void rankShouldAddUserWhenNotExist() throws Exception {
         //when
-        List<RankedUser> rank = rankingService.rank(TOPIC,
+        List<RankedAuthor> rank = rankingService.rank(TOPIC,
                                                     JOHN);
 
         //then
         assertThat(rank).isNotNull();
-        assertThat(rank).extracting(RankedUser::getUserName,
-                                    RankedUser::getNroOfTweets)
+        assertThat(rank).extracting(RankedAuthor::getUserName,
+                RankedAuthor::getNroOfTweets)
                 .containsExactly(tuple(JOHN,
                                        1));
     }
@@ -53,13 +53,13 @@ public class RankingServiceTest {
                             JOHN);
 
         //when
-        List<RankedUser> rank = rankingService.rank(TOPIC,
+        List<RankedAuthor> rank = rankingService.rank(TOPIC,
                                                     JOHN);
 
         //then
         assertThat(rank).isNotNull();
-        assertThat(rank).extracting(RankedUser::getUserName,
-                                    RankedUser::getNroOfTweets)
+        assertThat(rank).extracting(RankedAuthor::getUserName,
+                RankedAuthor::getNroOfTweets)
                 .containsExactly(tuple(JOHN,
                                        2));
     }
@@ -79,12 +79,12 @@ public class RankingServiceTest {
              2);
 
         //when
-        List<RankedUser> rank = rankingService.getRanking(TOPIC);
+        List<RankedAuthor> rank = rankingService.getRanking(TOPIC);
 
         //then
         assertThat(rank).isNotNull();
-        assertThat(rank).extracting(RankedUser::getUserName,
-                                    RankedUser::getNroOfTweets)
+        assertThat(rank).extracting(RankedAuthor::getUserName,
+                RankedAuthor::getNroOfTweets)
                 .containsExactly(
                         tuple(PETER,
                               3),
@@ -110,13 +110,13 @@ public class RankingServiceTest {
              2);
 
         //when
-        List<RankedUser> rank = rankingService.getTop(TOPIC,
+        List<RankedAuthor> rank = rankingService.getTop(TOPIC,
                                                       2);
 
         //then
         assertThat(rank).isNotNull();
-        assertThat(rank).extracting(RankedUser::getUserName,
-                                    RankedUser::getNroOfTweets)
+        assertThat(rank).extracting(RankedAuthor::getUserName,
+                RankedAuthor::getNroOfTweets)
                 .containsExactly(
                         tuple(PETER,
                               3),
@@ -134,13 +134,13 @@ public class RankingServiceTest {
              1);
 
         //when
-        List<RankedUser> rank = rankingService.getTop(TOPIC,
+        List<RankedAuthor> rank = rankingService.getTop(TOPIC,
                                                       2);
 
         //then
         assertThat(rank).isNotNull();
-        assertThat(rank).extracting(RankedUser::getUserName,
-                                    RankedUser::getNroOfTweets)
+        assertThat(rank).extracting(RankedAuthor::getUserName,
+                RankedAuthor::getNroOfTweets)
                 .containsExactly(
                         tuple(JOHN,
                               1)

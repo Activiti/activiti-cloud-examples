@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.activiti.cloud.connectors.external;
+package org.activiti.cloud.connectors.external.processor;
 
-import org.activiti.cloud.connectors.external.config.SLAProperties;
+import org.activiti.cloud.connectors.external.processor.config.SLAProperties;
 import org.springframework.stereotype.Component;
 
 @Component

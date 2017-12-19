@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.activiti.cloud.connectors.external.config;
+package org.activiti.cloud.connectors.external.processor.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
