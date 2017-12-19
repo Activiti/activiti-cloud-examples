@@ -19,6 +19,8 @@ package org.activiti.cloud.connectors.external;
 import org.activiti.cloud.connectors.external.analyzer.NLP;
 import org.activiti.cloud.connectors.external.processor.config.SLAProperties;
 import org.activiti.cloud.connectors.starter.configuration.EnableActivitiCloudConnector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,6 +30,8 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableActivitiCloudConnector
 @ComponentScan({"org.activiti.cloud.connectors.starter", "org.activiti.cloud.connectors.external"})
 public class ExternalServiceCloudConnector implements CommandLineRunner {
+
+    private Logger logger = LoggerFactory.getLogger(ExternalServiceCloudConnector.class);
 
     private final SLAProperties slaProperties;
 
@@ -42,7 +46,7 @@ public class ExternalServiceCloudConnector implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Starting SLA Requests with: RPM -> " + slaProperties.getRequests() + " and Enabled: " + slaProperties.isEnabled());
+        logger.debug("Starting SLA Requests with: RPM -> " + slaProperties.getRequests() + " and Enabled: " + slaProperties.isEnabled());
         NLP.init();
     }
 }

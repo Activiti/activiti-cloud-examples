@@ -24,10 +24,14 @@ import es.moki.ratelimitj.core.limiter.request.RequestLimitRule;
 import es.moki.ratelimitj.core.limiter.request.RequestRateLimiter;
 import es.moki.ratelimitj.inmemory.request.InMemorySlidingWindowRequestRateLimiter;
 import org.activiti.cloud.connectors.external.processor.config.SLAProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RequestRateLimiterProvider {
+
+    private Logger logger = LoggerFactory.getLogger(RequestRateLimiterProvider.class);
 
     private final SLAProperties slaProperties;
 
@@ -43,7 +47,7 @@ public class RequestRateLimiterProvider {
                                                                                     TimeUnit.MINUTES,
                                                                                     slaProperties.getRequests())); // request per minute, per key
             requestRateLimiter = new InMemorySlidingWindowRequestRateLimiter(rules);
-            System.out.println("Rate limit - postconstruct - rpm " + slaProperties.getRequests());
+            logger.debug("Rate limit - postconstruct - rpm " + slaProperties.getRequests());
         }
         return requestRateLimiter;
     }

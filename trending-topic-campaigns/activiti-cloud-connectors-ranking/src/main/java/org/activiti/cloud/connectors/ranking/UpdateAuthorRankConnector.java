@@ -6,6 +6,8 @@ import java.util.Map;
 import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateAuthorRankConnector {
+
+    private Logger logger = LoggerFactory.getLogger(UpdateAuthorRankConnector.class);
 
     private final MessageChannel integrationResultsProducer;
 
@@ -32,7 +36,7 @@ public class UpdateAuthorRankConnector {
         String attitude = String.valueOf(event.getVariables().get("attitude"));
         String processedMessage = String.valueOf(event.getVariables().get("text"));
 
-        System.out.println(">>> Just Received a Tweet from: " + author + " related to the campaign: " + campaign + " with attitude: " + attitude + " - > " + processedMessage);
+        logger.info(">>> Just Received a Tweet from: " + author + " related to the campaign: " + campaign + " with attitude: " + attitude + " - > " + processedMessage);
 
         rankingService.rank(campaign, author);
 
