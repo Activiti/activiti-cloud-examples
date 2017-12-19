@@ -17,6 +17,8 @@ spec:
       - image: docker.elastic.co/kibana/kibana:5.3.2
         name: kibana
         env:
+        - name: NODE_OPTIONS
+          value: "--max-old-space-size=900"
         - name: XPACK_SECURITY_ENABLED
           value: 'false'
         - name: XPACK_GRAPH_ENABLED
