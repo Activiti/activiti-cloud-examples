@@ -1,4 +1,4 @@
-package org.activiti.cloud.connectors.external.model;
+package org.activiti.cloud.connectors.external.processor.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

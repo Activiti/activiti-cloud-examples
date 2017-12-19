@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.activiti.cloud.connectors.external;
+package org.activiti.cloud.connectors.external.processor;
 
-import org.activiti.cloud.connectors.external.model.Shout;
+import org.activiti.cloud.connectors.external.processor.model.Shout;
 
 public interface ShoutServiceClient {
 

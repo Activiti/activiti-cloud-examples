@@ -1,4 +1,4 @@
-package org.activiti.cloud.connectors.external;
+package org.activiti.cloud.connectors.external.analyzer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,13 +27,14 @@ public class TweetAnalyzerConnector {
 
         Map<String, Object> results = new HashMap<>();
 
+        // based on http://rahular.com/twitter-sentiment-analysis/
+        // note you get a lot of 1s but there are some zeros if you search for "attitude: 0"
         results.put("attitude",
-                    "positive");
+                NLP.findSentiment(tweet));
 
         IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
                                                                 results);
 
-        //  System.out.println("I'm sending back an integratrion Result: " + ire);
         integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
     }
 }

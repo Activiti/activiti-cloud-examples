@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-package org.activiti.cloud.connectors.external;
+package org.activiti.cloud.connectors.external.processor;
 
-import org.activiti.cloud.connectors.external.model.Shout;
+import org.activiti.cloud.connectors.external.processor.model.Shout;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SLAShoutServiceClient implements ShoutServiceClient {
+
+    private Logger logger = LoggerFactory.getLogger(SLAShoutServiceClient.class);
 
     private static final String SHOUT_SERVICE = "shoutApi";
 
@@ -48,7 +52,7 @@ public class SLAShoutServiceClient implements ShoutServiceClient {
                 shout = basicShoutServiceClient.shout(tweet);
                 serviceRequestSent = true;
             } else {
-                System.out.println(">> Waiting for SLAs allowance ...");
+                logger.info(">> Waiting for SLAs allowance ...");
                 try {
                     Thread.sleep(WAIT_FOR_SLA);
                 } catch (InterruptedException e) {

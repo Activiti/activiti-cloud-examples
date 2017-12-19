@@ -7,12 +7,16 @@ import java.util.Map;
 import org.activiti.cloud.runtime.model.Tweet;
 import org.activiti.cloud.runtime.service.TopicController;
 import org.activiti.engine.RuntimeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EnglishCampaign {
+
+    private Logger logger = LoggerFactory.getLogger(EnglishCampaign.class);
 
     private final RuntimeService runtimeService;
 
@@ -39,7 +43,7 @@ public class EnglishCampaign {
 
     @Scheduled(fixedRate = 60000)
     public void triggerPrizeProcessForCampaign() {
-        System.out.println("Starting Prize For Campaign: " + topicController.getCurrentTopic());
+        logger.info("Starting Prize For Campaign: " + topicController.getCurrentTopic());
         Map<String, Object> vars = new HashMap<>();
         vars.put("campaign",
                  topicController.getCurrentTopic());

@@ -1,9 +1,9 @@
-package org.activiti.cloud.connectors.external;
+package org.activiti.cloud.connectors.external.processor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.activiti.cloud.connectors.external.model.Shout;
+import org.activiti.cloud.connectors.external.processor.model.Shout;
 import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
