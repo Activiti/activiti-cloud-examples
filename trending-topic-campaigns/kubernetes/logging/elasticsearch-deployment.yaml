@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - env:
-#        - name: ES_JAVA_OPTS
-#          value: -Xmx256m -Xms256m
+        - name: ES_JAVA_OPTS
+          value: -Xmx256m -Xms256m
         - name: XPACK_SECURITY_ENABLED
           value: 'false'
         - name: XPACK_ML_ENABLED

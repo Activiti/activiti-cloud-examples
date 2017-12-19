@@ -47,6 +47,8 @@ spec:
             value: "activiti-cloud-connector-3rd-party"
           - name: SPRING_PROFILES_ACTIVE
             value: kube
+          - name: JAVA_OPTS
+            value: -Xmx128m -Xms128m
 ---
 apiVersion: v1
 kind: Service
@@ -106,6 +108,8 @@ spec:
             value: "activiti-cloud-connector-ranking"
           - name: SPRING_PROFILES_ACTIVE
             value: kube
+          - name: JAVA_OPTS
+            value: -Xmx128m -Xms128m
 ---
 apiVersion: v1
 kind: Service
@@ -173,6 +177,8 @@ spec:
             value: <TWITTER4J_OAUTH_ACCESSTOKENSECRET>
           - name: SPRING_PROFILES_ACTIVE
             value: kube
+          - name: JAVA_OPTS
+            value: -Xmx128m -Xms128m
 ---
 apiVersion: v1
 kind: Service
