@@ -16,7 +16,6 @@
 
 package org.activiti.cloud.connectors.external;
 
-import org.activiti.cloud.connectors.external.processor.config.SLAProperties;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +34,12 @@ public class ExternalServiceCloudConnectorIT {
     @Autowired
     private ApplicationContext context;
 
-    @Autowired
-    private SLAProperties slaProperties;
 
     @Test
     public void contextShouldLoad() throws Exception {
         //then
         assertThat(context).isNotNull();
-        assertThat(slaProperties.getRequests()).isEqualTo(10);
-        assertThat(slaProperties.isEnabled()).isTrue();
+
     }
 
 }

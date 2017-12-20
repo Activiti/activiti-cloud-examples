@@ -45,10 +45,10 @@ spec:
             value: "1000000"
           - name: SPRING_APPLICATION_NAME
             value: "activiti-cloud-connector-3rd-party"
+          - name: JAVA_OPTS
+            value: -Xmx128m -Xms128m
           - name: SPRING_PROFILES_ACTIVE
             value: kube
-          - name: JAVA_OPTS
-            value: -Xmx256m -Xms256m
 ---
 apiVersion: v1
 kind: Service
@@ -106,10 +106,8 @@ spec:
             value: "rabbitmq"
           - name: SPRING_APPLICATION_NAME
             value: "activiti-cloud-connector-ranking"
-          - name: SPRING_PROFILES_ACTIVE
-            value: kube
           - name: JAVA_OPTS
-            value: -Xmx256m -Xms256m
+            value: -Xmx128m -Xms128m
 ---
 apiVersion: v1
 kind: Service
@@ -177,8 +175,6 @@ spec:
             value: <TWITTER4J_OAUTH_ACCESSTOKENSECRET>
           - name: SPRING_PROFILES_ACTIVE
             value: kube
-          - name: JAVA_OPTS
-            value: -Xmx256m -Xms256m
 ---
 apiVersion: v1
 kind: Service

@@ -52,7 +52,7 @@
       <bpmn:outgoing>SequenceFlow_0yo24eg</bpmn:outgoing>
     </bpmn:serviceTask>
 
-    <bpmn:serviceTask id="serviceTaskRank" name="Rank" implementation="Rank English Tweet">
+    <bpmn:serviceTask id="serviceTaskRank" name="Rank" implementation="Rank Author of English Tweet">
       <bpmn:incoming>SequenceFlow_0yo24eg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_01qm4af</bpmn:outgoing>
     </bpmn:serviceTask>

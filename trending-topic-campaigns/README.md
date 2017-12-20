@@ -20,10 +20,16 @@ From this directory do:
 
 Then do `kubectl create -f <FILE_NAME>` for each of the kubernetes descriptor files.
 
-If you also want distributed logging then do kubectl create -f logging/
+If you also want distributed logging then after starting minikube do
+
+minikube ssh
+sudo sysctl -w vm.max_map_count=262144
+
+and deploy with kubectl create -f logging/
+
 For distributed tracing do kubectl create -f tracing/
 
-For logging you'll need at least 10GB for minikube. If you don't want to use it remove or change the SPRING_PROFILES_ACTIVE entries in the kub yml files to !kube. See also https://activiti.gitbooks.io/activiti-7-developers-guide/content/components/activiti-cloud-infra/logging.html
+For logging you'll want as much ram as you can for for minikube. If you don't want to use it remove or change the SPRING_PROFILES_ACTIVE entries in the kub yml files to !kube. See also https://activiti.gitbooks.io/activiti-7-developers-guide/content/components/activiti-cloud-infra/logging.html
 
 ## What you'll see
 
