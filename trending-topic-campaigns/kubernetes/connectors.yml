@@ -48,7 +48,7 @@ spec:
           - name: SPRING_PROFILES_ACTIVE
             value: kube
           - name: JAVA_OPTS
-            value: -Xmx128m -Xms128m
+            value: -Xmx256m -Xms256m
 ---
 apiVersion: v1
 kind: Service
@@ -109,7 +109,7 @@ spec:
           - name: SPRING_PROFILES_ACTIVE
             value: kube
           - name: JAVA_OPTS
-            value: -Xmx128m -Xms128m
+            value: -Xmx256m -Xms256m
 ---
 apiVersion: v1
 kind: Service
@@ -178,7 +178,7 @@ spec:
           - name: SPRING_PROFILES_ACTIVE
             value: kube
           - name: JAVA_OPTS
-            value: -Xmx128m -Xms128m
+            value: -Xmx256m -Xms256m
 ---
 apiVersion: v1
 kind: Service
