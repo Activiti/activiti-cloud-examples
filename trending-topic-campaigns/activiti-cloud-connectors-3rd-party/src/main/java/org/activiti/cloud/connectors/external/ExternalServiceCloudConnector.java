@@ -17,7 +17,6 @@
 package org.activiti.cloud.connectors.external;
 
 import org.activiti.cloud.connectors.external.analyzer.NLP;
-import org.activiti.cloud.connectors.external.processor.config.SLAProperties;
 import org.activiti.cloud.connectors.starter.configuration.EnableActivitiCloudConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +32,8 @@ public class ExternalServiceCloudConnector implements CommandLineRunner {
 
     private Logger logger = LoggerFactory.getLogger(ExternalServiceCloudConnector.class);
 
-    private final SLAProperties slaProperties;
 
-    public ExternalServiceCloudConnector(SLAProperties slaProperties) {
-        this.slaProperties = slaProperties;
+    public ExternalServiceCloudConnector() {
     }
 
     public static void main(String[] args) {
@@ -46,7 +43,7 @@ public class ExternalServiceCloudConnector implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        logger.debug("Starting SLA Requests with: RPM -> " + slaProperties.getRequests() + " and Enabled: " + slaProperties.isEnabled());
+        logger.debug("Starting Analyzer Connector Application");
         NLP.init();
     }
 }

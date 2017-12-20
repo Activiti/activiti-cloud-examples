@@ -3,10 +3,11 @@ package org.activiti.cloud.connectors.external.processor;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.activiti.cloud.connectors.external.processor.model.Shout;
 import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -16,36 +17,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class TwitterProcessingConnector {
 
+    private final Logger logger = LoggerFactory.getLogger(TwitterProcessingConnector.class);
+
     private final MessageChannel integrationResultsProducer;
 
-    private final ShoutServiceClientSelector shoutServiceClientSelector;
 
-    public TwitterProcessingConnector(MessageChannel integrationResultsProducer,
-                                      ShoutServiceClientSelector shoutServiceClientSelector) {
+    public TwitterProcessingConnector(MessageChannel integrationResultsProducer) {
 
         this.integrationResultsProducer = integrationResultsProducer;
-        this.shoutServiceClientSelector = shoutServiceClientSelector;
     }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Process English Tweet'")
     public synchronized void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
 
         String tweet = String.valueOf(event.getVariables().get("text"));
-        Shout shout = shoutServiceClientSelector.select().shout(tweet);
-        completeIntegrationRequest(event,
-                                   shout);
-    }
+        logger.debug("placeholder for doing cleaning/processing of posted content sized "+(tweet==null?"null":tweet.length()));
+        //TODO: perform processing
 
-    private void completeIntegrationRequest(IntegrationRequestEvent event,
-                                            Shout shout) {
+
         Map<String, Object> results = new HashMap<>();
-
         results.put("text",
-                    shout.getOUTPUT());
-
+                tweet);
         IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
-                                                                results);
-
+                results);
         integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
     }
+
 }

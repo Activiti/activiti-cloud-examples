@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: kibana
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: kibana
+    spec:
+      containers:
+      - image: docker.elastic.co/kibana/kibana:5.3.2
+        name: kibana
+        env:
+        - name: NODE_OPTIONS
+          value: "--max-old-space-size=900"
+        - name: XPACK_SECURITY_ENABLED
+          value: 'false'
+        - name: XPACK_GRAPH_ENABLED
+          value: 'false'
+        - name: XPACK_ML_ENABLED
+          value: 'false'
+        - name: XPACK_REPORTING_ENABLED
+          value: 'false'
+        - name: XPACK_MONITORING_ENABLED
+          value: 'false'
+#        - name: XPACK_MONITORING_UI_CONTAINER_ELASTICSEARCH_ENABLED
+#          value: 'false'
+#        - name: ELASTICSEARCH_USERNAME
+#          value: elastic
+#        - name: ELASTICSEARCH_PASSWORD
+#          value: changeme
+        ports:
+        - containerPort: 5601
+        resources: {}
+      restartPolicy: Always
+status: {}
