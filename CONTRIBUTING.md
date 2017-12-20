@@ -11,6 +11,12 @@ I.e.
 * `assertThat(actual).isEqualTo(expected);` instead of `assertEquals(expected, actual);`
 * `assertThat(myList).containsExactly("a", "b", "c");` instead of `assertTrue(myList.contains("a", "b", "c"));`
 
+To easily differentiate between unit and integration tests the following naming convention should be used:
+ * a `unit test` java class should end with `*Test.java`
+ * an `integration test` java class should end with `*IT.java`
+ 
+This will help if we want to be able to skip either unit tests or integration tests.
+
 Branches naming convention
 --------------------------
 If you are creating branches directly in the [main repository](https://github.com/Activiti/Activiti), this is 
