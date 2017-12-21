@@ -28,9 +28,9 @@ public class TopicController {
         return currentTopic;
     }
 
-    public boolean matchTopic(String text) {
+    public boolean matchTopic(String text, String author) {
         boolean match = text.toLowerCase().contains(currentTopic.toLowerCase());
-        logger.info(append("service-name", appName), (match?"Match ":"No Match")+" to "+currentTopic+" on > Tweet: " + text);
+        logger.info(append("service-name", appName), (match?"Match ":"No Match")+" to '"+currentTopic+"' on Tweet by "+author);
         return match;
     }
 }

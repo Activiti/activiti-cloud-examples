@@ -41,10 +41,10 @@
     </bpmn:exclusiveGateway>
 
     <bpmn:sequenceFlow id="SequenceFlow_0ylainb" name="not match" sourceRef="matchCampaign" targetRef="EndNotMatch">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!topicController.matchTopic(text)}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!topicController.matchTopic(text,author)}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0gpdih3" name="match" sourceRef="matchCampaign" targetRef="serviceTaskAnalyze">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${topicController.matchTopic(text)}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${topicController.matchTopic(text,author)}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
 
     <bpmn:serviceTask id="serviceTaskAnalyze" name="Analyze" implementation="Analyze English Tweet">
