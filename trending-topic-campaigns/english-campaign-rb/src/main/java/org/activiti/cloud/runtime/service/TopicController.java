@@ -7,10 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import static net.logstash.logback.marker.Markers.append;
+
 @RestController
 public class TopicController {
 
     private Logger logger = LoggerFactory.getLogger(TopicController.class);
+    @Value("spring.application.name")
+    private String appName;
 
     private final String currentTopic;
 
@@ -25,7 +29,9 @@ public class TopicController {
     }
 
     public boolean matchTopic(String text) {
-        return text.toLowerCase().contains(currentTopic.toLowerCase());
+        boolean match = text.toLowerCase().contains(currentTopic.toLowerCase());
+        logger.info(append("service-name", appName), (match?"Match ":"No Match")+" to "+currentTopic+" on > Tweet: " + text);
+        return match;
     }
 }
 

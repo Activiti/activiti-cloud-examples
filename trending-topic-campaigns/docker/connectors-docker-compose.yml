@@ -20,8 +20,8 @@ services:
         - rabbitmq
       networks:
         - infrastructure
-  activiti-cloud-connector-3rd-party:
-      image: activiti-cloud-connector-3rd-party
+  activiti-cloud-connector-processing:
+      image: activiti-cloud-connector-processing
       environment:
         - ACT_RABBITMQ_HOST=rabbitmq
         - SLA_ENABLED=true

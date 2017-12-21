@@ -19,6 +19,7 @@ package org.activiti.cloud.connectors.external;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.TestPropertySource;
@@ -34,11 +35,14 @@ public class ExternalServiceCloudConnectorIT {
     @Autowired
     private ApplicationContext context;
 
+    @Value("${spring.application.name}")
+    private String appName;
 
     @Test
     public void contextShouldLoad() throws Exception {
         //then
         assertThat(context).isNotNull();
+        assertThat(appName).isNotEmpty();
 
     }
 

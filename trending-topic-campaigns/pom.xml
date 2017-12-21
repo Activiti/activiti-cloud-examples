@@ -17,7 +17,7 @@
   <modules>
     <module>activiti-cloud-connectors-twitter</module>
     <module>activiti-cloud-connectors-ranking</module>
-    <module>activiti-cloud-connectors-3rd-party</module>
+    <module>activiti-cloud-connectors-processing</module>
     <module>english-campaign-rb</module>
   </modules>
 

@@ -8,18 +8,22 @@ import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 import twitter4j.TwitterException;
 
+import static net.logstash.logback.marker.Markers.append;
+
 @Component
 
 public class SendRewardConnector {
 
     private Logger logger = LoggerFactory.getLogger(SendRewardConnector.class);
-
+    @Value("spring.application.name")
+    private String appName;
     private final MessageChannel integrationResultsProducer;
 
     public SendRewardConnector(MessageChannel integrationResultsProducer) {
@@ -30,10 +34,10 @@ public class SendRewardConnector {
     public void tweet(IntegrationRequestEvent event) throws TwitterException {
         Map<String, Object> results = new HashMap<>();
 
-        logger.info("#################################################################################");
-        logger.info("#  Reward time!!! You WON!!! ");
-        logger.info(" I'm tweeting to a Winner: " + event.getVariables().get("winner") + " \n");
-        logger.info("#################################################################################");
+        logger.info(append("service-name", appName),"#################################################################################");
+        logger.info(append("service-name", appName),"#  Reward time!!! You WON!!! ");
+        logger.info(append("service-name", appName)," I'm tweeting to a Winner: " + event.getVariables().get("winner") + " \n");
+        logger.info(append("service-name", appName),"#################################################################################");
 
         IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
                                                                 results);
