@@ -51,7 +51,7 @@ spec:
           - name: CAMPAIGN_TOPIC
             value: TRUMP
           - name: SPRING_PROFILES_ACTIVE
-            value: kube
+            value: kube,local
           - name: JAVA_OPTS
             value: -Xmx128m -Xms128m
         - name: rb-postgres
