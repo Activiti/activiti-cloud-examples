@@ -22,7 +22,7 @@ import static net.logstash.logback.marker.Markers.append;
 public class SendRewardConnector {
 
     private Logger logger = LoggerFactory.getLogger(SendRewardConnector.class);
-    @Value("spring.application.name")
+    @Value("${spring.application.name}")
     private String appName;
     private final MessageChannel integrationResultsProducer;
 

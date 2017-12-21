@@ -20,7 +20,7 @@ import static net.logstash.logback.marker.Markers.append;
 public class UpdateAuthorRankConnector {
 
     private Logger logger = LoggerFactory.getLogger(UpdateAuthorRankConnector.class);
-    @Value("spring.application.name")
+    @Value("${spring.application.name}")
     private String appName;
 
     private final MessageChannel integrationResultsProducer;

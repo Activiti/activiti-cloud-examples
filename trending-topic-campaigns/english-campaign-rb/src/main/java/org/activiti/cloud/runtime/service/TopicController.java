@@ -13,7 +13,7 @@ import static net.logstash.logback.marker.Markers.append;
 public class TopicController {
 
     private Logger logger = LoggerFactory.getLogger(TopicController.class);
-    @Value("spring.application.name")
+    @Value("${spring.application.name}")
     private String appName;
 
     private final String currentTopic;
@@ -30,7 +30,7 @@ public class TopicController {
 
     public boolean matchTopic(String text, String author) {
         boolean match = text.toLowerCase().contains(currentTopic.toLowerCase());
-        logger.info(append("service-name", appName), (match?"Match ":"No Match")+" to '"+currentTopic+"' on Tweet by "+author);
+        logger.info(append("service-name", appName), (match?"Match ":"Non-match")+" for '"+currentTopic+"' on Tweet by "+author);
         return match;
     }
 }
