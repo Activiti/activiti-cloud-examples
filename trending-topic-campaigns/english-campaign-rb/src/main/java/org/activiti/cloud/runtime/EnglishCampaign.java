@@ -2,11 +2,13 @@ package org.activiti.cloud.runtime;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.activiti.cloud.runtime.model.Tweet;
 import org.activiti.cloud.runtime.service.TopicController;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.runtime.Execution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -53,5 +55,11 @@ public class EnglishCampaign {
                  new ArrayList<>());
         runtimeService.startProcessInstanceByKey("tweet-prize",
                                                  vars);
+    }
+
+    @Scheduled(fixedRate = 60000)
+    public void logExecutions() {
+        List<Execution> executionList = runtimeService.createExecutionQuery().list();
+        logger.info("There are "+executionList.size()+" process executions in this RB instance");
     }
 }

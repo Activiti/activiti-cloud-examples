@@ -39,10 +39,6 @@ spec:
             value: "8084"
           - name: ACT_RABBITMQ_HOST
             value: "rabbitmq"
-          - name: SLA_ENABLED
-            value: "true"
-          - name: SLA_REQUESTS
-            value: "1000000"
           - name: SPRING_APPLICATION_NAME
             value: "activiti-cloud-connector-processing"
           - name: JAVA_OPTS
@@ -189,5 +185,64 @@ spec:
   ports:
     - port: 8082
       targetPort: 8082
+  type: ClusterIP
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-connector-reward
+  labels:
+    app: infrastructure
+    serviceType: connector-reward
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-connector-reward
+      labels:
+        app: infrastructure
+        serviceType: connector-reward
+    spec:
+      containers:
+        - name: activiti-cloud-connector-reward
+          image: activiti-cloud-connector-reward:latest
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8085
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8085
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8085
+          env:
+          - name: SERVER_PORT
+            value: "8085"
+          - name: ACT_RABBITMQ_HOST
+            value: "rabbitmq"
+          - name: SPRING_APPLICATION_NAME
+            value: "activiti-cloud-connector-reward"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube,local
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-connector-reward
+  namespace: default
+spec:
+  selector:
+    serviceType: connector-reward
+  ports:
+    - port: 8085
+      targetPort: 8085
   type: ClusterIP
 ---

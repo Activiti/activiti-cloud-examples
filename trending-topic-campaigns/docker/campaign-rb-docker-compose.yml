@@ -10,6 +10,7 @@ services:
         - ACT_RB_DB_PASS=password
         - ACT_RB_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
         - CAMPAIGN_TOPIC=trump
+        - JAVA_OPTS=’-Xmx256m -Xms256m’
       external_links:
         - rabbitmq
         - rb-postgres

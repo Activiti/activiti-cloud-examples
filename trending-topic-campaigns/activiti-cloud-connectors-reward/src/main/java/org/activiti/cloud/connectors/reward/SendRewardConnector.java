@@ -1,4 +1,4 @@
-package org.activiti.cloud.connectors.twitter;
+package org.activiti.cloud.connectors.reward;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,6 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
-import twitter4j.TwitterException;
 
 import static net.logstash.logback.marker.Markers.append;
 
@@ -31,7 +30,7 @@ public class SendRewardConnector {
     }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='SendRewardToWinners'")
-    public void tweet(IntegrationRequestEvent event) throws TwitterException {
+    public void tweet(IntegrationRequestEvent event)  {
         Map<String, Object> results = new HashMap<>();
 
         logger.info(append("service-name", appName),"#################################################################################");
