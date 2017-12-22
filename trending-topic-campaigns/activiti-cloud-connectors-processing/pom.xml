@@ -7,7 +7,7 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>activiti-cloud-connectors-3rd-party</artifactId>
+  <artifactId>activiti-cloud-connectors-processing</artifactId>
   <name>Activiti Cloud :: Activiti 3rd Party Cloud Connector</name>
 
   <properties>
@@ -90,8 +90,8 @@
         <configuration>
           <images>
             <image>
-              <name>activiti-cloud-connector-3rd-party</name>
-              <alias>activiti-cloud-connector-3rd-party</alias>
+              <name>activiti-cloud-connector-processing</name>
+              <alias>activiti-cloud-connector-processing</alias>
               <build>
                 <from>openjdk:alpine</from>
                 <assembly>

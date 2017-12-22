@@ -20,10 +20,13 @@ import org.activiti.cloud.connectors.external.analyzer.NLP;
 import org.activiti.cloud.connectors.starter.configuration.EnableActivitiCloudConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+
+import static net.logstash.logback.marker.Markers.append;
 
 @SpringBootApplication
 @EnableActivitiCloudConnector
@@ -31,7 +34,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class ExternalServiceCloudConnector implements CommandLineRunner {
 
     private Logger logger = LoggerFactory.getLogger(ExternalServiceCloudConnector.class);
-
+    @Value("${spring.application.name}")
+    private String appName;
 
     public ExternalServiceCloudConnector() {
     }
@@ -43,7 +47,7 @@ public class ExternalServiceCloudConnector implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        logger.debug("Starting Analyzer Connector Application");
+        logger.debug(append("service-name", appName),"Starting Analyzer Connector Application");
         NLP.init();
     }
 }

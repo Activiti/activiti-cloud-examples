@@ -1,22 +1,22 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: activiti-cloud-connector-3rd-party
+  name: activiti-cloud-connector-processing
   labels:
     app: infrastructure
-    serviceType: connector-3rd-party
+    serviceType: connector-processing
 spec:
   replicas: 1
   template:
     metadata:
-      name: activiti-cloud-connector-3rd-party
+      name: activiti-cloud-connector-processing
       labels:
         app: infrastructure
-        serviceType: connector-3rd-party
+        serviceType: connector-processing
     spec:
       containers:
-        - name: activiti-cloud-connector-3rd-party
-          image: activiti-cloud-connector-3rd-party:latest
+        - name: activiti-cloud-connector-processing
+          image: activiti-cloud-connector-processing:latest
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -44,7 +44,7 @@ spec:
           - name: SLA_REQUESTS
             value: "1000000"
           - name: SPRING_APPLICATION_NAME
-            value: "activiti-cloud-connector-3rd-party"
+            value: "activiti-cloud-connector-processing"
           - name: JAVA_OPTS
             value: -Xmx128m -Xms128m
           - name: SPRING_PROFILES_ACTIVE
@@ -53,11 +53,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: activiti-cloud-connector-3rd-party
+  name: activiti-cloud-connector-processing
   namespace: default
 spec:
   selector:
-    serviceType: connector-3rd-party
+    serviceType: connector-processing
   ports:
     - port: 8084
       targetPort: 8084

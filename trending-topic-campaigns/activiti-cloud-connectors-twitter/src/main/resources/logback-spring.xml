@@ -12,7 +12,7 @@
       <appender-ref ref="stash"/>
     </root>
   </springProfile>
-  <springProfile name="!kube">
+  <springProfile name="!kube, local">
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="org.springframework.web" level="INFO"/>
   </springProfile>

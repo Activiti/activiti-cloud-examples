@@ -1,8 +1,6 @@
 package org.activiti.cloud.connectors.twitter;
 
 import org.activiti.cloud.connectors.twitter.model.Tweet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -16,7 +14,6 @@ import twitter4j.StatusListener;
 @EnableBinding(CampaignMessageChannels.class)
 public class LangAwareTwitterStatusListener implements StatusListener {
 
-    private Logger logger = LoggerFactory.getLogger(LangAwareTwitterStatusListener.class);
 
     private final MessageChannel campaignProducer;
 
@@ -29,7 +26,7 @@ public class LangAwareTwitterStatusListener implements StatusListener {
         Tweet t = new Tweet(status.getText(),
                             status.getUser().getScreenName(),
                             status.getLang());
-        logger.info("> Tweet: " + status.getText());
+
         processTwitterWithCampaigns(t);
     }
 

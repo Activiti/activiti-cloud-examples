@@ -8,15 +8,20 @@ import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
+import static net.logstash.logback.marker.Markers.append;
+
 @Component
 public class UpdateAuthorRankConnector {
 
     private Logger logger = LoggerFactory.getLogger(UpdateAuthorRankConnector.class);
+    @Value("${spring.application.name}")
+    private String appName;
 
     private final MessageChannel integrationResultsProducer;
 
@@ -36,7 +41,7 @@ public class UpdateAuthorRankConnector {
         String attitude = String.valueOf(event.getVariables().get("attitude"));
         String processedMessage = String.valueOf(event.getVariables().get("text"));
 
-        logger.info(">>> Just Received a Tweet from: " + author + " related to the campaign: " + campaign + " with attitude: " + attitude + " - > " + processedMessage);
+        logger.info(append("service-name", appName),">>> Received a Tweet from: " + author + " related to the campaign: " + campaign + " with attitude/sentiment score: " + attitude + " - > " + processedMessage);
 
         rankingService.rank(campaign, author);
 
