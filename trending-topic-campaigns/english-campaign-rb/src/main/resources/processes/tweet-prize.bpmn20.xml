@@ -32,7 +32,7 @@
     <sequenceFlow id="flow2" sourceRef="serviceTaskRank" targetRef="serviceTaskSendReward"/>
 
 
-    <serviceTask id="serviceTaskSendReward" name="Tweet Winners" implementation="SendRewardToWinners">
+    <serviceTask id="serviceTaskSendReward" name="Tweet Winners" activiti:delegateExpression="${sendRewardDelegate}">
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${top}" activiti:elementVariable="winner">
       </multiInstanceLoopCharacteristics>
     </serviceTask>
