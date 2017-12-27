@@ -138,7 +138,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-connector-twitter
-          image: activiti-cloud-connector-twitter:latest
+          image: activiti-cloud-connector-dummytwitter:latest
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -163,14 +163,14 @@ spec:
             value: "rabbitmq"
           - name: SPRING_APPLICATION_NAME
             value: "activiti-cloud-connector-twitter"
-          - name: TWITTER4J_OAUTH_CONSUMERKEY #get credentials replacing placeholders by signing up at apps.twitter.com
-            value: <TWITTER4J_OAUTH_CONSUMERKEY>
-          - name: TWITTER4J_OAUTH_CONSUMERSECRET
-            value: <TWITTER4J_OAUTH_CONSUMERSECRET>
-          - name: TWITTER4J_OAUTH_ACCESSTOKEN
-            value: <TWITTER4J_OAUTH_ACCESSTOKEN>
-          - name: TWITTER4J_OAUTH_ACCESSTOKENSECRET
-            value: <TWITTER4J_OAUTH_ACCESSTOKENSECRET>
+#          - name: TWITTER4J_OAUTH_CONSUMERKEY #get credentials replacing placeholders by signing up at apps.twitter.com
+#            value: <TWITTER4J_OAUTH_CONSUMERKEY>
+#          - name: TWITTER4J_OAUTH_CONSUMERSECRET
+#            value: <TWITTER4J_OAUTH_CONSUMERSECRET>
+#          - name: TWITTER4J_OAUTH_ACCESSTOKEN
+#            value: <TWITTER4J_OAUTH_ACCESSTOKEN>
+#          - name: TWITTER4J_OAUTH_ACCESSTOKENSECRET
+#            value: <TWITTER4J_OAUTH_ACCESSTOKENSECRET>
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
 ---
@@ -187,62 +187,62 @@ spec:
       targetPort: 8082
   type: ClusterIP
 ---
-apiVersion: apps/v1beta1
-kind: Deployment
-metadata:
-  name: activiti-cloud-connector-reward
-  labels:
-    app: infrastructure
-    serviceType: connector-reward
-spec:
-  replicas: 1
-  template:
-    metadata:
-      name: activiti-cloud-connector-reward
-      labels:
-        app: infrastructure
-        serviceType: connector-reward
-    spec:
-      containers:
-        - name: activiti-cloud-connector-reward
-          image: activiti-cloud-connector-reward:latest
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8085
-            initialDelaySeconds: 100
-            timeoutSeconds: 1
-            periodSeconds: 15
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8085
-            initialDelaySeconds: 120
-            timeoutSeconds: 1
-            periodSeconds: 15
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 8085
-          env:
-          - name: SERVER_PORT
-            value: "8085"
-          - name: ACT_RABBITMQ_HOST
-            value: "rabbitmq"
-          - name: SPRING_APPLICATION_NAME
-            value: "activiti-cloud-connector-reward"
-          - name: SPRING_PROFILES_ACTIVE
-            value: kube,local
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: activiti-cloud-connector-reward
-  namespace: default
-spec:
-  selector:
-    serviceType: connector-reward
-  ports:
-    - port: 8085
-      targetPort: 8085
-  type: ClusterIP
----
+#apiVersion: apps/v1beta1
+#kind: Deployment
+#metadata:
+#  name: activiti-cloud-connector-reward
+#  labels:
+#    app: infrastructure
+#    serviceType: connector-reward
+#spec:
+#  replicas: 1
+#  template:
+#    metadata:
+#      name: activiti-cloud-connector-reward
+#      labels:
+#        app: infrastructure
+#        serviceType: connector-reward
+#    spec:
+#      containers:
+#        - name: activiti-cloud-connector-reward
+#          image: activiti-cloud-connector-reward:latest
+#          readinessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: 8085
+#            initialDelaySeconds: 100
+#            timeoutSeconds: 1
+#            periodSeconds: 15
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: 8085
+#            initialDelaySeconds: 120
+#            timeoutSeconds: 1
+#            periodSeconds: 15
+#          imagePullPolicy: IfNotPresent
+#          ports:
+#            - containerPort: 8085
+#          env:
+#          - name: SERVER_PORT
+#            value: "8085"
+#          - name: ACT_RABBITMQ_HOST
+#            value: "rabbitmq"
+#          - name: SPRING_APPLICATION_NAME
+#            value: "activiti-cloud-connector-reward"
+#          - name: SPRING_PROFILES_ACTIVE
+#            value: kube,local
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: activiti-cloud-connector-reward
+#  namespace: default
+#spec:
+#  selector:
+#    serviceType: connector-reward
+#  ports:
+#    - port: 8085
+#      targetPort: 8085
+#  type: ClusterIP
+#---

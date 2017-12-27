@@ -16,6 +16,7 @@
 
   <modules>
     <module>activiti-cloud-connectors-twitter</module>
+    <module>activiti-cloud-connectors-dummytwitter</module>
     <module>activiti-cloud-connectors-reward</module>
     <module>activiti-cloud-connectors-ranking</module>
     <module>activiti-cloud-connectors-processing</module>
