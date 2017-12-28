@@ -21,16 +21,16 @@ spec:
             httpGet:
               path: /actuator/health
               port: 8084
-            initialDelaySeconds: 100
-            timeoutSeconds: 1
-            periodSeconds: 15
+            initialDelaySeconds: 130
+            timeoutSeconds: 3
+            periodSeconds: 40
           livenessProbe:
             httpGet:
               path: /actuator/health
               port: 8084
-            initialDelaySeconds: 120
-            timeoutSeconds: 1
-            periodSeconds: 15
+            initialDelaySeconds: 130
+            timeoutSeconds: 3
+            periodSeconds: 40
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8084
@@ -82,16 +82,16 @@ spec:
             httpGet:
               path: /actuator/health
               port: 8083
-            initialDelaySeconds: 100
-            timeoutSeconds: 1
-            periodSeconds: 15
+            initialDelaySeconds: 130
+            timeoutSeconds: 3
+            periodSeconds: 40
           livenessProbe:
             httpGet:
               path: /actuator/health
               port: 8083
-            initialDelaySeconds: 120
-            timeoutSeconds: 1
-            periodSeconds: 15
+            initialDelaySeconds: 130
+            timeoutSeconds: 3
+            periodSeconds: 40
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8083
@@ -143,16 +143,16 @@ spec:
             httpGet:
               path: /actuator/health
               port: 8082
-            initialDelaySeconds: 100
-            timeoutSeconds: 1
-            periodSeconds: 15
+            initialDelaySeconds: 130
+            timeoutSeconds: 3
+            periodSeconds: 40
           livenessProbe:
             httpGet:
               path: /actuator/health
               port: 8082
-            initialDelaySeconds: 120
-            timeoutSeconds: 1
-            periodSeconds: 15
+            initialDelaySeconds: 130
+            timeoutSeconds: 3
+            periodSeconds: 40
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
@@ -171,8 +171,12 @@ spec:
 #            value: <TWITTER4J_OAUTH_ACCESSTOKEN>
 #          - name: TWITTER4J_OAUTH_ACCESSTOKENSECRET
 #            value: <TWITTER4J_OAUTH_ACCESSTOKENSECRET>
+          - name: JAVA_OPTS
+            value: -Xmx128m -Xms128m
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
+          - name: tweetrate
+            value: "350"
 ---
 apiVersion: v1
 kind: Service
@@ -210,16 +214,16 @@ spec:
             httpGet:
               path: /actuator/health
               port: 8085
-            initialDelaySeconds: 100
-            timeoutSeconds: 1
-            periodSeconds: 15
+            initialDelaySeconds: 130
+            timeoutSeconds: 3
+            periodSeconds: 40
           livenessProbe:
             httpGet:
               path: /actuator/health
               port: 8085
-            initialDelaySeconds: 120
-            timeoutSeconds: 1
-            periodSeconds: 15
+            initialDelaySeconds: 130
+            timeoutSeconds: 3
+            periodSeconds: 40
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8085
@@ -230,6 +234,10 @@ spec:
             value: "rabbitmq"
           - name: SPRING_APPLICATION_NAME
             value: "activiti-cloud-connector-reward"
+          - name: campaignCycle1_campaigns
+            value: "activiti-en"
+          - name: JAVA_OPTS
+            value: -Xmx128m -Xms128m
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
 ---

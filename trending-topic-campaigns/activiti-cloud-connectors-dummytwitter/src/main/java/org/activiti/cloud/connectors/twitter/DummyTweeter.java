@@ -23,7 +23,7 @@ public class DummyTweeter {
         this.tweetRepository = tweetRepository;
     }
 
-    @Scheduled(fixedRate = 80)
+    @Scheduled(fixedRateString = "${tweetrate}")
     public void startProcessWithTweet(){
 
         TweetEntity tweetEntity = getRandomTweet();

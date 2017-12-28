@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @EnableBinding(RewardMessageChannels.class)
 public class RewardProcessStarter {
 
-    @Value("${campaignCycle1}")
+    @Value("${campaignCycle1.campaigns}")
     private String cycle1Campaigns;
 
     private final MessageChannel rewardProducer;
@@ -22,7 +22,7 @@ public class RewardProcessStarter {
         this.rewardProducer = rewardProducer;
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRateString = "${campaignCycle1.milliseconds}")
     public void triggerRewardProcessForCycle1Campaigns() {
         if(cycle1Campaigns!=null){
             sendMessageForCampaigns(cycle1Campaigns);

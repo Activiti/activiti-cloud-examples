@@ -12,6 +12,8 @@ First do mvn clean install from this directory then do `docker-compose -f <FILE_
 
 ## To run with minikube
 
+First start minikube e.g. minikube start --memory 12000 --cpus 6
+
 From this directory do:
 
 `eval $(minikube docker-env)`
@@ -30,6 +32,8 @@ and deploy with `kubectl create -f logging/`
 For distributed tracing do `kubectl create -f tracing/`
 
 For logging you'll want as much ram as you can for for minikube. If you don't want to use it remove or change the SPRING_PROFILES_ACTIVE entries in the kub yml files to !kube. See also https://activiti.gitbooks.io/activiti-7-developers-guide/content/components/activiti-cloud-infra/logging.html
+
+To tail pod logs do kubectl logs -f --since=1000s <PODNAME>
 
 ## What you'll see
 

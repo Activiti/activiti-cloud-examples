@@ -1,41 +1,67 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: english-campaign-rb
+  name: postgres-activiti
+  labels:
+    serviceType: postgres-activiti
 spec:
   replicas: 1
   template:
     metadata:
-      name: english-campaign-rb
       labels:
-        app: english-campaign-rb
+        app: postgres-activiti
+    spec:
+      containers:
+        - name: postgres-activiti
+          image: postgres
+          ports:
+          - containerPort: 5432
+          env:
+          - name: POSTGRES_PASSWORD
+            value: password
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: activitidb
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: english-campaign-activiti
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: english-campaign-activiti
+      labels:
+        app: english-campaign-activiti
         serviceType: runtime-bundle
     spec:
       containers:
-        - name: english-campaign-rb
+        - name: english-campaign-activiti
           image: english-campaign-rb
           readinessProbe:
             httpGet:
               path: /actuator/health
               port: 8081
-            initialDelaySeconds: 100
-            timeoutSeconds: 1
-            periodSeconds: 15
+            initialDelaySeconds: 130
+            timeoutSeconds: 3
+            periodSeconds: 40
           livenessProbe:
             httpGet:
               path: /actuator/health
               port: 8081
-            initialDelaySeconds: 120
-            timeoutSeconds: 1
-            periodSeconds: 15
+            initialDelaySeconds: 130
+            timeoutSeconds: 3
+            periodSeconds: 40
           imagePullPolicy: IfNotPresent
           env:
           - name: ACT_RB_HOST
-            value: english-campaign-rb
+            value: english-campaign-activiti
           - name: ACT_RB_APP_NAME
-            value: english-campaign-rb
+            value: english-campaign-activiti
           - name: ACT_RB_DB_URI
-            value: jdbc:postgresql://127.0.0.1:5432/activitidb
+            value: jdbc:postgresql://postgres-activiti:5432/activitidb
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
           - name: ACT_RABBITMQ_HOST
@@ -53,23 +79,12 @@ spec:
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
           - name: JAVA_OPTS
-            value: -Xmx128m -Xms128m
-        - name: rb-postgres
-          image: postgres
-          ports:
-            - containerPort: 5432
-          env:
-          - name: POSTGRES_PASSWORD
-            value: password
-          - name: POSTGRES_USER
-            value: postgres
-          - name: POSTGRES_DB
-            value: activitidb
+            value: -Xmx256m -Xms256m
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: english-campaign-rb
+  name: english-campaign-activiti
   namespace: default
 spec:
   selector:
@@ -79,4 +94,15 @@ spec:
       targetPort: 8081
       nodePort: 30080 # uncomment for minikube, comment for Kube
   type: NodePort #NodePort for minikube, LoadBalancer for Kube
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-activiti
+  namespace: default
+spec:
+  selector:
+    app: postgres-activiti
+  ports:
+    - port: 5432
 ---
