@@ -1,10 +1,13 @@
 package org.activiti.cloud.runtime;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.activiti.cloud.runtime.model.Campaign;
 import org.activiti.cloud.runtime.model.Tweet;
 import org.activiti.cloud.runtime.service.TopicController;
 import org.activiti.engine.RuntimeService;
@@ -30,7 +33,7 @@ public class EnglishCampaign {
         this.topicController = topicController;
     }
 
-    @StreamListener(value = CampaignMessageChannels.CAMPAIGN_CHANNEL, condition = "headers['lang']=='en'")
+    @StreamListener(value = CampaignMessageChannels.CAMPAIGN_CHANNEL, condition = "headers['lang']=='${campaign.lang}'")
     public void tweet(Tweet tweet) {
         Map<String, Object> vars = new HashMap<>();
         vars.put("text",
@@ -43,23 +46,24 @@ public class EnglishCampaign {
                                                  vars);
     }
 
-    @Scheduled(fixedRate = 60000)
-    public void triggerPrizeProcessForCampaign() {
+    @StreamListener(value = RewardMessageChannels.REWARD_CHANNEL, condition = "headers['lang']=='${campaign.lang}' and headers['campaign']=='${campaign.topic}'")
+    public void startPrizeProcess(Campaign campaign) {
         logger.info("Starting Prize For Campaign: " + topicController.getCurrentTopic());
         Map<String, Object> vars = new HashMap<>();
         vars.put("campaign",
-                 topicController.getCurrentTopic());
+                topicController.getCurrentTopic());
         vars.put("nroTopAuthors",
-                 3);
+                3);
         vars.put("top",
-                 new ArrayList<>());
+                new ArrayList<>());
         runtimeService.startProcessInstanceByKey("tweet-prize",
-                                                 vars);
+                vars);
     }
 
+
     @Scheduled(fixedRate = 60000)
-    public void logExecutions() {
+    public void logExecutions() throws UnknownHostException {
         List<Execution> executionList = runtimeService.createExecutionQuery().list();
-        logger.info("There are "+executionList.size()+" process executions in this RB instance");
+        logger.info("There are "+executionList.size()+" process executions in RB instance on host "+ InetAddress.getLocalHost().getHostName());
     }
 }

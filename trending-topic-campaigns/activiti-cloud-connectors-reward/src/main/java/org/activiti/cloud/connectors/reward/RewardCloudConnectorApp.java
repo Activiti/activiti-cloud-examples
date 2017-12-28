@@ -5,10 +5,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableActivitiCloudConnector
 @ComponentScan({"org.activiti.cloud.connectors.starter", "org.activiti.cloud.connectors.reward"})
+@EnableScheduling
 public class RewardCloudConnectorApp implements CommandLineRunner {
 
 

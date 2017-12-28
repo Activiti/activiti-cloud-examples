@@ -31,15 +31,15 @@ services:
         - rabbitmq
       networks:
         - infrastructure
-#  activiti-cloud-connector-reward:
-#      image: activiti-cloud-connector-reward
-#      environment:
-#        - ACT_RABBITMQ_HOST=rabbitmq
-#        - JAVA_OPTS=’-Xmx128m -Xms128m’
-#      external_links:
-#        - rabbitmq
-#      networks:
-#        - infrastructure
+  activiti-cloud-connector-reward:
+      image: activiti-cloud-connector-reward
+      environment:
+        - ACT_RABBITMQ_HOST=rabbitmq
+        - JAVA_OPTS=’-Xmx128m -Xms128m’
+      external_links:
+        - rabbitmq
+      networks:
+        - infrastructure
 # we will join the infrastructure network defined by the infrastructure docker compose.
 networks:
   infrastructure:

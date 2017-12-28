@@ -16,7 +16,7 @@ import static net.logstash.logback.marker.Markers.append;
 
 @SpringBootApplication
 @ActivitiRuntimeBundle
-@EnableBinding({ProcessEngineChannels.class, CampaignMessageChannels.class})
+@EnableBinding({ProcessEngineChannels.class, CampaignMessageChannels.class, RewardMessageChannels.class})
 @EnableScheduling
 public class Application implements CommandLineRunner {
 
