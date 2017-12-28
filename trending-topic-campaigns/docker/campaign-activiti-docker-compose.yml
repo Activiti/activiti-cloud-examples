@@ -1,11 +1,11 @@
 version: '2'
 services:
-  english-campaign-rb:
+  english-campaign-activiti:
       image: english-campaign-rb
       environment:
         - ACT_RABBITMQ_HOST=rabbitmq
         - ACT_KEYCLOAK_URL=http://activiti-cloud-sso-idm:8180/auth
-        - ACT_RB_DB_URI=jdbc:postgresql://rb-postgres:5432/activitidb
+        - ACT_RB_DB_URI=jdbc:postgresql://activiti-postgres:5432/activitidb
         - ACT_RB_DB_USER=postgres
         - ACT_RB_DB_PASS=password
         - ACT_RB_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
@@ -13,10 +13,18 @@ services:
         - JAVA_OPTS=’-Xmx256m -Xms256m’
       external_links:
         - rabbitmq
-        - rb-postgres
+        - activiti-postgres
         - activiti-cloud-sso-idm
       networks:
         - infrastructure
+  activiti-postgres:
+      image: postgres
+      ports:
+       - "5432:5432"
+      environment:
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_USER=postgres
+        - POSTGRES_DB=activitidb
 
 # we will join the infrastructure network defined by the infrastructure docker compose.
 networks:

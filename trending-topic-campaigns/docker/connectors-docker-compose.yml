@@ -9,6 +9,7 @@ services:
 #        - TWITTER4J_OAUTH_ACCESSTOKEN=<TWITTER4J_OAUTH_ACCESSTOKEN>
 #        - TWITTER4J_OAUTH_ACCESSTOKENSECRET=<TWITTER4J_OAUTH_ACCESSTOKENSECRET>
         - JAVA_OPTS=’-Xmx128m -Xms128m’
+        - tweetrate=350
       external_links:
         - rabbitmq
       networks:
@@ -36,6 +37,7 @@ services:
       environment:
         - ACT_RABBITMQ_HOST=rabbitmq
         - JAVA_OPTS=’-Xmx128m -Xms128m’
+        - campaignCycle1_campaigns=activiti-en,alfresco-en
       external_links:
         - rabbitmq
       networks:

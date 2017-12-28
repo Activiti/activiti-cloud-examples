@@ -18,7 +18,7 @@ From this directory do:
 
 `eval $(minikube docker-env)`
 
-`mvn clean install`
+`mvn clean install -DskipTests`
 
 Then do `kubectl create -f <FILE_NAME>` for each of the kubernetes descriptor files.
 
@@ -33,7 +33,7 @@ For distributed tracing do `kubectl create -f tracing/`
 
 For logging you'll want as much ram as you can for for minikube. If you don't want to use it remove or change the SPRING_PROFILES_ACTIVE entries in the kub yml files to !kube. See also https://activiti.gitbooks.io/activiti-7-developers-guide/content/components/activiti-cloud-infra/logging.html
 
-To tail pod logs do kubectl logs -f --since=1000s <PODNAME>
+To tail pod logs do `kubectl logs -f --since=1000s <PODNAME>`
 
 ## What you'll see
 
