@@ -12,7 +12,7 @@ First do mvn clean install from this directory then do `docker-compose -f <FILE_
 
 ## To run with minikube
 
-First start minikube e.g. minikube start --memory 12000 --cpus 6
+First start minikube e.g. minikube start --memory 12000 --cpus 6 --extra-config=kubelet.CAdvisorPort=4194
 
 From this directory do:
 
@@ -33,7 +33,7 @@ For distributed tracing do `kubectl create -f tracing/`
 
 For logging you'll want as much ram as you can for for minikube. If you don't want to use it remove or change the SPRING_PROFILES_ACTIVE entries in the kub yml files to !kube. See also https://activiti.gitbooks.io/activiti-7-developers-guide/content/components/activiti-cloud-infra/logging.html
 
-To tail pod logs do `kubectl logs -f --since=1000s <PODNAME>`
+To tail pod logs do `kubectl logs -f --since=10000s <PODNAME>`
 
 ## What you'll see
 
@@ -44,3 +44,5 @@ To access kibana go to your minikube ip and port 30339 - user elastic and pass c
 For zipkin go to your minikube ip and port 30335
 
 If you look at the longest recent spans in zipkin you'll likely find matched posts, or search in kibana (under Discover) for 'sentiment score' using the default kibana index.
+
+To see memory usage and cpu usage do `open http://$(minikube ip):4194` or `docker stats $(docker ps --format={{.Names}})`

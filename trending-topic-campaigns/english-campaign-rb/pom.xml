@@ -88,7 +88,7 @@
                 <assembly>
                   <descriptorRef>artifact</descriptorRef>
                 </assembly>
-                <cmd>java -jar maven/${project.artifactId}-${project.version}.jar</cmd>
+                <cmd>java -Xmx128m -Xms128m -Xss128m -jar maven/${project.artifactId}-${project.version}.jar</cmd>
               </build>
             </image>
           </images>

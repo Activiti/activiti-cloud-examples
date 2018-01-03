@@ -8,7 +8,7 @@ services:
 #        - TWITTER4J_OAUTH_CONSUMERSECRET=<TWITTER4J_OAUTH_CONSUMERSECRET>
 #        - TWITTER4J_OAUTH_ACCESSTOKEN=<TWITTER4J_OAUTH_ACCESSTOKEN>
 #        - TWITTER4J_OAUTH_ACCESSTOKENSECRET=<TWITTER4J_OAUTH_ACCESSTOKENSECRET>
-        - JAVA_OPTS=’-Xmx128m -Xms128m’
+        - JAVA_OPTS=’-Xmx64m -Xms64m’
         - tweetrate=350
       external_links:
         - rabbitmq
@@ -18,7 +18,7 @@ services:
       image: activiti-cloud-connector-ranking
       environment:
         - ACT_RABBITMQ_HOST=rabbitmq
-        - JAVA_OPTS=’-Xmx128m -Xms128m’
+        - JAVA_OPTS=’-Xmx64m -Xms64m’
       external_links:
         - rabbitmq
       networks:
@@ -36,7 +36,7 @@ services:
       image: activiti-cloud-connector-reward
       environment:
         - ACT_RABBITMQ_HOST=rabbitmq
-        - JAVA_OPTS=’-Xmx128m -Xms128m’
+        - JAVA_OPTS=’-Xmx64m -Xms64m’
         - campaignCycle1_campaigns=activiti-en,alfresco-en
       external_links:
         - rabbitmq

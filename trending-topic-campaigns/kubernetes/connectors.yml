@@ -103,7 +103,7 @@ spec:
           - name: SPRING_APPLICATION_NAME
             value: "activiti-cloud-connector-ranking"
           - name: JAVA_OPTS
-            value: -Xmx128m -Xms128m
+            value: -Xmx64m -Xms64m
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
 ---
@@ -172,7 +172,7 @@ spec:
 #          - name: TWITTER4J_OAUTH_ACCESSTOKENSECRET
 #            value: <TWITTER4J_OAUTH_ACCESSTOKENSECRET>
           - name: JAVA_OPTS
-            value: -Xmx128m -Xms128m
+            value: -Xmx64m -Xms64m
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
           - name: tweetrate
@@ -237,7 +237,7 @@ spec:
           - name: campaignCycle1_campaigns
             value: "activiti-en"
           - name: JAVA_OPTS
-            value: -Xmx128m -Xms128m
+            value: -Xmx64m -Xms64m
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
 ---
