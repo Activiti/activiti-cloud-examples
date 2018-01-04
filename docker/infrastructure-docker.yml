@@ -13,9 +13,13 @@ services:
     image: activiti/activiti-cloud-registry:latest
     ports:
      - "8761:8761"
+    environment:
+      - JAVA_OPTS=-Xmx64m -Xms64m
   activiti-cloud-gateway:
     image: activiti/activiti-cloud-gateway:latest
     depends_on:
      - activiti-cloud-registry
     ports:
      - "8080:8080"
+    environment:
+      - JAVA_OPTS=-Xmx64m -Xms64m

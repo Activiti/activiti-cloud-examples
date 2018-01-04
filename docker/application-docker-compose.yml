@@ -8,6 +8,7 @@ services:
       - rabbitmq
     environment:
       - ACT_AUDIT_PORT=8181
+      - JAVA_OPTS=-Xmx128m -Xms128m
     # activiti-cloud-audit:
         # image: activiti/activiti-cloud-audit-mongodb:latest
         # external_links:
@@ -33,6 +34,7 @@ services:
       - rabbitmq
     environment:
       - ACT_QUERY_PORT=8182
+      - JAVA_OPTS=-Xmx128m -Xms128m
   # We define the name and the base image of our Runtime Bundle
   rb-my-app:
       # Set image: to whichever you are using
@@ -55,6 +57,7 @@ services:
         - ACT_RB_DB_USER=postgres
         - ACT_RB_DB_PASS=password
         - ACT_RB_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+        - JAVA_OPTS=-Xmx128m -Xms128m
       networks:
         - infrastructure
   # We decided to configure our runtime bundle against a PostgreSQL instance

@@ -10,7 +10,7 @@ services:
         - ACT_RB_DB_PASS=password
         - ACT_RB_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
         - CAMPAIGN_TOPIC=activiti
-        - JAVA_OPTS=’-Xmx128m -Xms128m’
+        - JAVA_OPTS=-Xmx128m -Xms128m
       external_links:
         - rabbitmq
         - activiti-postgres
