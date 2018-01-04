@@ -9,7 +9,7 @@ services:
 #        - TWITTER4J_OAUTH_ACCESSTOKEN=<TWITTER4J_OAUTH_ACCESSTOKEN>
 #        - TWITTER4J_OAUTH_ACCESSTOKENSECRET=<TWITTER4J_OAUTH_ACCESSTOKENSECRET>
         - JAVA_OPTS=’-Xmx64m -Xms64m’
-        - tweetrate=350
+        - tweet.rate=350
       external_links:
         - rabbitmq
       networks:

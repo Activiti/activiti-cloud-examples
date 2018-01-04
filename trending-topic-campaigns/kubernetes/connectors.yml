@@ -175,7 +175,7 @@ spec:
             value: -Xmx64m -Xms64m
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
-          - name: tweetrate
+          - name: tweet.rate
             value: "350"
 ---
 apiVersion: v1

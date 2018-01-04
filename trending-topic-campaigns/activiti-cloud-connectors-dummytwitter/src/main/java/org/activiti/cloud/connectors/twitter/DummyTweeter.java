@@ -1,5 +1,7 @@
 package org.activiti.cloud.connectors.twitter;
 
+import java.util.Random;
+
 import org.activiti.cloud.connectors.twitter.model.Tweet;
 import org.activiti.cloud.connectors.twitter.model.TweetEntity;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -7,8 +9,6 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.util.Random;
 
 
 @Component
@@ -23,7 +23,7 @@ public class DummyTweeter {
         this.tweetRepository = tweetRepository;
     }
 
-    @Scheduled(fixedRateString = "${tweetrate}")
+    @Scheduled(fixedRateString = "${tweet.rate}")
     public void startProcessWithTweet(){
 
         TweetEntity tweetEntity = getRandomTweet();
