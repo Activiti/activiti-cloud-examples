@@ -45,14 +45,14 @@ spec:
           image: activiti/activiti-cloud-audit:latest
           readinessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8181
             initialDelaySeconds: 100
             timeoutSeconds: 1
             periodSeconds: 15
           livenessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8181
             initialDelaySeconds: 120
             timeoutSeconds: 1
@@ -61,12 +61,16 @@ spec:
           ports:
             - containerPort: 8181
           env:
+          - name: JAVA_OPTS
+            value: -Xmx128m -Xms128m
           - name: ACT_AUDIT_PORT
             value: "8181"
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
           - name: ACT_KEYCLOAK_PATTERNS
             value: "/v1/*"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -89,14 +93,14 @@ spec:
           image: activiti/activiti-cloud-query:latest
           readinessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8182
             initialDelaySeconds: 100
             timeoutSeconds: 1
             periodSeconds: 15
           livenessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8182
             initialDelaySeconds: 120
             timeoutSeconds: 1
@@ -105,12 +109,16 @@ spec:
           ports:
             - containerPort: 8182
           env:
+          - name: JAVA_OPTS
+            value: -Xmx128m -Xms128m
           - name: ACT_QUERY_PORT
             value: "8182"
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
           - name: ACT_KEYCLOAK_PATTERNS
             value: "/v1/*"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -130,19 +138,21 @@ spec:
           image: activiti/example-runtime-bundle:latest
           readinessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8081
             initialDelaySeconds: 100
             timeoutSeconds: 1
             periodSeconds: 15
           livenessProbe:
             httpGet:
-              path: /application/status
+              path: /actuator/health
               port: 8081
             initialDelaySeconds: 120
             timeoutSeconds: 1
             periodSeconds: 15
           env:
+          - name: JAVA_OPTS
+            value: -Xmx512m -Xms512m
           - name: ACT_RB_HOST
             value: rb-my-app
           - name: ACT_RB_APP_NAME
@@ -163,7 +173,19 @@ spec:
             value: password
           - name: ACT_RB_DB_PLATFORM
             value: "org.hibernate.dialect.PostgreSQLDialect"
-
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
+        - name: rb-postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+          - name: POSTGRES_PASSWORD
+            value: password
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: activitidb
 ---
 apiVersion: v1
 kind: Service

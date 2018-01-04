@@ -1,0 +1,47 @@
+version: '2'
+services:
+  activiti-cloud-connector-twitter:
+      image: activiti-cloud-connector-twitter
+      environment:
+        - ACT_RABBITMQ_HOST=rabbitmq
+        - TWITTER4J_OAUTH_CONSUMERKEY=<TWITTER4J_OAUTH_CONSUMERKEY> #get credentials replacing placeholders by signing up at apps.twitter.com
+        - TWITTER4J_OAUTH_CONSUMERSECRET=<TWITTER4J_OAUTH_CONSUMERSECRET>
+        - TWITTER4J_OAUTH_ACCESSTOKEN=<TWITTER4J_OAUTH_ACCESSTOKEN>
+        - TWITTER4J_OAUTH_ACCESSTOKENSECRET=<TWITTER4J_OAUTH_ACCESSTOKENSECRET>
+        - JAVA_OPTS=’-Xmx128m -Xms128m’
+      external_links:
+        - rabbitmq
+      networks:
+        - infrastructure
+  activiti-cloud-connector-ranking:
+      image: activiti-cloud-connector-ranking
+      environment:
+        - ACT_RABBITMQ_HOST=rabbitmq
+        - JAVA_OPTS=’-Xmx128m -Xms128m’
+      external_links:
+        - rabbitmq
+      networks:
+        - infrastructure
+  activiti-cloud-connector-processing:
+      image: activiti-cloud-connector-processing
+      environment:
+        - ACT_RABBITMQ_HOST=rabbitmq
+        - JAVA_OPTS=’-Xmx128m -Xms128m’
+      external_links:
+        - rabbitmq
+      networks:
+        - infrastructure
+  activiti-cloud-connector-reward:
+      image: activiti-cloud-connector-reward
+      environment:
+        - ACT_RABBITMQ_HOST=rabbitmq
+        - JAVA_OPTS=’-Xmx128m -Xms128m’
+      external_links:
+        - rabbitmq
+      networks:
+        - infrastructure
+# we will join the infrastructure network defined by the infrastructure docker compose.
+networks:
+  infrastructure:
+    external:
+      name: docker_default

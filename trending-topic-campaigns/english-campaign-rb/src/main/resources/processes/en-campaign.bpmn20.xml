@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2017 Alfresco, Inc. and/or its affiliates.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Definitions_1"
+                  targetNamespace="http://bpmn.io/schema/bpmn"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+
+  <bpmn:process id="launchCampaign" name="launchCampaign" isExecutable="true">
+
+    <bpmn:startEvent id="start" name="Launch Campaign">
+      <bpmn:outgoing>SequenceFlow_0mvnahh</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0mvnahh" sourceRef="start" targetRef="serviceTaskProcessAndEvaluate"/>
+
+    <bpmn:serviceTask id="serviceTaskProcessAndEvaluate" name="Process &#38; Evaluate" implementation="Process English Tweet">
+      <bpmn:incoming>SequenceFlow_0mvnahh</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zmcdly</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="SequenceFlow_0zmcdly" sourceRef="serviceTaskProcessAndEvaluate" targetRef="matchCampaign"/>
+
+    <bpmn:exclusiveGateway id="matchCampaign">
+      <bpmn:incoming>SequenceFlow_0zmcdly</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ylainb</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0gpdih3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="SequenceFlow_0ylainb" name="not match" sourceRef="matchCampaign" targetRef="EndNotMatch">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!topicController.matchTopic(text,author)}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0gpdih3" name="match" sourceRef="matchCampaign" targetRef="serviceTaskAnalyze">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${topicController.matchTopic(text,author)}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="serviceTaskAnalyze" name="Analyze" implementation="Analyze English Tweet">
+      <bpmn:incoming>SequenceFlow_0gpdih3</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0yo24eg</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="serviceTaskRank" name="Rank" implementation="Rank Author of English Tweet">
+      <bpmn:incoming>SequenceFlow_0yo24eg</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_01qm4af</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0yo24eg" sourceRef="serviceTaskAnalyze" targetRef="serviceTaskRank"/>
+
+
+    <bpmn:endEvent id="EndRanked" name="Tweet Ranked">
+      <bpmn:incoming>SequenceFlow_01qm4af</bpmn:incoming>
+    </bpmn:endEvent>
+
+
+    <bpmn:sequenceFlow id="SequenceFlow_01qm4af" sourceRef="serviceTaskRank" targetRef="EndRanked"/>
+
+
+    <bpmn:endEvent id="EndNotMatch" name="Tweet Not Matched">
+      <bpmn:incoming>SequenceFlow_0ylainb</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+
+
+</bpmn:definitions>

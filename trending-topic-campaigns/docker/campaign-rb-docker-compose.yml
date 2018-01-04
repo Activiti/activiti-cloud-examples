@@ -1,0 +1,25 @@
+version: '2'
+services:
+  english-campaign-rb:
+      image: english-campaign-rb
+      environment:
+        - ACT_RABBITMQ_HOST=rabbitmq
+        - ACT_KEYCLOAK_URL=http://activiti-cloud-sso-idm:8180/auth
+        - ACT_RB_DB_URI=jdbc:postgresql://rb-postgres:5432/activitidb
+        - ACT_RB_DB_USER=postgres
+        - ACT_RB_DB_PASS=password
+        - ACT_RB_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+        - CAMPAIGN_TOPIC=trump
+        - JAVA_OPTS=’-Xmx256m -Xms256m’
+      external_links:
+        - rabbitmq
+        - rb-postgres
+        - activiti-cloud-sso-idm
+      networks:
+        - infrastructure
+
+# we will join the infrastructure network defined by the infrastructure docker compose.
+networks:
+  infrastructure:
+    external:
+      name: docker_default
