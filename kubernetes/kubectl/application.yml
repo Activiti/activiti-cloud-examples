@@ -1,5 +1,31 @@
 apiVersion: apps/v1beta1
 kind: Deployment
+metadata: 
+  name: postgres
+  labels:
+    serviceType: postgres
+spec:
+  replicas: 1
+  template: 
+    metadata: 
+      labels: 
+        app: postgres
+    spec: 
+      containers: 
+        - name: postgres
+          image: postgres
+          ports:
+          - containerPort: 5432
+          env:
+          - name: POSTGRES_PASSWORD
+            value: password
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: activitidb
+--- 
+apiVersion: apps/v1beta1
+kind: Deployment
 metadata:
   name: activiti-cloud-audit
   labels:
@@ -132,7 +158,7 @@ spec:
           - name: ACT_RB_APP_NAME
             value: rb-my-app
           - name: ACT_RB_DB_URI
-            value: jdbc:postgresql://127.0.0.1:5432/activitidb
+            value: jdbc:postgresql://postgres:5432/activitidb
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
           - name: ACT_KEYCLOAK_PATTERNS
@@ -160,7 +186,6 @@ spec:
             value: postgres
           - name: POSTGRES_DB
             value: activitidb
-
 ---
 apiVersion: v1
 kind: Service
@@ -200,4 +225,15 @@ spec:
     - port: 8081
       targetPort: 8081
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: postgres
+  namespace: default
+spec: 
+  selector: 
+    app: postgres
+  ports: 
+    - port: 5432
 ---
