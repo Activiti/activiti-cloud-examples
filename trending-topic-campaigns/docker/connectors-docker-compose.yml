@@ -27,7 +27,7 @@ services:
       image: activiti-cloud-connector-processing
       environment:
         - ACT_RABBITMQ_HOST=rabbitmq
-        - JAVA_OPTS=’-Xmx128m -Xms128m’
+        - JAVA_OPTS=’-Xmx256m -Xms256m’
       external_links:
         - rabbitmq
       networks:

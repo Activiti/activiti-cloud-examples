@@ -42,7 +42,7 @@ spec:
           - name: SPRING_APPLICATION_NAME
             value: "activiti-cloud-connector-processing"
           - name: JAVA_OPTS
-            value: -Xmx128m -Xms128m
+            value: -Xmx256m -Xms256m
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
 ---
