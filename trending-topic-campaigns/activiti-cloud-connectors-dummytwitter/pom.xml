@@ -7,11 +7,10 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>activiti-cloud-connectors-processing</artifactId>
-  <name>Activiti Cloud :: Activiti 3rd Party Cloud Connector</name>
-
+  <artifactId>activiti-cloud-connectors-dummytwitter</artifactId>
+  <name>Activiti Cloud :: Activiti Dummy Twitter Cloud Connector</name>
   <properties>
-    <ratelimitj.version>0.4.0</ratelimitj.version>
+    <twitter4j.version>[4.0,)</twitter4j.version>
   </properties>
 
   <dependencies>
@@ -19,35 +18,27 @@
       <groupId>org.activiti.cloud</groupId>
       <artifactId>activiti-cloud-starter-connector</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.activiti.cloud</groupId>
-      <artifactId>activiti-cloud-services-tracing</artifactId>
-    </dependency>
+
     <dependency>
       <groupId>org.activiti.cloud</groupId>
       <artifactId>activiti-cloud-services-logging</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>es.moki.ratelimitj</groupId>
-      <artifactId>ratelimitj-core</artifactId>
-      <version>${ratelimitj.version}</version>
+      <groupId>org.activiti.cloud</groupId>
+      <artifactId>activiti-cloud-services-tracing</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>es.moki.ratelimitj</groupId>
-      <artifactId>ratelimitj-inmemory</artifactId>
-      <version>${ratelimitj.version}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>edu.stanford.nlp</groupId>
-      <artifactId>stanford-corenlp</artifactId>
-      <version>3.8.0</version>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
     </dependency>
-    <dependency>
-      <groupId>edu.stanford.nlp</groupId>
-      <artifactId>stanford-corenlp</artifactId>
-      <version>3.8.0</version>
-      <classifier>models</classifier>
-    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -82,7 +73,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
-
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
@@ -90,8 +80,8 @@
         <configuration>
           <images>
             <image>
-              <name>activiti-cloud-connector-processing</name>
-              <alias>activiti-cloud-connector-processing</alias>
+              <name>activiti-cloud-connector-dummytwitter</name>
+              <alias>activiti-cloud-connector-dummytwitter</alias>
               <build>
                 <from>openjdk:alpine</from>
                 <assembly>

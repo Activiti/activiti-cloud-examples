@@ -228,7 +228,7 @@ items:
             httpGet:
               path: /api/v1/services
               port: 9411
-            initialDelaySeconds: 5
+            initialDelaySeconds: 50
           resources:
             limits:
               cpu: "0"
@@ -296,7 +296,7 @@ items:
           image: mysql:5.7
           name: zipkin-mysql
           readinessProbe:
-            initialDelaySeconds: 5
+            initialDelaySeconds: 30
             tcpSocket:
               port: 3306
           resources:

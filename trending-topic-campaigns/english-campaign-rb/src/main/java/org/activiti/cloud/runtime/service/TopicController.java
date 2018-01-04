@@ -20,7 +20,7 @@ public class TopicController {
 
     public TopicController( @Value("${campaign.topic}") String currentTopic) {
         this.currentTopic = currentTopic;
-        logger.debug("TopicController Created for topic: " + this.currentTopic);
+        logger.debug(append("service-name", appName), "TopicController Created for topic: " + this.currentTopic);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/topic")
