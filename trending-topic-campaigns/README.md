@@ -12,7 +12,7 @@ First do mvn clean install from this directory then do `docker-compose -f <FILE_
 
 ## To run with minikube
 
-First start minikube e.g. minikube start --memory 12000 --cpus 6 --extra-config=kubelet.CAdvisorPort=4194
+First start minikube e.g. `minikube start --memory 12000 --cpus 6 --extra-config=kubelet.CAdvisorPort=4194`
 
 From this directory do:
 
