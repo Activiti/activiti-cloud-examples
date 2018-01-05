@@ -1,4 +1,4 @@
-package org.activiti.cloud.connectors.external.analyzer;
+package org.activiti.cloud.connectors.processing.processor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,38 +13,39 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
-import static net.logstash.logback.marker.Markers.*;
+
+import static net.logstash.logback.marker.Markers.append;
+
 
 @Component
-public class TweetAnalyzerConnector {
+public class TwitterProcessingConnector {
 
-    private final Logger logger = LoggerFactory.getLogger(TweetAnalyzerConnector.class);
+    private final Logger logger = LoggerFactory.getLogger(TwitterProcessingConnector.class);
     @Value("${spring.application.name}")
     private String appName;
 
     private final MessageChannel integrationResultsProducer;
 
-    public TweetAnalyzerConnector(MessageChannel integrationResultsProducer) {
+
+    public TwitterProcessingConnector(MessageChannel integrationResultsProducer) {
+
         this.integrationResultsProducer = integrationResultsProducer;
     }
 
-    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Analyze English Tweet'")
-    public synchronized void analyzeEnglishTweet(IntegrationRequestEvent event) throws InterruptedException {
+    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Process English Tweet'")
+    public synchronized void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
 
         String tweet = String.valueOf(event.getVariables().get("text"));
+        logger.debug(append("service-name", appName),"placeholder for doing cleaning/processing of posted content sized "+(tweet==null?"null":tweet.length()));
+        //TODO: perform processing
+
 
         Map<String, Object> results = new HashMap<>();
-
-        // based on http://rahular.com/twitter-sentiment-analysis/
-        // note you get a lot of 1s but there are some zeros if you search for "attitude: 0"
-        results.put("attitude",
-                NLP.findSentiment(tweet));
-
-        logger.info(append("service-name", appName),"analyzed tweet with sentiment "+results.get("attitude"));
-
+        results.put("text",
+                tweet);
         IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
-                                                                results);
-
+                results);
         integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
     }
+
 }

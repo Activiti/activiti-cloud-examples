@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.activiti.cloud.connectors.external;
+package org.activiti.cloud.connectors.processing;
 
-import org.activiti.cloud.connectors.external.analyzer.NLP;
+import org.activiti.cloud.connectors.processing.analyzer.NLP;
 import org.activiti.cloud.connectors.starter.configuration.EnableActivitiCloudConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,18 +30,18 @@ import static net.logstash.logback.marker.Markers.append;
 
 @SpringBootApplication
 @EnableActivitiCloudConnector
-@ComponentScan({"org.activiti.cloud.connectors.starter", "org.activiti.cloud.connectors.external"})
-public class ExternalServiceCloudConnector implements CommandLineRunner {
+@ComponentScan({"org.activiti.cloud.connectors.starter", "org.activiti.cloud.connectors.processing"})
+public class ProcessingCloudConnector implements CommandLineRunner {
 
-    private Logger logger = LoggerFactory.getLogger(ExternalServiceCloudConnector.class);
+    private Logger logger = LoggerFactory.getLogger(ProcessingCloudConnector.class);
     @Value("${spring.application.name}")
     private String appName;
 
-    public ExternalServiceCloudConnector() {
+    public ProcessingCloudConnector() {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(ExternalServiceCloudConnector.class,
+        SpringApplication.run(ProcessingCloudConnector.class,
                               args);
     }
 

@@ -1,4 +1,4 @@
-package org.activiti.cloud.connectors.external.analyzer;
+package org.activiti.cloud.connectors.processing.analyzer;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;

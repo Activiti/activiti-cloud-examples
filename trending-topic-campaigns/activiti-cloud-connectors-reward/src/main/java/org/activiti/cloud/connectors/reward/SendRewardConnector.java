@@ -34,11 +34,11 @@ public class SendRewardConnector {
     public void tweet(IntegrationRequestEvent event)  {
         Map<String, Object> results = new HashMap<>();
         Collection winners = (Collection) event.getVariables().get("top");
+        String campaign = String.valueOf(event.getVariables().get("campaign"));
 
         for(Object winner:winners){
-            logger.info(append("service-name", appName),"#################################################################################");
-            logger.info(append("service-name", appName),"#  Reward time!!! You WON!!! ");
-            logger.info(append("service-name", appName)," I'm tweeting to a Winner: " + winner + " \n");
+            logger.info(append("service-name", appName),"#"+campaign+"#################################################################");
+            logger.info(append("service-name", appName),"#  Reward time!!! You WON "+winner+"!!! ");
             logger.info(append("service-name", appName),"#################################################################################");
         }
 
