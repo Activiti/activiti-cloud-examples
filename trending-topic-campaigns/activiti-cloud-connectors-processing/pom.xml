@@ -28,16 +28,6 @@
       <artifactId>activiti-cloud-services-logging</artifactId>
     </dependency>
     <dependency>
-      <groupId>es.moki.ratelimitj</groupId>
-      <artifactId>ratelimitj-core</artifactId>
-      <version>${ratelimitj.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>es.moki.ratelimitj</groupId>
-      <artifactId>ratelimitj-inmemory</artifactId>
-      <version>${ratelimitj.version}</version>
-    </dependency>
-    <dependency>
       <groupId>edu.stanford.nlp</groupId>
       <artifactId>stanford-corenlp</artifactId>
       <version>3.8.0</version>
