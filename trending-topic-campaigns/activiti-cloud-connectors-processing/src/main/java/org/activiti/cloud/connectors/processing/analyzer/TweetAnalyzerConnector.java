@@ -40,7 +40,7 @@ public class TweetAnalyzerConnector {
         results.put("attitude",
                 NLP.findSentiment(tweet));
 
-        logger.info(append("service-name", appName),"analyzed tweet with sentiment "+results.get("attitude"));
+        logger.info(append("service-name", appName),event.getExecutionId()+" analyzed tweet with sentiment "+results.get("attitude"));
 
         IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
                                                                 results);

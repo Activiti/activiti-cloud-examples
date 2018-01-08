@@ -34,7 +34,7 @@ public class UpdateAuthorRankConnector {
     }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Rank Author of English Tweet'")
-    public void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
+    public synchronized void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
 
         String author = String.valueOf(event.getVariables().get("author"));
         String campaign = String.valueOf(event.getVariables().get("campaign"));
@@ -55,7 +55,7 @@ public class UpdateAuthorRankConnector {
 
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Get Top Authors Ranked'")
-    public void getRanks(IntegrationRequestEvent event) throws InterruptedException {
+    public synchronized void getRanks(IntegrationRequestEvent event) throws InterruptedException {
 
         String campaign = String.valueOf(event.getVariables().get("campaign"));
         int top = Integer.valueOf(event.getVariables().get("nroTopAuthors").toString());

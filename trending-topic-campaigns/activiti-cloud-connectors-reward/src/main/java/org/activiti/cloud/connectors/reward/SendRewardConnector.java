@@ -31,7 +31,7 @@ public class SendRewardConnector {
     }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='SendRewardToWinners'")
-    public void tweet(IntegrationRequestEvent event)  {
+    public synchronized void tweet(IntegrationRequestEvent event)  {
         Map<String, Object> results = new HashMap<>();
         Collection winners = (Collection) event.getVariables().get("top");
         String campaign = String.valueOf(event.getVariables().get("campaign"));

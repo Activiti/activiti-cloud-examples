@@ -36,9 +36,8 @@ public class TwitterProcessingConnector {
     public synchronized void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
 
         String tweet = String.valueOf(event.getVariables().get("text"));
-        logger.debug(append("service-name", appName),"placeholder for doing cleaning/processing of posted content sized "+(tweet==null?"null":tweet.length()));
+        logger.info(append("service-name", appName),event.getExecutionId()+" placeholder for doing cleaning/processing of posted content sized "+(tweet==null?"null":tweet.length()));
         //TODO: perform processing
-
 
         Map<String, Object> results = new HashMap<>();
         results.put("text",
