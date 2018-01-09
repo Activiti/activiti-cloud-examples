@@ -57,7 +57,7 @@ services:
         - ACT_RB_DB_USER=postgres
         - ACT_RB_DB_PASS=password
         - ACT_RB_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
-        - JAVA_OPTS=-Xmx128m -Xms128m
+        - JAVA_OPTS=-Xmx256m -Xms256m
       networks:
         - infrastructure
   # We decided to configure our runtime bundle against a PostgreSQL instance
