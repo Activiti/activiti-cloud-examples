@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-audit
-          image: activiti/activiti-cloud-audit:latest
+          image: activiti/activiti-cloud-audit:7-201712-EA
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -64,7 +64,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-query
-          image: activiti/activiti-cloud-query:latest
+          image: activiti/activiti-cloud-query:7-201712-EA
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -135,7 +135,7 @@ spec:
     spec:
       containers:
         - name: rb-my-app
-          image: activiti/example-runtime-bundle:latest
+          image: activiti/example-runtime-bundle:7-201712-EA
           readinessProbe:
             httpGet:
               path: /actuator/health

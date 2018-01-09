@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.activiti.cloud</groupId>
     <artifactId>activiti-cloud-parent</artifactId>
-    <version>7-201712-EA-SNAPSHOT</version>
+    <version>7-201712-EA</version>
   </parent>
 
   <groupId>org.activiti.cloud.examples</groupId>
@@ -24,8 +24,8 @@
   </modules>
 
   <properties>
-    <version.activiti>7-201712-EA-SNAPSHOT</version.activiti>
-    <version.activiti.cloud>7-201712-EA-SNAPSHOT</version.activiti.cloud>
+    <version.activiti>7-201712-EA</version.activiti>
+    <version.activiti.cloud>7-201712-EA</version.activiti.cloud>
     <jdk.version>1.8</jdk.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring-boot-repackage-classifier>exec</spring-boot-repackage-classifier>

@@ -34,7 +34,7 @@ spec:
 #    spec:
 #      containers:
 #      - name: activiti-cloud-sso-idm-kub
-#        image: activiti/activiti-cloud-sso-idm:latest
+#        image: activiti/activiti-cloud-sso-idm:7-201712-EA
 #        imagePullPolicy: IfNotPresent
 #        ports:
 #        - containerPort: 30081

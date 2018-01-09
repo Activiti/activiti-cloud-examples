@@ -1,7 +1,7 @@
 version: '2'
 services:
   activiti-cloud-audit:
-    image: activiti/activiti-cloud-audit:latest
+    image: activiti/activiti-cloud-audit:7-201712-EA
     external_links:
       - activiti-cloud-sso-idm
       - activiti-cloud-registry
@@ -27,7 +27,7 @@ services:
         # ports:
          # - "27017:27017"
   activiti-cloud-query:
-    image: activiti/activiti-cloud-query:latest
+    image: activiti/activiti-cloud-query:7-201712-EA
     external_links:
       - activiti-cloud-sso-idm
       - activiti-cloud-registry
