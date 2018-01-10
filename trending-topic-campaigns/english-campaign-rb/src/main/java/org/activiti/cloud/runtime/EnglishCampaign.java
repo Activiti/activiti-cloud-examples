@@ -39,7 +39,7 @@ public class EnglishCampaign {
     }
 
     @StreamListener(value = CampaignMessageChannels.CAMPAIGN_CHANNEL, condition = "headers['lang']=='${campaign.lang}'")
-    public synchronized void tweet(Tweet tweet) {
+    public void tweet(Tweet tweet) {
         Map<String, Object> vars = new HashMap<>();
         vars.put("text",
                  tweet.getText());
@@ -52,7 +52,7 @@ public class EnglishCampaign {
     }
 
     @StreamListener(value = RewardMessageChannels.REWARD_CHANNEL, condition = "headers['lang']=='${campaign.lang}' and headers['campaign']=='${campaign.topic}'")
-    public synchronized void startPrizeProcess(Campaign campaign) {
+    public void startPrizeProcess(Campaign campaign) {
         logger.info("Starting Prize For Campaign: " + topicController.getCurrentTopic());
         Map<String, Object> vars = new HashMap<>();
         vars.put("campaign",
