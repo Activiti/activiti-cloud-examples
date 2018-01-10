@@ -29,7 +29,7 @@ public class TweetAnalyzerConnector {
     }
 
     @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Analyze English Tweet'")
-    public synchronized void analyzeEnglishTweet(IntegrationRequestEvent event) throws InterruptedException {
+    public void analyzeEnglishTweet(IntegrationRequestEvent event) throws InterruptedException {
 
         String tweet = String.valueOf(event.getVariables().get("text"));
 
