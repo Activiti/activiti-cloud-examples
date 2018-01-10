@@ -51,3 +51,9 @@ hs_err_pid*
 
 #node
 node_modules
+
+#Eclipse
+.settings
+.project
+.classpath
+.factorypath

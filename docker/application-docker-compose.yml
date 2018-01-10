@@ -28,6 +28,8 @@ services:
          # - "27017:27017"
   activiti-cloud-query:
     image: activiti/activiti-cloud-query:latest
+    ports:
+      - 8182:8182
     external_links:
       - activiti-cloud-sso-idm
       - activiti-cloud-registry
