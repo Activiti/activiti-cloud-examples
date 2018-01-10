@@ -1,10 +1,12 @@
 version: '2'
 services:
   rabbitmq:
-    image: rabbitmq:management
+    build: ./rabbitmq-stomp
+    image: rabbitmq:stomp
     ports:
       - "5672:5672"
       - "15672:15672"
+      - "61613:61613"
   activiti-cloud-sso-idm:
     image: activiti/activiti-cloud-sso-idm:latest
     ports:
@@ -23,3 +25,4 @@ services:
      - "8080:8080"
     environment:
       - JAVA_OPTS=-Xmx64m -Xms64m
+      # - ACT_KEYCLOAK_CORS=false
