@@ -9,6 +9,7 @@ import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -42,8 +43,9 @@ public class TwitterProcessingConnector {
         Map<String, Object> results = new HashMap<>();
         results.put("text",
                 tweet);
-        IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
-                results);
+        IntegrationResultEvent ire = IntegrationResultEventBuilder.resultFor(event)
+                .withVariables(results)
+                .build();
         integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
     }
 

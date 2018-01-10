@@ -9,6 +9,7 @@ import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -41,9 +42,10 @@ public class TweetAnalyzerConnector {
                 NLP.findSentiment(tweet));
 
         logger.info(append("service-name", appName),"analyzed tweet with sentiment "+results.get("attitude"));
+        IntegrationResultEvent ire = IntegrationResultEventBuilder.resultFor(event)
+                .withVariables(results)
+                .build();
 
-        IntegrationResultEvent ire = new IntegrationResultEvent(event.getExecutionId(),
-                                                                results);
 
         integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
     }
