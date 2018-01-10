@@ -17,6 +17,7 @@ services:
      - "8761:8761"
     environment:
       - JAVA_OPTS=-Xmx64m -Xms64m
+      - ACT_CLOUD_CONFIG_SERVER_ENABLED=false
   activiti-cloud-gateway:
     image: activiti/activiti-cloud-gateway:latest
     depends_on:
