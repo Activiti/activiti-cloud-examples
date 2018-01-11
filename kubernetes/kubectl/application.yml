@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-audit
-          image: activiti/activiti-cloud-audit:latest
+          image: activiti/activiti-cloud-audit-mongodb:latest
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -43,8 +43,15 @@ spec:
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
           - name: ACT_KEYCLOAK_PATTERNS
             value: "/v1/*"
+          - name: ACT_AUDIT_MONGO_HOST
+            value: mongo
+          - name: ACT_AUDIT_MONGO_PORT
+            value: "27017"
+          - name: ACT_AUDIT_MONGO_DB
+            value: activitidb
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
+        
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -119,6 +126,25 @@ spec:
             value: postgres
           - name: POSTGRES_DB
             value: activitidb
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mongo
+  labels:
+    serviceType: mongo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
+          ports:
+          - containerPort: 27017
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -226,4 +252,15 @@ spec:
     app: postgres
   ports:
     - port: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+  namespace: default
+spec:
+  selector:
+    app: mongo
+  ports:
+    - port: 27017
 ---

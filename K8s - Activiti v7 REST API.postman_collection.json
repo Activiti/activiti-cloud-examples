@@ -1,0 +1,1000 @@
+{
+	"info": {
+		"name": "K8s - Activiti v7 REST API",
+		"_postman_id": "86c93467-a42f-dbdd-955f-c383c6d6091a",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "audit",
+			"item": [
+				{
+					"name": "getEvents",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/audit/v1/events",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"audit",
+								"v1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEventsByProcessInstanceId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/audit/v1/events?processInstanceId={processInstanceId}",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"audit",
+								"v1",
+								"events"
+							],
+							"query": [
+								{
+									"key": "processInstanceId",
+									"value": "{processInstanceId}",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEventsByType",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/audit/v1/events?eventType={eventType}",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"audit",
+								"v1",
+								"events"
+							],
+							"query": [
+								{
+									"key": "eventType",
+									"value": "{eventType}",
+									"equals": true
+								}
+							]
+						},
+						"description": "Filter events based on event type:\n- ProcessStartedEvent\n- TaskAssignedEvent\n- ..."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gateway",
+			"item": [
+				{
+					"name": "routes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/actuator/routes",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"actuator",
+								"routes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "keycloak",
+			"item": [
+				{
+					"name": "getKeycloakToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var tokens=JSON.parse(responseBody); ",
+									"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); "
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "activiti",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "hruser",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30081/auth/realms/springboot/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30081",
+							"path": [
+								"auth",
+								"realms",
+								"springboot",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rb-my-app",
+			"item": [
+				{
+					"name": "getProcessInstances",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/process-instances",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"rb-my-app",
+								"v1",
+								"process-instances"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "startProcess",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"aget\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/process-instances",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"rb-my-app",
+								"v1",
+								"process-instances"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProcessVariables",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/process-instances/{processInstanceId}/variables",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"rb-my-app",
+								"v1",
+								"process-instances",
+								"{processInstanceId}",
+								"variables"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/tasks?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"rb-my-app",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTask",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/tasks/{taskId}?taskId=aa",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"rb-my-app",
+								"v1",
+								"tasks",
+								"{taskId}"
+							],
+							"query": [
+								{
+									"key": "taskId",
+									"value": "aa",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "claimTask",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"rb-my-app",
+								"v1",
+								"tasks",
+								"{taskId}",
+								"claim"
+							],
+							"query": [
+								{
+									"key": "assignee",
+									"value": "hruser",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "completeTask",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/rb-my-app/v1/tasks/{taskId}/complete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rb-my-app",
+								"v1",
+								"tasks",
+								"{taskId}",
+								"complete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProcessDefinitions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/process-definitions",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"rb-my-app",
+								"v1",
+								"process-definitions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "query",
+			"item": [
+				{
+					"name": "queryProcessInstances",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/process-instances?page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"query",
+								"v1",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "queryProcessInstancesLastModified",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"query",
+								"v1",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "lastModifiedFrom",
+									"value": "2011-12-03",
+									"equals": true
+								},
+								{
+									"key": "lastModifiedTo",
+									"value": "2040-12-03",
+									"equals": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true
+								}
+							]
+						},
+						"description": "Retrieves process instances having last modified date between two given dates"
+					},
+					"response": []
+				},
+				{
+					"name": "queryProcessInstanceVariables",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/process-instances/{processInstanceId}/variables",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"query",
+								"v1",
+								"process-instances",
+								"{processInstanceId}",
+								"variables"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "queryRunningProcessInstances",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/query/v1/process-instances?status=RUNNING&page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"v1",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "RUNNING",
+									"equals": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true
+								}
+							]
+						},
+						"description": "Retrieve process instances with status RUNNING"
+					},
+					"response": []
+				},
+				{
+					"name": "queryCompletedProcessInstances",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/process-instances?status=COMPLETED&page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"query",
+								"v1",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "COMPLETED",
+									"equals": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true
+								}
+							]
+						},
+						"description": "Retrieve process instances with status COMPLETED"
+					},
+					"response": []
+				},
+				{
+					"name": "queryTasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks?page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "queryTaskVariables",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks/{taskId}/variables",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"query",
+								"v1",
+								"tasks",
+								"{taskId}",
+								"variables"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "queryTasksWithPriority",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks?priority=50&page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "priority",
+									"value": "50",
+									"equals": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "queryCreatedTasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks?status=CREATED&page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "CREATED",
+									"equals": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true
+								}
+							]
+						},
+						"description": "Retrieve tasks with status CREATED"
+					},
+					"response": []
+				},
+				{
+					"name": "queryAssignedTasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks?status=ASSIGNED&page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ASSIGNED",
+									"equals": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true
+								}
+							]
+						},
+						"description": "Retrieve tasks with status ASSIGNED"
+					},
+					"response": []
+				},
+				{
+					"name": "queryCompletedTasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks?status=COMPLETED&page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"activiti-cloud-sso-idm-kub"
+							],
+							"port": "30080",
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "COMPLETED",
+									"equals": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true
+								}
+							]
+						},
+						"description": "Retrieve tasks with status COMPLETED"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
