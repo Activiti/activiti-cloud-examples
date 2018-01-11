@@ -45,6 +45,8 @@ spec:
             value: "/v1/*"
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
+          - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "false"
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -93,6 +95,8 @@ spec:
             value: "/v1/*"
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
+          - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "false"
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -176,6 +180,8 @@ spec:
             value: "org.hibernate.dialect.PostgreSQLDialect"
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
+          - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "false"
 ---
 apiVersion: v1
 kind: Service

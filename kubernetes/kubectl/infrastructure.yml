@@ -111,6 +111,8 @@ spec:
           env:
           - name: JAVA_OPTS
             value: -Xmx64m -Xms64m
+          - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "false"
 ---
 apiVersion: v1
 kind: Service
