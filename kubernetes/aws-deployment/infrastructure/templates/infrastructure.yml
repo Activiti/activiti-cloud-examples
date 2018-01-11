@@ -52,6 +52,8 @@ spec:
             value: "/v1/*"
           - name: SPRING_PROFILES_ACTIVE
             value: kube
+          - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "false"
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -100,6 +102,8 @@ spec:
             value: "/v1/*"
           - name: SPRING_PROFILES_ACTIVE
             value: kube
+          - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "false"
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -156,6 +160,8 @@ spec:
             value: "org.hibernate.dialect.PostgreSQLDialect"
           - name: SPRING_PROFILES_ACTIVE
             value: kube
+          - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "false"
         - name: rb-postgres
           image: postgres
           ports:
@@ -272,6 +278,8 @@ spec:
           env:
           - name: JAVA_OPTS
             value: -Xmx64m -Xms64m
+          - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "false"
 ---
 apiVersion: v1
 kind: Service
