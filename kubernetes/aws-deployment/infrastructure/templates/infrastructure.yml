@@ -1,0 +1,372 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-audit
+  labels:
+    app: infrastructure
+    serviceType: audit
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-audit
+      labels:
+        app: infrastructure
+        serviceType: audit
+    spec:
+      containers:
+        - name: activiti-cloud-audit
+          image: activiti/activiti-cloud-audit:latest
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8181
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8181
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8181
+          env:
+          - name: JAVA_OPTS
+            value: -Xmx128m -Xms128m
+          - name: ACT_AUDIT_PORT
+            value: "8181"
+#          - name: ACT_AUDIT_HOST
+#            value: "activiti-cloud-audit"
+#          - name: ACT_EUREKA_URL
+#            value: "http://{{ .Release.Name }}-activiti-cloud-registry:8761/eureka/"
+#          - name: ACT_RABBITMQ_HOST
+#            value: "{{ .Values.rabbitmq }}"
+          - name: ACT_KEYCLOAK_URL
+            value: "{{ .Values.keycloakURL }}"
+          - name: ACT_KEYCLOAK_PATTERNS
+            value: "/v1/*"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-query
+  labels:
+    app: infrastructure
+    serviceType: query
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-query
+      labels:
+        app: infrastructure
+        serviceType: query
+    spec:
+      containers:
+        - name: activiti-cloud-query
+          image: activiti/activiti-cloud-query:latest
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8182
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8182
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8182
+          env:
+          - name: JAVA_OPTS
+            value: -Xmx128m -Xms128m
+          - name: ACT_QUERY_PORT
+            value: "8182"
+          - name: ACT_KEYCLOAK_URL
+            value: "{{ .Values.keycloakURL }}"
+          - name: ACT_KEYCLOAK_PATTERNS
+            value: "/v1/*"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rb-my-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: rb-my-app
+      labels:
+        app: rb-my-app
+        serviceType: runtime-bundle
+    spec:
+      containers:
+        - name: rb-my-app
+          image: activiti/example-runtime-bundle:latest
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8081
+            initialDelaySeconds: 100
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8081
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 15
+          env:
+          - name: JAVA_OPTS
+            value: -Xmx512m -Xms512m
+          - name: ACT_RB_HOST
+            value: rb-my-app
+          - name: ACT_RB_APP_NAME
+            value: rb-my-app
+          - name: ACT_RB_DB_URI
+            value: jdbc:postgresql://127.0.0.1:5432/activitidb
+          - name: ACT_KEYCLOAK_URL
+            value: "{{ .Values.keycloakURL }}"
+          - name: ACT_KEYCLOAK_PATTERNS
+            value: "/v1/*"
+          - name: ACT_EUREKA_URL
+            value: "http://activiti-cloud-registry:8761/eureka/"
+          - name: ACT_RABBITMQ_HOST
+            value: "rabbitmq"
+          - name: ACT_RB_DB_USER
+            value: postgres
+          - name: ACT_RB_DB_PASS
+            value: password
+          - name: ACT_RB_DB_PLATFORM
+            value: "org.hibernate.dialect.PostgreSQLDialect"
+          - name: SPRING_PROFILES_ACTIVE
+            value: kube
+        - name: rb-postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+          - name: POSTGRES_PASSWORD
+            value: password
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: activitidb
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: rabbitmq
+      labels:
+        app: infrastructure
+        serviceType: message-broker
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:management
+          ports:
+          - containerPort: 5672
+          - containerPort: 15672
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-gateway
+  labels:
+    app: infrastructure
+    serviceType: gateway
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-gateway
+      labels:
+        app: infrastructure
+        serviceType: gateway
+    spec:
+      containers:
+        - name: activiti-cloud-gateway
+          image: activiti/activiti-cloud-gateway:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+          env:
+          - name: JAVA_OPTS
+            value: -Xmx64m -Xms64m
+          - name: ACT_KEYCLOAK_URL
+            value: "{{ .Values.keycloakURL }}"
+          - name: ACT_GATEWAY_HOST
+            value: "entrypoint"
+#          - name: ACT_EUREKA_URL
+#            value: "http://activiti-cloud-registry:8761/eureka/"
+#          - name: ACT_RABBITMQ_HOST
+#            value: "{{ .Values.rabbitmqReleaseName }}"
+---
+#apiVersion: apps/v1beta1
+#kind: Deployment
+#metadata:
+#  name: activiti-cloud-sso-idm-kub
+#spec:
+#  replicas: 1
+#  template:
+#    metadata:
+#      name: activiti-cloud-sso-idm-kub
+#      labels:
+#        app: infrastructure
+#        serviceType: sso-idm
+#    spec:
+#      containers:
+#      - name: activiti-cloud-sso-idm-kub
+#        image: activiti/activiti-cloud-sso-idm:latest
+#        imagePullPolicy: Always
+#        ports:
+#        - containerPort: 30081
+#        env:
+##        - name: JAVA_OPTS
+##          value: -Xmx256m -Xms256m
+#        - name: PORT_OFFSET
+#          value: "22001"
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-registry
+  labels:
+    app: infrastructure
+    serviceType: registry
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-registry
+      labels:
+        app: infrastructure
+        serviceType: registry
+    spec:
+      containers:
+        - name: activiti-cloud-registry
+          image: activiti/activiti-cloud-registry:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8761
+          env:
+          - name: JAVA_OPTS
+            value: -Xmx64m -Xms64m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: default
+spec:
+  selector:
+    serviceType: message-broker
+  ports:
+    - port: 5672
+      name: broker
+      targetPort: 5672
+    - port: 15672
+      name: admin
+      targetPort: 15672
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-registry
+  namespace: default
+spec:
+  selector:
+    serviceType: registry
+  ports:
+    - port: 8761
+      targetPort: 8761
+  type: ClusterIP
+---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: activiti-cloud-sso-idm-kub
+#  namespace: default
+#spec:
+#  selector:
+#    serviceType: sso-idm
+#  ports:
+#    - port: 30081
+#      targetPort: 30081
+##      nodePort: 30081 # uncomment for minikube, comment for Kube
+#  type: LoadBalancer #NodePort for minikube, LoadBalancer for Kube
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: entrypoint
+  namespace: default
+spec:
+  selector:
+    serviceType: gateway
+  ports:
+    - port: 8080
+      targetPort: 8080
+#      nodePort: 30080 # uncomment for minikube, comment for Kube
+  type: LoadBalancer #NodePort for minikube, LoadBalancer for Kube
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-audit
+  namespace: default
+spec:
+  selector:
+    serviceType: audit
+  ports:
+    - port: 8181
+      targetPort: 8181
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-query
+  namespace: default
+spec:
+  selector:
+    serviceType: query
+  ports:
+    - port: 8182
+      targetPort: 8182
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rb-my-app
+  namespace: default
+spec:
+  selector:
+    serviceType: runtime-bundle
+  ports:
+    - port: 8081
+      targetPort: 8081
+  type: ClusterIP
+---
