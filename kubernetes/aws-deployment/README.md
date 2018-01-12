@@ -24,7 +24,7 @@ You need to use the right **~/.kube/config** file which points to the right clus
 
 Now you are able to interact with Activiti API as you have keycloak and gateway urls.
 
-### Logging and Treacing tools
+### Logging and Tracing tools
 
 1. `kubectl create -f tracing/`
 
