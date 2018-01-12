@@ -23,6 +23,8 @@ spec:
 #          value: -Xmx256m -Xms256m
         - name: PORT_OFFSET
           value: "22001"
+        - name: DB_VENDOR
+          value: "H2"
 ---
 apiVersion: v1
 kind: Service
