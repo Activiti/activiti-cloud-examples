@@ -51,6 +51,148 @@ Ensure you have docker installed and increase the memory allocation to at least 
     
 To customise runtime-bundles to use different processes, modify the image name (defaulted to `example-runtime-bundle`) before building it in step 6. You can start multiple instances of the same runtime bundle by adding them into the compose in step 6 using different host and container name and the same `ACT_RB_APP_NAME`.
     
+## GraphQL Queries & Subscriptions
+
+`activiti-cloud-query` service now exposes GraphQL endpoint `/graphql` and includes embedded GraphiQL browser at (http://localhost:8182/graphiql.html) which can be used for running interactive GraphQL queries and subscriptions in the browser.  Because, Netflix Zuul Proxy in activiti-cloud-gateway does not support native sockets.io protocol, `activiti-cloud-query` exposes 8182 port in Docker container as a workaround to access GraphQL websocket backend for the GraphiQL app. 
+ 
+GraphiQL browser has Docs panel with query and subscription schema documentation. It can opened by clicking on the button in the upper right corner to expose current test schema models. You can build GraphQL queries in the left pannel using built-in code assist (Ctrl+Space). Type the query and hit the run button. The results should come up in the middle panel. If your query has variables, there is a minimized panel at the bottom left. Simply click on this to expand, and type in your variables as a JSON string with quoted keys.
+  
+To test GraphQL notifications, copy/paste GraphQL subscription and press Run button. Then, start any process instance using Postman and observe real-time notification appear in GraphiQL query result window. 
+
+    subscription {
+      ProcessEngineNotification(applicationName: "rb-my-app") {
+        processInstanceId
+        applicationName
+        processDefinitionId
+
+        ProcessStartedEvent {
+          executionId
+          timestamp
+          applicationName
+          processInstanceId
+          executionId
+          processDefinitionId
+        }
+
+        ProcessCompletedEvent {
+          executionId
+          timestamp
+          applicationName
+          processInstanceId
+          executionId
+          processDefinitionId
+          processInstance {
+            id
+            name
+            description
+            initiator
+            businessKey
+            status
+          }
+        }
+
+        TaskCreatedEvent {
+          executionId
+          timestamp
+          task {
+            id
+            name
+            priority
+            status
+            createdDate
+          }
+        }
+
+        TaskAssignedEvent {
+          executionId
+          timestamp
+          task {
+            id
+            name
+            priority
+            status
+            createdDate
+          }
+        }
+
+        TaskCompletedEvent {
+          executionId
+          timestamp
+          task {
+            id
+            name
+            priority
+            status
+            createdDate
+          }
+        }
+
+        ActivityStartedEvent {
+          executionId
+          timestamp
+          activityId
+          activityType
+        }
+
+        ActivityCompletedEvent {
+          executionId
+          timestamp
+          activityId
+          activityType
+        }
+
+        SequenceFlowTakenEvent {
+          executionId
+          timestamp
+          sequenceFlowId
+          sourceActivityId
+          sourceActivityType
+          targetActivityId
+          targetActivityName
+          targetActivityType
+        }
+
+        VariableCreatedEvent {
+          executionId
+          timestamp
+          variableName
+          variableValue
+          variableType
+        }
+
+      }
+    }
+
+Then execute GraphQL query in another GraphiQL tab (http://localhost:8182/graphiql.html), copy/paste query below and click Run button:
+
+    query {
+      ProcessInstances {
+        select {
+          processInstanceId
+          processDefinitionId
+          status
+          tasks {
+            id
+            name
+            assignee
+            status
+            variables {
+              name
+              value
+              type
+            }
+          }
+          variables {
+            name
+            value
+            type
+          }
+        }
+      }
+    }
+
+
+
 ## Question / Issues / Comments
 Please feel free to open an issue or get in touch with us if you have problems running these 
 examples. You can join us in [Gitter](https://gitter.im/Activiti/Activiti7?utm_source=share-link&utm_medium=link&utm_campaign=share-link) if you want assistance or have questions. 
