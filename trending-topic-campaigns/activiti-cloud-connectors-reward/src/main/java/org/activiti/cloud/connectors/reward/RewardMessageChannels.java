@@ -7,7 +7,11 @@ import org.springframework.messaging.SubscribableChannel;
 
 public interface RewardMessageChannels {
     String REWARD_CHANNEL = "rewardProducer";
+    String REWARD_CONSUMER = "rewardConsumer";
 
     @Output(REWARD_CHANNEL)
     MessageChannel rewardProducer();
+
+    @Input(REWARD_CONSUMER)
+    SubscribableChannel rewardConsumer();
 }
