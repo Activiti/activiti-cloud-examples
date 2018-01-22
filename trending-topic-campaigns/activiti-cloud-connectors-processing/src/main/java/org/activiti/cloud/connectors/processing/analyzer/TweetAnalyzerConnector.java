@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.activiti.cloud.connectors.processing.ProcessingConnectorChannels;
+import org.activiti.cloud.connectors.starter.channels.IntegrationResultSender;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
@@ -12,8 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import static net.logstash.logback.marker.Markers.append;
@@ -26,10 +26,10 @@ public class TweetAnalyzerConnector {
     @Value("${spring.application.name}")
     private String appName;
 
-    private final MessageChannel integrationResultsProducer;
+    private final IntegrationResultSender integrationResultSender;
 
-    public TweetAnalyzerConnector(MessageChannel integrationResultsProducer) {
-        this.integrationResultsProducer = integrationResultsProducer;
+    public TweetAnalyzerConnector(IntegrationResultSender integrationResultSender) {
+        this.integrationResultSender = integrationResultSender;
     }
 
     @StreamListener(value = ProcessingConnectorChannels.TWITTER_ANALYZER_CONSUMER)
@@ -45,11 +45,11 @@ public class TweetAnalyzerConnector {
                 NLP.findSentiment(tweet));
 
         logger.info(append("service-name", appName),"analyzed tweet with sentiment "+results.get("attitude"));
-        IntegrationResultEvent ire = IntegrationResultEventBuilder.resultFor(event)
+
+        Message<IntegrationResultEvent> message = IntegrationResultEventBuilder.resultFor(event)
                 .withVariables(results)
-                .build();
+                .buildMessage();
 
-
-        integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
+        integrationResultSender.send(message);
     }
 }
