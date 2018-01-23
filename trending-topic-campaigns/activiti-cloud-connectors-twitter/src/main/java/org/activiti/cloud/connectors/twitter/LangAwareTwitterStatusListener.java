@@ -21,6 +21,7 @@ public class LangAwareTwitterStatusListener implements StatusListener {
         this.campaignProducer = campaignProducer;
     }
 
+    @Override
     public void onStatus(Status status) {
 
         Tweet t = new Tweet(status.getText(),
@@ -35,9 +36,11 @@ public class LangAwareTwitterStatusListener implements StatusListener {
                                                                       t.getLang()).build());
     }
 
+    @Override
     public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
     }
 
+    @Override
     public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
     }
 
