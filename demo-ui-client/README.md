@@ -1,15 +1,32 @@
-# ADF/APS Application with Angular CLI
+# ADF/APS JavaScript Application with Angular CLI to check Activiti cloud setup
 
-Minimal ready-to-use Angular CLI project template pre-configured with ADF 2.0.0 components.
+This demo just shows how to access Activiti 7 Cloud endpoints from a web client.
+
+It is build from a minimal ready-to-use Angular CLI project template pre-configured with ADF 2.0.0 components.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0
 
 ## Quick start
 
+First follow the steps to start the services using docker-compose (and have activiti-cloud-sso-idm hostname mapped in your hosts file).
+
+Alternatively use the steps in the kubernetes folder to start using minikube. If doing so then change gatewayUrl in main-controller and auth server url in keycloak.json (see kubernetes README).
+
+
 ```sh
 npm install
 npm start
 ```
+
+Then open a new browser window and go to http://localhost:3000/#/main  (use incognito if you've had previous session)
+
+Log in as testuser/password
+
+## Notes
+
+Routes will take time to register with the gateway. If a run-time bundle of the expected name is not deployed then certain calls will fail. The URLs can be adjusted to call different run-time bundles.
+
+This app runs outside the gateway and also uses keycloak so it therefore shows that the gateway is enabled for CORS. See the gateway project for how to configure CORS using keycloak.cors properties (which are exposed as env variables for docker).
 
 ## Supported ADF component libraries
 
