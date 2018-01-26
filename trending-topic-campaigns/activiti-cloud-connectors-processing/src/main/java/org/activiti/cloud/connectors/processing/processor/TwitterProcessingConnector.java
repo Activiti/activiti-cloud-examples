@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.activiti.cloud.connectors.processing.ProcessingConnectorChannels;
+import org.activiti.cloud.connectors.starter.channels.IntegrationResultSender;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
@@ -12,8 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import static net.logstash.logback.marker.Markers.append;
@@ -27,12 +27,11 @@ public class TwitterProcessingConnector {
     @Value("${spring.application.name}")
     private String appName;
 
-    private final MessageChannel integrationResultsProducer;
+    private final IntegrationResultSender integrationResultSender;
 
+    public TwitterProcessingConnector(IntegrationResultSender integrationResultSender) {
 
-    public TwitterProcessingConnector(MessageChannel integrationResultsProducer) {
-
-        this.integrationResultsProducer = integrationResultsProducer;
+        this.integrationResultSender = integrationResultSender;
     }
 
     @StreamListener(value = ProcessingConnectorChannels.TWITTER_PROCESSING_CONSUMER)
@@ -45,10 +44,10 @@ public class TwitterProcessingConnector {
         Map<String, Object> results = new HashMap<>();
         results.put("text",
                 tweet);
-        IntegrationResultEvent ire = IntegrationResultEventBuilder.resultFor(event)
+        Message<IntegrationResultEvent> message = IntegrationResultEventBuilder.resultFor(event)
                 .withVariables(results)
-                .build();
-        integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
+                .buildMessage();
+        integrationResultSender.send(message);
     }
 
 }

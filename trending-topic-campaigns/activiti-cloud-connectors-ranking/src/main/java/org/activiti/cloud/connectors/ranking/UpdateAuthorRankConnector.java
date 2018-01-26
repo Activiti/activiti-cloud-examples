@@ -3,6 +3,7 @@ package org.activiti.cloud.connectors.ranking;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.activiti.cloud.connectors.starter.channels.IntegrationResultSender;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
@@ -11,8 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import static net.logstash.logback.marker.Markers.append;
@@ -25,13 +25,13 @@ public class UpdateAuthorRankConnector {
     @Value("${spring.application.name}")
     private String appName;
 
-    private final MessageChannel integrationResultsProducer;
+    private final IntegrationResultSender integrationResultSender;
 
     private final RankingService rankingService;
 
-    public UpdateAuthorRankConnector(MessageChannel integrationResultsProducer,
+    public UpdateAuthorRankConnector(IntegrationResultSender integrationResultSender,
                                      RankingService rankingService) {
-        this.integrationResultsProducer = integrationResultsProducer;
+        this.integrationResultSender = integrationResultSender;
         this.rankingService = rankingService;
     }
 
@@ -43,19 +43,20 @@ public class UpdateAuthorRankConnector {
         String attitude = String.valueOf(event.getVariables().get("attitude"));
         String processedMessage = String.valueOf(event.getVariables().get("text"));
 
-        logger.info(append("service-name", appName),"rank author >>> Received a Tweet from: " + author + " related to the campaign: " + campaign + " with attitude/sentiment score: " + attitude + " - > " + processedMessage);
+        logger.info(append("service-name",
+                           appName),
+                    "rank author >>> Received a Tweet from: " + author + " related to the campaign: " + campaign + " with attitude/sentiment score: " + attitude + " - > " + processedMessage);
 
-        rankingService.rank(campaign, author);
+        rankingService.rank(campaign,
+                            author);
 
         Map<String, Object> results = new HashMap<>();
 
-        IntegrationResultEvent ire = IntegrationResultEventBuilder.resultFor(event)
+        Message<IntegrationResultEvent> message = IntegrationResultEventBuilder.resultFor(event)
                 .withVariables(results)
-                .build();
-
-        integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
+                .buildMessage();
+        integrationResultSender.send(message);
     }
-
 
     @StreamListener(value = RankingConnectorChannels.GET_RANK_CONSUMER)
     public void getRanks(IntegrationRequestEvent event) throws InterruptedException {
@@ -66,18 +67,18 @@ public class UpdateAuthorRankConnector {
         Map<String, Object> topAuthorsInCampaign = extractTopAuthorsFromCampaign(campaign,
                                                                                  top);
 
-        IntegrationResultEvent ire = IntegrationResultEventBuilder.resultFor(event)
+        Message<IntegrationResultEvent> message = IntegrationResultEventBuilder.resultFor(event)
                 .withVariables(topAuthorsInCampaign)
-                .build();
-
-        integrationResultsProducer.send(MessageBuilder.withPayload(ire).build());
+                .buildMessage();
+        integrationResultSender.send(message);
     }
 
     private Map<String, Object> extractTopAuthorsFromCampaign(String campaign,
                                                               int top) {
         Map<String, Object> results = new HashMap<>();
-        results.put("top", rankingService.getTop(campaign, top));
+        results.put("top",
+                    rankingService.getTop(campaign,
+                                          top));
         return results;
     }
-
 }

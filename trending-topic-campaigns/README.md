@@ -29,7 +29,7 @@ If you also want distributed logging then after starting minikube do
 
 and deploy with `kubectl create -f logging/`
 
-For distributed tracing do `kubectl create -f tracing/`
+For distributed tracing do `kubectl create -f tracing/` but note that currently traceIds are not being continued from runtime bundle to connectors - this appears to be a sleuth bug.
 
 For logging you'll want as much ram as you can for for minikube. If you don't want to use it remove or change the SPRING_PROFILES_ACTIVE entries in the kub yml files to !kube. See also https://activiti.gitbooks.io/activiti-7-developers-guide/content/components/activiti-cloud-infra/logging.html
 
