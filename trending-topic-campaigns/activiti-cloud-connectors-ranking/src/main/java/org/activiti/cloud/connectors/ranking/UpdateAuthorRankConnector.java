@@ -3,13 +3,13 @@ package org.activiti.cloud.connectors.ranking;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
+import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import static net.logstash.logback.marker.Markers.append;
 
 @Component
+@EnableBinding(RankingConnectorChannels.class)
 public class UpdateAuthorRankConnector {
 
     private Logger logger = LoggerFactory.getLogger(UpdateAuthorRankConnector.class);
@@ -34,7 +35,7 @@ public class UpdateAuthorRankConnector {
         this.rankingService = rankingService;
     }
 
-    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Rank Author of English Tweet'")
+    @StreamListener(value = RankingConnectorChannels.UPDATE_RANK_CONSUMER)
     public void processEnglish(IntegrationRequestEvent event) throws InterruptedException {
 
         String author = String.valueOf(event.getVariables().get("author"));
@@ -56,7 +57,7 @@ public class UpdateAuthorRankConnector {
     }
 
 
-    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Get Top Authors Ranked'")
+    @StreamListener(value = RankingConnectorChannels.GET_RANK_CONSUMER)
     public void getRanks(IntegrationRequestEvent event) throws InterruptedException {
 
         String campaign = String.valueOf(event.getVariables().get("campaign"));

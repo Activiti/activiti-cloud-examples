@@ -3,20 +3,23 @@ package org.activiti.cloud.connectors.processing.analyzer;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
+import org.activiti.cloud.connectors.processing.ProcessingConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
+import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
-import static net.logstash.logback.marker.Markers.*;
+
+import static net.logstash.logback.marker.Markers.append;
 
 @Component
+@EnableBinding(ProcessingConnectorChannels.class)
 public class TweetAnalyzerConnector {
 
     private final Logger logger = LoggerFactory.getLogger(TweetAnalyzerConnector.class);
@@ -29,7 +32,7 @@ public class TweetAnalyzerConnector {
         this.integrationResultsProducer = integrationResultsProducer;
     }
 
-    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='Analyze English Tweet'")
+    @StreamListener(value = ProcessingConnectorChannels.TWITTER_ANALYZER_CONSUMER)
     public void analyzeEnglishTweet(IntegrationRequestEvent event) throws InterruptedException {
 
         String tweet = String.valueOf(event.getVariables().get("text"));

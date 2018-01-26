@@ -4,13 +4,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.activiti.cloud.connectors.starter.channels.CloudConnectorChannels;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
+import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import static net.logstash.logback.marker.Markers.append;
 
 @Component
-
+@EnableBinding(RewardMessageChannels.class)
 public class SendRewardConnector {
 
     private Logger logger = LoggerFactory.getLogger(SendRewardConnector.class);
@@ -31,7 +31,7 @@ public class SendRewardConnector {
         this.integrationResultsProducer = integrationResultsProducer;
     }
 
-    @StreamListener(value = CloudConnectorChannels.INTEGRATION_EVENT_CONSUMER, condition = "headers['connectorType']=='SendRewardToWinners'")
+    @StreamListener(value = RewardMessageChannels.REWARD_CONSUMER)
     public void tweet(IntegrationRequestEvent event)  {
         Map<String, Object> results = new HashMap<>();
         Collection winners = (Collection) event.getVariables().get("top");
