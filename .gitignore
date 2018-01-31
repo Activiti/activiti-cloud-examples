@@ -57,3 +57,6 @@ node_modules
 .project
 .classpath
 .factorypath
+
+#MacOs
+.DS_Store
