@@ -14,10 +14,11 @@ spec:
     spec:
       containers:
         - name: rabbitmq
-          image: rabbitmq:management
+          image: byteflair/rabbitmq-stomp
           ports:
           - containerPort: 5672
           - containerPort: 15672
+          - containerPort: 61613
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
