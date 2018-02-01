@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: activiti/example-runtime-bundle
-  tag: latest
+  tag: 7-201801-EA
   pullPolicy: IfNotPresent
 rb:
   name: rb-my-app

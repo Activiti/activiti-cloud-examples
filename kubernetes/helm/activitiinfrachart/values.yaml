@@ -5,5 +5,5 @@
 replicaCount: 1
 
 image:
-  tag: latest
+  tag: 7-201801-EA
   pullPolicy: Always
