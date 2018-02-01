@@ -80,7 +80,7 @@ spec:
       containers:
         - name: activiti-cloud-gateway
           image: activiti/activiti-cloud-gateway:latest
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           ports:
           - containerPort: 8080
           env:
@@ -132,6 +132,9 @@ spec:
     - port: 15672
       name: admin
       targetPort: 15672
+    - port: 61613
+      name: stomp
+      targetPort: 61613
   type: ClusterIP
 ---
 apiVersion: v1
