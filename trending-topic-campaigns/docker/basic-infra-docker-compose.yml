@@ -6,6 +6,6 @@ services:
       - "5672:5672"
       - "15672:15672"
 #  activiti-cloud-sso-idm:
-#    image: activiti/activiti-cloud-sso-idm:latest
+#    image: activiti/activiti-cloud-sso-idm:7-201801-EA
 #    ports:
 #      - "8180:8180"

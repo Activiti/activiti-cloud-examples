@@ -1,7 +1,7 @@
 version: '2'
 services:
   activiti-cloud-audit:
-    image: activiti/activiti-cloud-audit:latest
+    image: activiti/activiti-cloud-audit:7-201801-EA
     external_links:
       - activiti-cloud-sso-idm
       - activiti-cloud-registry
@@ -11,7 +11,7 @@ services:
       - JAVA_OPTS=-Xmx128m -Xms128m
       - ACT_CLOUD_CONFIG_SERVER_ENABLED=false
     # activiti-cloud-audit:
-        # image: activiti/activiti-cloud-audit-mongodb:latest
+        # image: activiti/activiti-cloud-audit-mongodb:7-201801-EA
         # external_links:
           # - activiti-cloud-sso-idm
           # - rabbitmq
@@ -28,7 +28,7 @@ services:
         # ports:
          # - "27017:27017"
   activiti-cloud-query:
-    image: activiti/activiti-cloud-query:latest
+    image: activiti/activiti-cloud-query:7-201801-EA
     ports:
       - 8182:8182
     external_links:
@@ -42,7 +42,7 @@ services:
       - SPRING_ACTIVITI_CLOUD_SERVICES_NOTIFICATIONS_GATEWAY_ENABLED=true
       - SPRING_ACTIVITI_CLOUD_SERVICES_QUERY_GRAPHQL_ENABLED=true
   modeling-app:
-    image: activiti/activiti-cloud-modeling-backend:latest
+    image: activiti/activiti-cloud-modeling-backend:7-201801-EA
     external_links:
       - activiti-cloud-sso-idm
       - activiti-cloud-registry

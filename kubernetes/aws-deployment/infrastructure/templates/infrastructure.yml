@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-audit
-          image: activiti/activiti-cloud-audit:latest
+          image: activiti/activiti-cloud-audit:7-201801-EA
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -73,7 +73,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-query
-          image: activiti/activiti-cloud-query:latest
+          image: activiti/activiti-cloud-query:7-201801-EA
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -120,7 +120,7 @@ spec:
     spec:
       containers:
         - name: rb-my-app
-          image: activiti/example-runtime-bundle:latest
+          image: activiti/example-runtime-bundle:7-201801-EA
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -212,7 +212,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-gateway
-          image: activiti/activiti-cloud-gateway:latest
+          image: activiti/activiti-cloud-gateway:7-201801-EA
           imagePullPolicy: Always
           ports:
           - containerPort: 8080
@@ -243,7 +243,7 @@ spec:
 #    spec:
 #      containers:
 #      - name: activiti-cloud-sso-idm-kub
-#        image: activiti/activiti-cloud-sso-idm:latest
+#        image: activiti/activiti-cloud-sso-idm:7-201801-EA
 #        imagePullPolicy: Always
 #        ports:
 #        - containerPort: 30081
@@ -271,7 +271,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-registry
-          image: activiti/activiti-cloud-registry:latest
+          image: activiti/activiti-cloud-registry:7-201801-EA
           imagePullPolicy: Always
           ports:
           - containerPort: 8761
