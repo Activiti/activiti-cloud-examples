@@ -89,6 +89,14 @@ spec:
             value: -Xmx128m -Xms128m
           - name: ACT_QUERY_PORT
             value: "8182"
+          - name: ACT_RB_DB_URI
+            value: jdbc:postgresql://postgres:5432/activitidb
+          - name: ACT_QUERY_DB_USER
+            value: postgres
+          - name: ACT_QUERY_DB_PASS
+            value: password
+          - name: ACT_QUERY_DB_PLATFORM
+            value: "org.hibernate.dialect.PostgreSQLDialect"
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
           - name: ACT_KEYCLOAK_PATTERNS
