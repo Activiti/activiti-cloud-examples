@@ -20,6 +20,10 @@ helm install --set infra.release.name=infrastructurereleasename --set rb.db.rele
 
 e.g. helm install  --set infra.release.name=wobbly-mouse --set rb.db.release.name=washed-bat ./activitirbapchart/
 
+And also for the activitiquerychart
+
+helm install --set infra.release.name=infrastructurereleasename --set rb.db.release.name=rbdbreleasename ./activitiquerychart
+
 To create more RB aps simply repeat the command and they will be automatically load-balanced. Or you can scale using the Scale button under deployments in the kub dashboard.
 
 The runtime bundle will now be installed by helm as a further release but it will access services from the infrastructure release.
