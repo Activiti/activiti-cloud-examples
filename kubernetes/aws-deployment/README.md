@@ -37,3 +37,9 @@ Now you are able to interact with Activiti API as you have keycloak and gateway 
     Command below gives you the elb host of the kibana dashboard. You can find the port on the descriptor file.
     
     `kubectl get service kibana -o jsonpath={.status.loadBalancer.ingress[0].hostname}`
+
+### Deploy to different cloud providers
+
+The same configuration above applies to different environments, for instance PKS.
+The only difference in the procedure above woud be that AWS works with hostname while PKS with IP addresses, so for PKS you need to use substitute
+ingress[0].hostname with ingress[0].ip
