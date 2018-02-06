@@ -104,6 +104,40 @@ spec:
             value: kube
           - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
             value: "false"
+          - name: ACT_QUERY_DB_URI
+            value: jdbc:postgresql://postgres:5432/activitidb
+          - name: ACT_QUERY_DB_USER
+            value: postgres
+          - name: ACT_QUERY_DB_PASS
+            value: password
+          - name: ACT_QUERY_DB_PLATFORM
+            value: "org.hibernate.dialect.PostgreSQLDialect"
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    serviceType: postgres
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          ports:
+          - containerPort: 5432
+          env:
+          - name: POSTGRES_PASSWORD
+            value: password
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: activitidb
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -143,7 +177,7 @@ spec:
           - name: ACT_RB_APP_NAME
             value: rb-my-app
           - name: ACT_RB_DB_URI
-            value: jdbc:postgresql://127.0.0.1:5432/activitidb
+            value: jdbc:postgresql://postgres:5432/activitidb
           - name: ACT_KEYCLOAK_URL
             value: "{{ .Values.keycloakURL }}"
           - name: ACT_KEYCLOAK_PATTERNS
@@ -189,10 +223,11 @@ spec:
     spec:
       containers:
         - name: rabbitmq
-          image: rabbitmq:management
+          image: byteflair/rabbitmq-stomp
           ports:
           - containerPort: 5672
           - containerPort: 15672
+          - containerPort: 61613
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -296,6 +331,9 @@ spec:
     - port: 15672
       name: admin
       targetPort: 15672
+    - port: 61613
+      name: stomp
+      targetPort: 61613
   type: ClusterIP
 ---
 apiVersion: v1
@@ -377,4 +415,15 @@ spec:
     - port: 8081
       targetPort: 8081
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: default
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
 ---

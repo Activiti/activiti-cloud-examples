@@ -39,6 +39,10 @@ services:
       - ACT_QUERY_PORT=8182
       - JAVA_OPTS=-Xmx128m -Xms128m
       - ACT_CLOUD_CONFIG_SERVER_ENABLED=false
+      - ACT_QUERY_DB_URI=jdbc:postgresql://rb-postgres:5432/activitidb
+      - ACT_QUERY_DB_USER=postgres
+      - ACT_QUERY_DB_PASS=password
+      - ACT_QUERY_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
       - SPRING_ACTIVITI_CLOUD_SERVICES_NOTIFICATIONS_GATEWAY_ENABLED=true
       - SPRING_ACTIVITI_CLOUD_SERVICES_QUERY_GRAPHQL_ENABLED=true
   modeling-app:

@@ -35,6 +35,10 @@ spec:
             value: password
           - name: ACT_RB_DB_PLATFORM
             value: "org.hibernate.dialect.PostgreSQLDialect"
+          - name: JAVA_OPTS
+            value: -Xmx512m -Xms512m
+          - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "false"
           - name: debug
             value: "{{ .Values.rb.debug }}"
           - name: trace
@@ -52,4 +56,3 @@ spec:
     - port: {{ .Values.rb.port }}
       targetPort: {{ .Values.rb.port }}
   type: ClusterIP
----
