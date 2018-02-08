@@ -45,17 +45,6 @@ services:
       - ACT_QUERY_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
       - SPRING_ACTIVITI_CLOUD_SERVICES_NOTIFICATIONS_GATEWAY_ENABLED=true
       - SPRING_ACTIVITI_CLOUD_SERVICES_QUERY_GRAPHQL_ENABLED=true
-  modeling-app:
-    image: activiti/activiti-cloud-modeling-backend:latest
-    external_links:
-      - activiti-cloud-sso-idm
-      - activiti-cloud-registry
-      - rabbitmq
-    environment:
-      - ACT_MODELING_PORT=8088
-      - ACT_MODELING_HOST=modeling-app
-      - ACT_MODELING_APP_NAME=modeling-app
-      - ACT_CLOUD_CONFIG_SERVER_ENABLED=false
   # We define the name and the base image of our Runtime Bundle
   rb-my-app:
       # Set image: to whichever you are using
@@ -93,6 +82,13 @@ services:
         - POSTGRES_DB=activitidb
       networks:
         - infrastructure
+  activiti-cloud-demo-ui:
+    image: activiti/activiti-cloud-demo-ui:latest
+    ports:
+     - "3000:3000"
+    external_links:
+      - activiti-cloud-sso-idm
+      - rb-my-app
 # we will join the infrastructure network defined by the infrastructure docker compose.
 networks:
   infrastructure:
