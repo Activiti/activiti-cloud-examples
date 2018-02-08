@@ -223,7 +223,7 @@ spec:
     spec:
       containers:
         - name: rabbitmq
-          image: byteflair/rabbitmq-stomp
+          image: activiti/rabbitmq-stomp
           ports:
           - containerPort: 5672
           - containerPort: 15672
