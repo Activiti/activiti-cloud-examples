@@ -35,3 +35,5 @@ You can use their [deployment guide](https://s3.amazonaws.com/quickstart-referen
 2 Choose Weave for Pod networking
 
 Once setup, you can install [Helm on AWS](http://docs.heptio.com/content/tutorials/aws-qs-helm-wordpress.html#initialize-helm-and-tiller) and implement the [RBAC fix](http://docs.heptio.com/content/tutorials/aws-qs-helm-wordpress.html#implement-tiller-rbac-fix).
+
+See also https://github.com/Alfresco/alfresco-anaxes-shipyard/blob/master/docs/running-a-cluster.md
