@@ -50,7 +50,6 @@ spec:
           - name: SPRING_PROFILES_ACTIVE
             value: local
 ---
----
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
@@ -108,6 +107,8 @@ spec:
             value: password
           - name: ACT_QUERY_DB_PLATFORM
             value: "org.hibernate.dialect.PostgreSQLDialect"
+          - name: SPRING_ACTIVITI_CLOUD_SERVICES_NOTIFICATIONS_GATEWAY_ENABLED
+            value: "false"
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
           - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
