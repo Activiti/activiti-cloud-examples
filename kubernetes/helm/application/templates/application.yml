@@ -100,6 +100,14 @@ spec:
             value: "{{ .Values.keycloakURL }}"
           - name: ACT_KEYCLOAK_PATTERNS
             value: "/v1/*"
+          - name: ACT_QUERY_DB_URI
+            value: jdbc:postgresql://postgres:5432/activitidb
+          - name: ACT_QUERY_DB_USER
+            value: postgres
+          - name: ACT_QUERY_DB_PASS
+            value: password
+          - name: ACT_QUERY_DB_PLATFORM
+            value: "org.hibernate.dialect.PostgreSQLDialect"
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
           - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
