@@ -1,5 +1,18 @@
 {
-	"variables": [],
+	"variable": [
+		{
+			"id": "d9204e75-9f07-4d2e-8e14-fccf42375439",
+			"key": "gatewayUrl",
+			"value": "http://localhost:8080",
+			"type": "text"
+		},
+		{
+			"id": "0755a80d-fa58-4051-ad56-5520eb950852",
+			"key": "idmUrl",
+			"value": "http://activiti-cloud-sso-idm:8180",
+			"type": "text"
+		}
+	],
 	"info": {
 		"name": "Activiti v7 REST API",
 		"_postman_id": "656a9eac-cea3-cbff-7461-31d18c586f99",
@@ -14,7 +27,7 @@
 				{
 					"name": "getEvents",
 					"request": {
-						"url": "http://localhost:8080/audit/v1/events",
+						"url": "{{gatewayUrl}}/audit/v1/events",
 						"method": "GET",
 						"header": [
 							{
@@ -35,7 +48,7 @@
 					"name": "getEventsByProcessInstanceId",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/audit/v1/events?processInstanceId={processInstanceId}",
+							"raw": "{{gatewayUrl}}/audit/v1/events?processInstanceId={processInstanceId}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -76,7 +89,7 @@
 					"name": "getEventsByType",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/audit/v1/events?eventType={eventType}",
+							"raw": "{{gatewayUrl}}/audit/v1/events?eventType={eventType}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -122,7 +135,7 @@
 				{
 					"name": "routes",
 					"request": {
-						"url": "http://localhost:8080/application/routes",
+						"url": "{{gatewayUrl}}/application/routes",
 						"method": "GET",
 						"header": [
 							{
@@ -160,7 +173,7 @@
 						}
 					],
 					"request": {
-						"url": "http://activiti-cloud-sso-idm:8180/auth/realms/springboot/protocol/openid-connect/token",
+						"url": "{{idmUrl}}/auth/realms/springboot/protocol/openid-connect/token",
 						"method": "POST",
 						"header": [
 							{
@@ -211,7 +224,7 @@
 				{
 					"name": "getProcessInstances",
 					"request": {
-						"url": "http://localhost:8080/rb-my-app/v1/process-instances",
+						"url": "{{gatewayUrl}}/rb-my-app/v1/process-instances",
 						"method": "GET",
 						"header": [
 							{
@@ -228,7 +241,7 @@
 				{
 					"name": "startProcess",
 					"request": {
-						"url": "http://localhost:8080/rb-my-app/v1/process-instances",
+						"url": "{{gatewayUrl}}/rb-my-app/v1/process-instances",
 						"method": "POST",
 						"header": [
 							{
@@ -253,7 +266,7 @@
 				{
 					"name": "getProcessVariables",
 					"request": {
-						"url": "http://localhost:8080/rb-my-app/v1/process-instances/{processInstanceId}/variables",
+						"url": "{{gatewayUrl}}/rb-my-app/v1/process-instances/{processInstanceId}/variables",
 						"method": "GET",
 						"header": [
 							{
@@ -274,7 +287,7 @@
 					"name": "getTasks",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/rb-my-app/v1/tasks?page=0&size=10",
+							"raw": "{{gatewayUrl}}/rb-my-app/v1/tasks?page=0&size=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -320,7 +333,7 @@
 				{
 					"name": "getTask",
 					"request": {
-						"url": "http://localhost:8080/rb-my-app/v1/tasks/{taskId}",
+						"url": "{{gatewayUrl}}/rb-my-app/v1/tasks/{taskId}",
 						"method": "GET",
 						"header": [
 							{
@@ -346,7 +359,7 @@
 					"name": "claimTask",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
+							"raw": "{{gatewayUrl}}/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -393,7 +406,7 @@
 				{
 					"name": "completeTask",
 					"request": {
-						"url": "http://localhost:8080/rb-my-app/v1/tasks/{taskId}/complete",
+						"url": "{{gatewayUrl}}/rb-my-app/v1/tasks/{taskId}/complete",
 						"method": "POST",
 						"header": [
 							{
@@ -415,7 +428,7 @@
 				{
 					"name": "getProcessDefinitions",
 					"request": {
-						"url": "http://localhost:8080/rb-my-app/v1/process-definitions",
+						"url": "{{gatewayUrl}}/rb-my-app/v1/process-definitions",
 						"method": "GET",
 						"header": [
 							{
@@ -442,7 +455,7 @@
 					"name": "queryProcessInstances",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/query/v1/process-instances?page=0&size=20",
+							"raw": "{{gatewayUrl}}/query/v1/process-instances?page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -489,7 +502,7 @@
 					"name": "queryProcessInstancesLastModified",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
+							"raw": "{{gatewayUrl}}/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -547,7 +560,7 @@
 				{
 					"name": "queryProcessInstanceVariables",
 					"request": {
-						"url": "http://localhost:8080/query/v1/process-instances/{processInstanceId}/variables",
+						"url": "{{gatewayUrl}}/query/v1/process-instances/{processInstanceId}/variables",
 						"method": "GET",
 						"header": [
 							{
@@ -568,7 +581,7 @@
 					"name": "queryRunningProcessInstances",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/query/v1/process-instances?status=RUNNING&page=0&size=20",
+							"raw": "{{gatewayUrl}}/query/v1/process-instances?status=RUNNING&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -621,7 +634,7 @@
 					"name": "queryCompletedProcessInstances",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/query/v1/process-instances?status=COMPLETED&page=0&size=20",
+							"raw": "{{gatewayUrl}}/query/v1/process-instances?status=COMPLETED&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -674,7 +687,7 @@
 					"name": "queryTasks",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?page=0&size=20",
+							"raw": "{{gatewayUrl}}/query/v1/tasks?page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -720,7 +733,7 @@
 				{
 					"name": "queryTaskVariables",
 					"request": {
-						"url": "http://localhost:8080/query/v1/tasks/{taskId}/variables",
+						"url": "{{gatewayUrl}}/query/v1/tasks/{taskId}/variables",
 						"method": "GET",
 						"header": [
 							{
@@ -741,7 +754,7 @@
 					"name": "queryTasksWithPriority",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?priority=50&page=0&size=20",
+							"raw": "{{gatewayUrl}}/query/v1/tasks?priority=50&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -794,7 +807,7 @@
 					"name": "queryCreatedTasks",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?status=CREATED&page=0&size=20",
+							"raw": "{{gatewayUrl}}/query/v1/tasks?status=CREATED&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -844,7 +857,7 @@
 					"name": "queryAssignedTasks",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?status=ASSIGNED&page=0&size=20",
+							"raw": "{{gatewayUrl}}/query/v1/tasks?status=ASSIGNED&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -894,7 +907,7 @@
 					"name": "queryCompletedTasks",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?status=COMPLETED&page=0&size=20",
+							"raw": "{{gatewayUrl}}/query/v1/tasks?status=COMPLETED&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
