@@ -1,54 +1,57 @@
 {
-	"variable": [
-		{
-			"id": "d9204e75-9f07-4d2e-8e14-fccf42375439",
-			"key": "gatewayUrl",
-			"value": "http://localhost:8080",
-			"type": "text"
-		},
-		{
-			"id": "0755a80d-fa58-4051-ad56-5520eb950852",
-			"key": "idmUrl",
-			"value": "http://activiti-cloud-sso-idm:8180",
-			"type": "text"
-		}
-	],
 	"info": {
 		"name": "Activiti v7 REST API",
-		"_postman_id": "656a9eac-cea3-cbff-7461-31d18c586f99",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"_postman_id": "f2ef72c6-d066-0f76-6158-8ea4db8649c5",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "audit",
-			"description": "",
 			"item": [
 				{
 					"name": "getEvents",
 					"request": {
-						"url": "{{gatewayUrl}}/audit/v1/events",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
+								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "{{gatewayUrl}}/audit/v1/events",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"audit",
+								"v1",
+								"events"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "getEventsByProcessInstanceId",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/audit/v1/events?processInstanceId={processInstanceId}",
+							"raw": "http://localhost:8080/audit/v1/events?processInstanceId={processInstanceId}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -63,38 +66,32 @@
 								{
 									"key": "processInstanceId",
 									"value": "{processInstanceId}",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "getEventsByType",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{gatewayUrl}}/audit/v1/events?eventType={eventType}",
-							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{gatewayUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"audit",
 								"v1",
@@ -104,23 +101,9 @@
 								{
 									"key": "eventType",
 									"value": "{eventType}",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+							]
 						},
 						"description": "Filter events based on event type:\n- ProcessStartedEvent\n- TaskAssignedEvent\n- ..."
 					},
@@ -130,25 +113,31 @@
 		},
 		{
 			"name": "gateway",
-			"description": "",
 			"item": [
 				{
 					"name": "routes",
 					"request": {
-						"url": "{{gatewayUrl}}/application/routes",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
+								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "{{gatewayUrl}}/actuator/routes",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"actuator",
+								"routes"
+							]
+						}
 					},
 					"response": []
 				}
@@ -156,7 +145,6 @@
 		},
 		{
 			"name": "keycloak",
-			"description": "",
 			"item": [
 				{
 					"name": "getKeycloakToken",
@@ -173,13 +161,11 @@
 						}
 					],
 					"request": {
-						"url": "{{idmUrl}}/auth/realms/springboot/protocol/openid-connect/token",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"description": ""
+								"value": "application/x-www-form-urlencoded"
 							}
 						],
 						"body": {
@@ -188,30 +174,39 @@
 								{
 									"key": "client_id",
 									"value": "activiti",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "grant_type",
 									"value": "password",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "username",
 									"value": "hruser",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "password",
 									"value": "password",
-									"description": "",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "{{idmUrl}}/auth/realms/springboot/protocol/openid-connect/token",
+							"host": [
+								"{{idmUrl}}"
+							],
+							"path": [
+								"auth",
+								"realms",
+								"springboot",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
 					},
 					"response": []
 				}
@@ -219,75 +214,113 @@
 		},
 		{
 			"name": "rb-my-app",
-			"description": "",
 			"item": [
 				{
 					"name": "getProcessInstances",
 					"request": {
-						"url": "{{gatewayUrl}}/rb-my-app/v1/process-instances",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "startProcess",
-					"request": {
-						"url": "{{gatewayUrl}}/rb-my-app/v1/process-instances",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"aget\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "getProcessVariables",
-					"request": {
-						"url": "{{gatewayUrl}}/rb-my-app/v1/process-instances/{processInstanceId}/variables",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
+								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "{{gatewayUrl}}/rb-my-app/v1/process-instances",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"rb-my-app",
+								"v1",
+								"process-instances"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "startProcess",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"aget\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+						},
+						"url": {
+							"raw": "{{gatewayUrl}}/rb-my-app/v1/process-instances",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"rb-my-app",
+								"v1",
+								"process-instances"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProcessVariables",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{gatewayUrl}}/rb-my-app/v1/process-instances/{processInstanceId}/variables",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"rb-my-app",
+								"v1",
+								"process-instances",
+								"{processInstanceId}",
+								"variables"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "getTasks",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/rb-my-app/v1/tasks?page=0&size=10",
+							"raw": "http://localhost:8080/rb-my-app/v1/tasks?page=0&size=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -302,64 +335,71 @@
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "10",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "getTask",
 					"request": {
-						"url": "{{gatewayUrl}}/rb-my-app/v1/tasks/{taskId}",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
+								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "{{gatewayUrl}}/rb-my-app/v1/tasks/{taskId}",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"rb-my-app",
+								"v1",
+								"tasks",
+								"{taskId}"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "claimTask",
 					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
+							"raw": "http://localhost:8080/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -376,72 +416,72 @@
 								{
 									"key": "assignee",
 									"value": "hruser",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "completeTask",
 					"request": {
-						"url": "{{gatewayUrl}}/rb-my-app/v1/tasks/{taskId}/complete",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
+								"value": "Bearer {{kcAccessToken}}"
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "getProcessDefinitions",
-					"request": {
-						"url": "{{gatewayUrl}}/rb-my-app/v1/process-definitions",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "{{gatewayUrl}}/rb-my-app/v1/tasks/{taskId}/complete",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"rb-my-app",
+								"v1",
+								"tasks",
+								"{taskId}",
+								"complete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProcessDefinitions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{gatewayUrl}}/rb-my-app/v1/process-definitions",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"rb-my-app",
+								"v1",
+								"process-definitions"
+							]
+						}
 					},
 					"response": []
 				}
@@ -449,13 +489,23 @@
 		},
 		{
 			"name": "query",
-			"description": "",
 			"item": [
 				{
 					"name": "queryProcessInstances",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/process-instances?page=0&size=20",
+							"raw": "http://localhost:8080/query/v1/process-instances?page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -470,39 +520,34 @@
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "20",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "queryProcessInstancesLastModified",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
+							"raw": "http://localhost:8080/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -517,41 +562,24 @@
 								{
 									"key": "lastModifiedFrom",
 									"value": "2011-12-03",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "lastModifiedTo",
 									"value": "2040-12-03",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "20",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+							]
 						},
 						"description": "Retrieves process instances having last modified date between two given dates"
 					},
@@ -560,28 +588,49 @@
 				{
 					"name": "queryProcessInstanceVariables",
 					"request": {
-						"url": "{{gatewayUrl}}/query/v1/process-instances/{processInstanceId}/variables",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
+								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "{{gatewayUrl}}/query/v1/process-instances/{processInstanceId}/variables",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"process-instances",
+								"{processInstanceId}",
+								"variables"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "queryRunningProcessInstances",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/process-instances?status=RUNNING&page=0&size=20",
+							"raw": "http://localhost:8080/query/v1/process-instances?status=RUNNING&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -596,35 +645,19 @@
 								{
 									"key": "status",
 									"value": "RUNNING",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "20",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+							]
 						},
 						"description": "Retrieve process instances with status RUNNING"
 					},
@@ -633,8 +666,19 @@
 				{
 					"name": "queryCompletedProcessInstances",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/process-instances?status=COMPLETED&page=0&size=20",
+							"raw": "http://localhost:8080/query/v1/process-instances?status=COMPLETED&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -649,35 +693,19 @@
 								{
 									"key": "status",
 									"value": "COMPLETED",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "20",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+							]
 						},
 						"description": "Retrieve process instances with status COMPLETED"
 					},
@@ -686,8 +714,19 @@
 				{
 					"name": "queryTasks",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/tasks?page=0&size=20",
+							"raw": "http://localhost:8080/query/v1/tasks?page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -702,59 +741,64 @@
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "20",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "queryTaskVariables",
 					"request": {
-						"url": "{{gatewayUrl}}/query/v1/tasks/{taskId}/variables",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
+								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "{{gatewayUrl}}/query/v1/tasks/{taskId}/variables",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"tasks",
+								"{taskId}",
+								"variables"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "queryTasksWithPriority",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/tasks?priority=50&page=0&size=20",
+							"raw": "http://localhost:8080/query/v1/tasks?priority=50&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -769,45 +813,39 @@
 								{
 									"key": "priority",
 									"value": "50",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "20",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "queryCreatedTasks",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/tasks?status=CREATED&page=0&size=20",
+							"raw": "http://localhost:8080/query/v1/tasks?status=CREATED&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -822,33 +860,20 @@
 								{
 									"key": "status",
 									"value": "CREATED",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "20",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
+							]
 						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
 						"description": "Retrieve tasks with status CREATED"
 					},
 					"response": []
@@ -856,8 +881,19 @@
 				{
 					"name": "queryAssignedTasks",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/tasks?status=ASSIGNED&page=0&size=20",
+							"raw": "http://localhost:8080/query/v1/tasks?status=ASSIGNED&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -872,33 +908,20 @@
 								{
 									"key": "status",
 									"value": "ASSIGNED",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "20",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
+							]
 						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
 						"description": "Retrieve tasks with status ASSIGNED"
 					},
 					"response": []
@@ -906,8 +929,19 @@
 				{
 					"name": "queryCompletedTasks",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/tasks?status=COMPLETED&page=0&size=20",
+							"raw": "http://localhost:8080/query/v1/tasks?status=COMPLETED&page=0&size=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -922,38 +956,39 @@
 								{
 									"key": "status",
 									"value": "COMPLETED",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "20",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
+							]
 						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
 						"description": "Retrieve tasks with status COMPLETED"
 					},
 					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"id": "d9204e75-9f07-4d2e-8e14-fccf42375439",
+			"key": "gatewayUrl",
+			"value": "http://localhost:8080",
+			"type": "text"
+		},
+		{
+			"id": "0755a80d-fa58-4051-ad56-5520eb950852",
+			"key": "idmUrl",
+			"value": "http://activiti-cloud-sso-idm:8180",
+			"type": "text"
 		}
 	]
 }
