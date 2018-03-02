@@ -259,7 +259,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"aget\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+							"raw": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
 						},
 						"url": {
 							"raw": "{{gatewayUrl}}/rb-my-app/v1/process-instances",
