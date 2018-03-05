@@ -1,7 +1,8 @@
 {
 	"info": {
-		"name": "Activiti v7 REST API",
-		"_postman_id": "f2ef72c6-d066-0f76-6158-8ea4db8649c5",
+		"name": "K8s - Activiti v7 REST API",
+		"_postman_id": "86c93467-a42f-dbdd-955f-c383c6d6091a",
+		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -23,10 +24,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/audit/v1/events",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/audit/v1/events",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30080",
 							"path": [
 								"audit",
 								"v1",
@@ -51,12 +54,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/audit/v1/events?processInstanceId={processInstanceId}",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/audit/v1/events?processInstanceId={processInstanceId}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"audit",
 								"v1",
@@ -88,10 +91,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/audit/v1/events?eventType={eventType}",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/audit/v1/events?eventType={eventType}",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30080",
 							"path": [
 								"audit",
 								"v1",
@@ -129,10 +134,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/actuator/routes",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/actuator/routes",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30080",
 							"path": [
 								"actuator",
 								"routes"
@@ -194,10 +201,12 @@
 							]
 						},
 						"url": {
-							"raw": "{{idmUrl}}/auth/realms/springboot/protocol/openid-connect/token",
+							"raw": "http://activiti-cloud-sso-idm-kub:30081/auth/realms/springboot/protocol/openid-connect/token",
+							"protocol": "http",
 							"host": [
-								"{{idmUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30081",
 							"path": [
 								"auth",
 								"realms",
@@ -225,15 +234,14 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
-							"raw": "{{gatewayUrl}}/rb-my-app/v1/process-instances",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/process-instances",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30080",
 							"path": [
 								"rb-my-app",
 								"v1",
@@ -259,13 +267,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+							"raw": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"aget\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/rb-my-app/v1/process-instances",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/process-instances",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30080",
 							"path": [
 								"rb-my-app",
 								"v1",
@@ -290,10 +300,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/rb-my-app/v1/process-instances/{processInstanceId}/variables",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/process-instances/{processInstanceId}/variables",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30080",
 							"path": [
 								"rb-my-app",
 								"v1",
@@ -320,12 +332,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/rb-my-app/v1/tasks?page=0&size=10",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/tasks?page=0&size=10",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"rb-my-app",
 								"v1",
@@ -366,15 +378,24 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/rb-my-app/v1/tasks/{taskId}",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/tasks/{taskId}?taskId=aa",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30080",
 							"path": [
 								"rb-my-app",
 								"v1",
 								"tasks",
 								"{taskId}"
+							],
+							"query": [
+								{
+									"key": "taskId",
+									"value": "aa",
+									"equals": true
+								}
 							]
 						}
 					},
@@ -399,12 +420,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"rb-my-app",
 								"v1",
@@ -442,10 +463,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/rb-my-app/v1/tasks/{taskId}/complete",
+							"raw": "http://localhost:8080/rb-my-app/v1/tasks/{taskId}/complete",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
 								"rb-my-app",
 								"v1",
@@ -472,10 +495,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/rb-my-app/v1/process-definitions",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/rb-my-app/v1/process-definitions",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30080",
 							"path": [
 								"rb-my-app",
 								"v1",
@@ -505,12 +530,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/query/v1/process-instances?page=0&size=20",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/process-instances?page=0&size=20",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"query",
 								"v1",
@@ -547,12 +572,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"query",
 								"v1",
@@ -600,10 +625,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/process-instances/{processInstanceId}/variables",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/process-instances/{processInstanceId}/variables",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30080",
 							"path": [
 								"query",
 								"v1",
@@ -678,12 +705,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/query/v1/process-instances?status=COMPLETED&page=0&size=20",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/process-instances?status=COMPLETED&page=0&size=20",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"query",
 								"v1",
@@ -726,12 +753,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?page=0&size=20",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks?page=0&size=20",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"query",
 								"v1",
@@ -768,10 +795,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/query/v1/tasks/{taskId}/variables",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks/{taskId}/variables",
+							"protocol": "http",
 							"host": [
-								"{{gatewayUrl}}"
+								"activiti-cloud-sso-idm-kub"
 							],
+							"port": "30080",
 							"path": [
 								"query",
 								"v1",
@@ -798,12 +827,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?priority=50&page=0&size=20",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks?priority=50&page=0&size=20",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"query",
 								"v1",
@@ -840,17 +869,14 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?status=CREATED&page=0&size=20",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks?status=CREATED&page=0&size=20",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"query",
 								"v1",
@@ -888,17 +914,14 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?status=ASSIGNED&page=0&size=20",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks?status=ASSIGNED&page=0&size=20",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"query",
 								"v1",
@@ -936,17 +959,14 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
-							"raw": "http://localhost:8080/query/v1/tasks?status=COMPLETED&page=0&size=20",
+							"raw": "http://activiti-cloud-sso-idm-kub:30080/query/v1/tasks?status=COMPLETED&page=0&size=20",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"activiti-cloud-sso-idm-kub"
 							],
-							"port": "8080",
+							"port": "30080",
 							"path": [
 								"query",
 								"v1",
@@ -983,7 +1003,7 @@
 				{
 					"name": "getModels",
 					"request": {
-						"url": "http://localhost:8080/modeling-app/v1/models",
+						"url": "http://activiti-cloud-sso-idm-kub:30080/modeling-app/v1/models",
 						"method": "GET",
 						"header": [
 							{
@@ -1003,7 +1023,7 @@
 				{
           "name": "createProcessModels",
 					"request": {
-						"url": "http://localhost:8080/modeling-app/v1/models",
+						"url": "http://activiti-cloud-sso-idm-kub:30080/modeling-app/v1/models",
 						"method": "POST",
 						"header": [
               {
@@ -1028,7 +1048,7 @@
         {
           "name": "updateProcessModels",
 					"request": {
-						"url": "http://localhost:8080/modeling-app/v1/models/process_model_id1",
+						"url": "http://activiti-cloud-sso-idm-kub:30080/modeling-app/v1/models/process_model_id1",
 						"method": "PUT",
 						"header": [
               {
@@ -1051,20 +1071,6 @@
 					"response": []
 				}
 			]
-		}
-	],
-	"variable": [
-		{
-			"id": "d9204e75-9f07-4d2e-8e14-fccf42375439",
-			"key": "gatewayUrl",
-			"value": "http://localhost:8080",
-			"type": "text"
-		},
-		{
-			"id": "0755a80d-fa58-4051-ad56-5520eb950852",
-			"key": "idmUrl",
-			"value": "http://activiti-cloud-sso-idm:8180",
-			"type": "text"
 		}
 	]
 }
