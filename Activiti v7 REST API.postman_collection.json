@@ -155,7 +155,11 @@
 								"type": "text/javascript",
 								"exec": [
 									"var tokens=JSON.parse(responseBody); ",
-									"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); "
+									"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); ",
+									"pm.test(\"Setting the kcAccessToken.\", function () {",
+									"var tokens = JSON.parse(responseBody);",
+									"pm.globals.set(\"kcAccessToken\", tokens.access_token);",
+									"});"
 								]
 							}
 						}
