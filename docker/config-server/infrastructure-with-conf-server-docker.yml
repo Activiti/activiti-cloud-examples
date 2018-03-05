@@ -46,8 +46,8 @@ services:
     links:
      - activiti-cloud-registry
     depends_on:
-       activiti-cloud-config-server:
-            condition: service_healthy
+      activiti-cloud-config-server:
+        condition: service_healthy
     environment:
       - ACT_CLOUD_CONFIG_FAIL_FAST=true
     ports:

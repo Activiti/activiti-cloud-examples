@@ -73,15 +73,15 @@ services:
         - infrastructure
   # We decided to configure our runtime bundle against a PostgreSQL instance
   rb-postgres:
-      image: postgres
-      ports:
-       - "5432:5432"
-      environment:
-        - POSTGRES_PASSWORD=password
-        - POSTGRES_USER=postgres
-        - POSTGRES_DB=activitidb
-      networks:
-        - infrastructure
+    image: postgres
+    ports:
+     - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=activitidb
+    networks:
+      - infrastructure
   activiti-cloud-demo-ui:
     image: activiti/activiti-cloud-demo-ui:latest
     ports:
@@ -89,6 +89,9 @@ services:
     external_links:
       - activiti-cloud-sso-idm
       - rb-my-app
+    environment:
+      - ACT_GATEWAY_URL=http://localhost:8080
+      - ACT_IDM_URL=http://localhost:8180/auth
 # we will join the infrastructure network defined by the infrastructure docker compose.
 networks:
   infrastructure:
