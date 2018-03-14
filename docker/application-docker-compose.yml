@@ -91,7 +91,8 @@ services:
       - rb-my-app
     environment:
       - ACT_GATEWAY_URL=http://localhost:8080
-      - ACT_IDM_URL=http://localhost:8180/auth
+      - ACT_IDM_BASE_URL=http://localhost:8180
+      - ACT_IDM_URL=/auth/realms/springboot/protocol/openid-connect/toke
 # we will join the infrastructure network defined by the infrastructure docker compose.
 networks:
   infrastructure:
