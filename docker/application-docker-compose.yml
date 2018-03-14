@@ -92,7 +92,7 @@ services:
     environment:
       - ACT_GATEWAY_URL=http://localhost:8080
       - ACT_IDM_BASE_URL=http://localhost:8180
-      - ACT_IDM_URL=/auth/realms/springboot/protocol/openid-connect/toke
+      - ACT_IDM_URL=/auth/realms/springboot/protocol/openid-connect/token
 # we will join the infrastructure network defined by the infrastructure docker compose.
 networks:
   infrastructure:
