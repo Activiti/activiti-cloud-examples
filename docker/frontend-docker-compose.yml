@@ -8,6 +8,6 @@ services:
       - activiti-cloud-sso-idm
       - rb-my-app
     environment:
-      - ACT_GATEWAY_URL=http://localhost:8080
-      - ACT_IDM_URL=http://localhost:8180/auth/realms/springboot/protocol/openid-connect/token
+      - ACT_GATEWAY_URL=http://activiti-cloud-sso-idm:8080
+      - ACT_IDM_URL=http://activiti-cloud-sso-idm:8180/auth/realms/springboot/protocol/openid-connect/token
       - ACT_IDM_CLIENT_ID=activiti
