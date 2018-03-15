@@ -11,8 +11,3 @@ services:
       - ACT_MODELING_HOST=modeling-app
       - ACT_MODELING_APP_NAME=modeling-app
       - ACT_CLOUD_CONFIG_SERVER_ENABLED=false
-# we will join the infrastructure network defined by the infrastructure docker compose.
-networks:
-  infrastructure:
-    external:
-      name: docker_default

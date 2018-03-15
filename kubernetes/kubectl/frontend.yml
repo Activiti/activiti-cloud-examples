@@ -18,10 +18,10 @@ spec:
           env:
           - name: ACT_GATEWAY_URL
             value: "http://activiti-cloud-sso-idm-kub:30080"
-          - name: ACT_IDM_BASE_URL
-            value: "http://activiti-cloud-sso-idm-kub:30081"
           - name: ACT_IDM_URL
-            value: "/auth/realms/springboot/protocol/openid-connect/token"
+            value: "http://activiti-cloud-sso-idm-kub:30081/auth/realms/springboot/protocol/openid-connect/token"
+          - name: ACT_IDM_CLIENT_ID
+            value: "activiti"
 ---
 apiVersion: v1
 kind: Service
