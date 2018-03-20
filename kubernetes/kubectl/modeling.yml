@@ -31,7 +31,7 @@ spec:
             initialDelaySeconds: 120
             timeoutSeconds: 1
             periodSeconds: 15
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           ports:
             - containerPort: 8088
           env:
