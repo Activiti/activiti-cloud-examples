@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: activiti-cloud-sso-idm-kub
-        image: activiti/activiti-cloud-sso-idm:latest
+        image: activiti/activiti-cloud-sso-idm:7-201802-EA
         imagePullPolicy: Always
         ports:
         - containerPort: 30081
@@ -79,7 +79,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-gateway
-          image: activiti/activiti-cloud-gateway:latest
+          image: activiti/activiti-cloud-gateway:7-201802-EA
           imagePullPolicy: Always
           ports:
           - containerPort: 8080
@@ -107,7 +107,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-registry
-          image: activiti/activiti-cloud-registry:latest
+          image: activiti/activiti-cloud-registry:7-201802-EA
           imagePullPolicy: Always
           ports:
           - containerPort: 8761

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: modeling-app
-          image: activiti/activiti-cloud-modeling-backend:latest
+          image: activiti/activiti-cloud-modeling-backend:7-201802-EA
           readinessProbe:
             httpGet:
               path: /actuator/health
