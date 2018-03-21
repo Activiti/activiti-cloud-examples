@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: activiti-cloud-demo-ui
-          image: activiti/activiti-cloud-demo-ui:7-201802-EA
+          image: activiti/activiti-cloud-demo-ui:latest
           imagePullPolicy: Always
           env:
           - name: ACT_GATEWAY_URL

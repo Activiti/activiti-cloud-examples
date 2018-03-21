@@ -1,7 +1,7 @@
 version: '2'
 services:
   activiti-cloud-demo-ui:
-    image: activiti/activiti-cloud-demo-ui:7-201802-EA
+    image: activiti/activiti-cloud-demo-ui:latest
     ports:
      - "3000:3000"
     external_links:
