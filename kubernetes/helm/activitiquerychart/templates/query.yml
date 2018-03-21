@@ -40,6 +40,8 @@ spec:
             value: "org.hibernate.dialect.PostgreSQLDialect"
           - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
             value: "false"
+          - name: SPRING_HATEOAS_USEHALASDEFAULTJSONMEDIATYPE
+            value: "false"
           - name: ACT_QUERY_DB_URI
             value: jdbc:postgresql://{{ .Values.rb.db.release.name}}-{{ .Values.rb.name }}-db:5432/activitidb
           - name: JAVA_OPTS
