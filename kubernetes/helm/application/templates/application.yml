@@ -113,6 +113,8 @@ spec:
             value: kube,local
           - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
             value: "false"
+          - name: SPRING_HATEOAS_USEHALASDEFAULTJSONMEDIATYPE
+            value: "false"
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -197,6 +199,8 @@ spec:
           - name: SPRING_PROFILES_ACTIVE
             value: kube,local
           - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "false"
+          - name: SPRING_HATEOAS_USEHALASDEFAULTJSONMEDIATYPE
             value: "false"
 ---
 apiVersion: v1
