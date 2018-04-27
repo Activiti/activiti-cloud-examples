@@ -1,0 +1,21 @@
+{
+  "applicationName": "default-app",
+  "applicationVersion": "1.0",
+  "serviceDeploymentDescriptors": [
+    {
+      "name": "rb-my-app",
+      "version": "0.1",
+      "serviceType": "runtime-bundle"
+    },
+    {
+      "name": "activiti-cloud-query",
+      "version": "0.1",
+      "serviceType": "query"
+    },
+    {
+      "name": "activiti-cloud-audit",
+      "version": "0.1",
+      "serviceType": "audit"
+    }
+  ]
+}
