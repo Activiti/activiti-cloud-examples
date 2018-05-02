@@ -8,12 +8,12 @@
       "serviceType": "runtime-bundle"
     },
     {
-      "name": "activiti-cloud-query",
+      "name": "query",
       "version": "0.1",
       "serviceType": "query"
     },
     {
-      "name": "activiti-cloud-audit",
+      "name": "audit",
       "version": "0.1",
       "serviceType": "audit"
     }
