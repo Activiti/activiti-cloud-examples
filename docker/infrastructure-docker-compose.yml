@@ -19,6 +19,7 @@ services:
     environment:
       - JAVA_OPTS=-Xmx64m -Xms64m
       - SPRING_PROFILES_ACTIVE=native
+      - ACTIVITI_CLOUD_SERVICES_APPSERVICE_ENABLED=true
   activiti-cloud-gateway:
     image: activiti/activiti-cloud-gateway:latest
     depends_on:
