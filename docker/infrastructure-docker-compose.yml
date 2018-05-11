@@ -19,6 +19,8 @@ services:
     environment:
       - JAVA_OPTS=-Xmx64m -Xms64m
       - SPRING_PROFILES_ACTIVE=native
+      - ACT_REGISTRY_NAME=apps
+      - ACT_REGISTRY_FETCH=true
       - ACTIVITI_CLOUD_SERVICES_APPSERVICE_ENABLED=true
   activiti-cloud-gateway:
     image: activiti/activiti-cloud-gateway:latest

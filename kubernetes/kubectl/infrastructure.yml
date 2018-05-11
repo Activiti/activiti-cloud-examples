@@ -1,4 +1,42 @@
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deployments-config
+  namespace: default
+data:
+  deployments: |
+    {
+      "appDeploymentEntries": [
+        {
+          "name": "default-app",
+          "version": "1.0"
+        }
+      ]
+    }
+  default-app: |-
+    {
+      "applicationName": "default-app",
+      "applicationVersion": "1.0",
+      "serviceDeploymentDescriptors": [
+        {
+          "name": "rb-my-app",
+          "version": "0.1",
+          "serviceType": "runtime-bundle"
+        },
+        {
+          "name": "activiti-cloud-query",
+          "version": "0.1",
+          "serviceType": "query"
+        },
+        {
+          "name": "activiti-cloud-audit",
+          "version": "0.1",
+          "serviceType": "audit"
+        }
+      ]
+    }
+---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
@@ -114,8 +152,61 @@ spec:
           env:
           - name: JAVA_OPTS
             value: -Xmx64m -Xms64m
+          - name: SPRING_APPLICATION_NAME
+            value: "registry"
           - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
+            value: "true"
+          - name: SPRING_PROFILES_ACTIVE
+            value: "native"
+          - name: ACTIVITI_CLOUD_SERVICES_APPSERVICE_ENABLED
             value: "false"
+          volumeMounts:
+          - name: deployments-config
+            mountPath: /config
+      volumes:
+        - name: deployments-config
+          configMap:
+            name: deployments-config
+            items:
+            - key: deployments
+              path:  apps.json
+            - key: default-app
+              path:  default-app.json
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activiti-cloud-apps
+  labels:
+    app: infrastructure
+    serviceType: apps
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: activiti-cloud-apps
+      labels:
+        app: infrastructure
+        serviceType: apps
+    spec:
+      containers:
+        - name: activiti-cloud-apps
+          image: activiti/activiti-cloud-apps:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8080
+            name: "apps"
+          - containerPort: 8000
+            name: "jvm-debug"
+          env:
+          - name: JAVA_OPTS
+            value: -Xmx64m -Xms64m -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n
+          - name: SPRING_APPLICATION_NAME
+            value: "apps"
+          - name: ACTIVITI_CLOUD_SERVICES_APPSERVICE_ENABLED
+            value: "true"
+          - name: ACTIVITI_CLOUD_CONFIG_URL
+            value: "http://activiti-cloud-registry:8761/config"
 ---
 apiVersion: v1
 kind: Service
@@ -153,6 +244,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: activiti-cloud-apps
+  namespace: default
+spec:
+  selector:
+    serviceType: apps
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: entrypoint
   namespace: default
 spec:
@@ -162,4 +266,18 @@ spec:
     - port: 8080
       targetPort: 8080
       nodePort: 30080 # uncomment for minikube, comment for Kube
+  type: NodePort #NodePort for minikube, LoadBalancer for Kube
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apps
+  namespace: default
+spec:
+  selector:
+    serviceType: apps
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30082 # uncomment for minikube, comment for Kube
   type: NodePort #NodePort for minikube, LoadBalancer for Kube

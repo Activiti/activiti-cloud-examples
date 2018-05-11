@@ -200,6 +200,10 @@ kind: Service
 metadata:
   name: activiti-cloud-audit
   namespace: default
+  labels:
+    activiti-cloud-service-type: audit
+    activiti-cloud-service-version: "0.1"
+    activiti-cloud-application-name: default-app
 spec:
   selector:
     serviceType: audit
@@ -213,6 +217,10 @@ kind: Service
 metadata:
   name: activiti-cloud-query
   namespace: default
+  labels:
+    activiti-cloud-service-type: query
+    activiti-cloud-service-version: "0.1"
+    activiti-cloud-application-name: default-app
 spec:
   selector:
     serviceType: query
@@ -226,6 +234,10 @@ kind: Service
 metadata:
   name: rb-my-app
   namespace: default
+  labels:
+    activiti-cloud-service-type: runtime-bundle
+    activiti-cloud-service-version: "0.1"
+    activiti-cloud-application-name: default-app
 spec:
   selector:
     serviceType: runtime-bundle
