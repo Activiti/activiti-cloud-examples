@@ -192,7 +192,7 @@ spec:
       containers:
         - name: activiti-cloud-apps
           image: activiti/activiti-cloud-apps:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
           - containerPort: 8080
             name: "apps"
