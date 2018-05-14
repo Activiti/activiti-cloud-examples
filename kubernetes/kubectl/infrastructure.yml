@@ -126,6 +126,8 @@ spec:
             value: -Xmx64m -Xms64m
           - name: ACT_KEYCLOAK_URL
             value: "http://activiti-cloud-sso-idm-kub:30081/auth"
+          - name: ZUUL_ROUTES_APPS_URL
+            value: "http://activiti-cloud-apps:8080"
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
