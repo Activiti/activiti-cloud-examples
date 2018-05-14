@@ -50,7 +50,6 @@ services:
       - SPRING_HATEOAS_USEHALASDEFAULTJSONMEDIATYPE=false
       - ACTIVITI_CLOUD_SERVICE_VERSION="0.1"
       - ACTIVITI_CLOUD_APPLICATION_VERSION="0.1"
-      - REMOTE_DEBUG=true
   # We define the name and the base image of our Runtime Bundle
   rb-my-app:
       # Set image: to whichever you are using
