@@ -270,16 +270,3 @@ spec:
       nodePort: 30080 # uncomment for minikube, comment for Kube
   type: NodePort #NodePort for minikube, LoadBalancer for Kube
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: apps
-  namespace: default
-spec:
-  selector:
-    serviceType: apps
-  ports:
-    - port: 8080
-      targetPort: 8080
-      nodePort: 30082 # uncomment for minikube, comment for Kube
-  type: NodePort #NodePort for minikube, LoadBalancer for Kube
