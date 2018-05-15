@@ -207,6 +207,8 @@ spec:
             value: "true"
           - name: ACTIVITI_CLOUD_CONFIG_URL
             value: "http://activiti-cloud-registry:8761/config"
+          - name: ACT_KEYCLOAK_URL
+            value: "http://activiti-cloud-sso-idm-kub:30081/auth"
 ---
 apiVersion: v1
 kind: Service
