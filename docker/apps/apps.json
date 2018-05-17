@@ -1,0 +1,8 @@
+{
+  "appDeploymentEntries": [
+    {
+      "name": "default-app",
+      "version": "1.0"
+    }
+  ]
+}
