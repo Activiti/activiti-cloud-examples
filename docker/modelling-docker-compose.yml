@@ -1,7 +1,7 @@
 version: '2'
 services:
   modeling-app:
-    image: activiti/activiti-cloud-modeling-backend:7-201802-EA
+    image: activiti/activiti-cloud-modeling:latest
     external_links:
       - activiti-cloud-sso-idm
       - activiti-cloud-registry
