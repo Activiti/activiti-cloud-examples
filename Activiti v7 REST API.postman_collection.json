@@ -1,1210 +1,1011 @@
 {
-	"id": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-	"name": "Activiti v7 REST API",
-	"description": "",
-	"order": [],
-	"folders_order": [
-		"eb721f0f-f362-c47f-839f-eb0bafec76cd",
-		"652bc2ca-60c1-6372-e0ee-a076f1ae122c",
-		"95292f08-013c-d9f8-e43d-6523fae8949f",
-		"1f24aa45-eed4-1d8d-d5ee-381fca17e59f",
-		"ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-		"b578a53d-7657-7df3-8b78-63adde1c6dd8"
-	],
-	"folders": [
+	"variables": [],
+	"info": {
+		"name": "Activiti v7 REST API",
+		"_postman_id": "597f17b2-6a38-50f6-9dd5-688c90352be8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
 		{
-			"id": "eb721f0f-f362-c47f-839f-eb0bafec76cd",
 			"name": "audit",
 			"description": "",
-			"order": [
-				"ea0a7b9e-7c86-b6c3-a0b4-eff606a334c4",
-				"08c4736d-d2d6-408f-f917-e658a942b5f7",
-				"ea512139-f621-1765-bb89-abe3a1bb45b5"
-			],
-			"folders_order": [],
-			"owner": "3881330",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8"
+			"item": [
+				{
+					"name": "getEvents",
+					"request": {
+						"url": "{{gateway}}/audit/v1/events",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getEventsByProcessInstanceId",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/audit/v1/events?processInstanceId={processInstanceId}",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"audit",
+								"v1",
+								"events"
+							],
+							"query": [
+								{
+									"key": "processInstanceId",
+									"value": "{processInstanceId}",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getEventsByType",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/audit/v1/events?eventType={eventType}",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"audit",
+								"v1",
+								"events"
+							],
+							"query": [
+								{
+									"key": "eventType",
+									"value": "{eventType}",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Filter events based on event type:\n- ProcessStartedEvent\n- TaskAssignedEvent\n- ..."
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "652bc2ca-60c1-6372-e0ee-a076f1ae122c",
 			"name": "gateway",
 			"description": "",
-			"order": [
-				"dbc93ded-96c6-1a02-27f6-531545d3faea"
-			],
-			"folders_order": [],
-			"owner": "3881330",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8"
+			"item": [
+				{
+					"name": "routes",
+					"request": {
+						"url": "{{gateway}}/actuator/routes",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "95292f08-013c-d9f8-e43d-6523fae8949f",
 			"name": "keycloak",
 			"description": "",
-			"order": [
-				"38f0a85c-fb79-b525-5755-4bb382d09f27"
-			],
-			"folders_order": [],
-			"owner": "3881330",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8"
+			"item": [
+				{
+					"name": "getKeycloakToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var tokens=JSON.parse(responseBody); ",
+									"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); ",
+									"pm.test(\"Setting the kcAccessToken.\", function () {",
+									"var tokens = JSON.parse(responseBody);",
+									"pm.globals.set(\"kcAccessToken\", tokens.access_token);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{idm}}/auth/realms/springboot/protocol/openid-connect/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "activiti",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "hruser",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "b578a53d-7657-7df3-8b78-63adde1c6dd8",
-			"name": "modeling",
-			"description": "",
-			"order": [
-				"91dcdfb3-2482-5950-7386-8ca80187a065",
-				"1fb08ebc-25d1-e650-bdad-7bffbb1cd8bb",
-				"cfa1cc10-ff6a-906d-e128-5e70448215a1"
-			],
-			"folders_order": [],
-			"owner": "3881330",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8"
-		},
-		{
-			"id": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"name": "query",
-			"description": "",
-			"order": [
-				"cedc9f30-92e7-84ea-c115-a429bb9764a5",
-				"4c09ab0a-a564-fe05-6e7f-1a8855abc4c6",
-				"acdbc905-545a-cb18-f0f9-7877676f5d7f",
-				"83229737-688d-6d0e-368e-43bbb367b769",
-				"87788f64-8d34-71be-d93c-8371ad1f8499",
-				"677dc563-6d00-c29c-9185-d96b454d8642",
-				"19c35ffa-d515-3160-a0e5-4e696b0e3134",
-				"4db658e2-5f5b-1bf4-8d92-5a20c9af4fa8",
-				"5a35e1b2-7ff0-726a-b351-cc33d424567f",
-				"4f6f6e31-8bd4-88b3-96c7-8a11c6a39d1f",
-				"47e5ef8a-b691-e8f6-0495-42da35c73bba"
-			],
-			"folders_order": [],
-			"owner": "3881330",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8"
-		},
-		{
-			"id": "1f24aa45-eed4-1d8d-d5ee-381fca17e59f",
 			"name": "rb-my-app",
 			"description": "",
-			"order": [
-				"c9b86a2c-1198-1357-89be-53acc993ef74",
-				"64fbf8c9-4b68-b861-a362-ef021a638ce8",
-				"985f3e54-39df-7850-82b3-f8b6566d1f48",
-				"7b773551-8735-a21f-f138-45c7ea666b92",
-				"5a88fe3e-4f94-b496-abc0-7d1608a422ed",
-				"29d5e5d6-0c0f-7301-71e7-12f51c91b33d",
-				"d07772c3-3c83-481a-9858-e70e86b41e8a",
-				"b15767c9-335d-5f83-632c-ef335828fdf0"
-			],
-			"folders_order": [],
-			"owner": "3881330",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8"
-		}
-	],
-	"owner": "3881330",
-	"hasRequests": true,
-	"requests": [
+			"item": [
+				{
+					"name": "getProcessInstances",
+					"request": {
+						"url": "{{gateway}}/rb-my-app/v1/process-instances",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "startProcess",
+					"request": {
+						"url": "{{gateway}}/rb-my-app/v1/process-instances",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getProcessVariables",
+					"request": {
+						"url": "{{gateway}}/rb-my-app/v1/process-instances/{processInstanceId}/variables",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTasks",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/rb-my-app/v1/tasks?page=0&size=10",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"rb-my-app",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTask",
+					"request": {
+						"url": "{{gateway}}/rb-my-app/v1/tasks/{taskId}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "claimTask",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"rb-my-app",
+								"v1",
+								"tasks",
+								"{taskId}",
+								"claim"
+							],
+							"query": [
+								{
+									"key": "assignee",
+									"value": "hruser",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "completeTask",
+					"request": {
+						"url": "{{gateway}}/rb-my-app/v1/tasks/{taskId}/complete",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getProcessDefinitions",
+					"request": {
+						"url": "{{gateway}}/rb-my-app/v1/process-definitions",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
 		{
-			"id": "08c4736d-d2d6-408f-f917-e658a942b5f7",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/audit/v1/events?processInstanceId={processInstanceId}",
-			"folder": "eb721f0f-f362-c47f-839f-eb0bafec76cd",
-			"queryParams": [
-				{
-					"key": "processInstanceId",
-					"value": "{processInstanceId}",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545340245,
-			"name": "getEventsByProcessInstanceId",
+			"name": "query",
 			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
+			"item": [
+				{
+					"name": "queryProcessInstances",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "queryProcessInstancesLastModified",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "lastModifiedFrom",
+									"value": "2011-12-03",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "lastModifiedTo",
+									"value": "2040-12-03",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Retrieves process instances having last modified date between two given dates"
+					},
+					"response": []
+				},
+				{
+					"name": "queryProcessInstanceVariables",
+					"request": {
+						"url": "{{gateway}}/query/v1/process-instances/{processInstanceId}/variables",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "queryRunningProcessInstances",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/query/v1/process-instances?status=RUNNING&page=0&size=20",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "RUNNING",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Retrieve process instances with status RUNNING"
+					},
+					"response": []
+				},
+				{
+					"name": "queryCompletedProcessInstances",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/query/v1/process-instances?status=COMPLETED&page=0&size=20",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "COMPLETED",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Retrieve process instances with status COMPLETED"
+					},
+					"response": []
+				},
+				{
+					"name": "queryTasks",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/query/v1/tasks?page=0&size=20",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "queryTaskVariables",
+					"request": {
+						"url": "{{gateway}}/query/v1/tasks/{taskId}/variables",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "queryTasksWithPriority",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/query/v1/tasks?priority=50&page=0&size=20",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "priority",
+									"value": "50",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "queryCreatedTasks",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/query/v1/tasks?status=CREATED&page=0&size=20",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "CREATED",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Retrieve tasks with status CREATED"
+					},
+					"response": []
+				},
+				{
+					"name": "queryAssignedTasks",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/query/v1/tasks?status=ASSIGNED&page=0&size=20",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ASSIGNED",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Retrieve tasks with status ASSIGNED"
+					},
+					"response": []
+				},
+				{
+					"name": "queryCompletedTasks",
+					"request": {
+						"url": {
+							"raw": "{{gateway}}/query/v1/tasks?status=COMPLETED&page=0&size=20",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "COMPLETED",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Retrieve tasks with status COMPLETED"
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "19c35ffa-d515-3160-a0e5-4e696b0e3134",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/tasks/{taskId}/variables",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545769792,
-			"name": "queryTaskVariables",
+			"name": "modeling",
 			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "1fb08ebc-25d1-e650-bdad-7bffbb1cd8bb",
-			"headers": "Content-Type: application/json\nAuthorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
+			"item": [
 				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
+					"name": "getModels",
+					"request": {
+						"url": "{{gateway}}/modeling-app/v1/models",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
 				},
 				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/modeling-app/v1/models",
-			"folder": "b578a53d-7657-7df3-8b78-63adde1c6dd8",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545830329,
-			"name": "createProcessModels",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": "{\"id\":\"process_model_id1\",\"type\":\"PROCESS_MODEL\",\"refId\":\"process_model_refId1\",\"modelId\":\"process_model_refId1\",\"name\":\"Process Model\", \"content\":\"first process model\"}"
-		},
-		{
-			"id": "29d5e5d6-0c0f-7301-71e7-12f51c91b33d",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\nContent-Type: application/json\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
+					"name": "createProcessModels",
+					"request": {
+						"url": "{{gateway}}/modeling-app/v1/models",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":\"process_model_id1\",\"type\":\"PROCESS_MODEL\",\"refId\":\"process_model_refId1\",\"modelId\":\"process_model_refId1\",\"name\":\"Process Model\", \"content\":\"first process model\"}"
+						},
+						"description": ""
+					},
+					"response": []
 				},
 				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
+					"name": "updateProcessModels",
+					"request": {
+						"url": "{{gateway}}/modeling-app/v1/models/process_model_id1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":\"process_model_id1\",\"type\":\"PROCESS_MODEL\",\"refId\":\"process_model_refId1\",\"modelId\":\"process_model_refId1\",\"name\":\"Process Model\", \"content\":\"second process model\"}"
+						},
+						"description": ""
+					},
+					"response": []
 				}
-			],
-			"url": "{{gateway}}/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
-			"folder": "1f24aa45-eed4-1d8d-d5ee-381fca17e59f",
-			"queryParams": [
-				{
-					"key": "assignee",
-					"value": "hruser",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545699731,
-			"name": "claimTask",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "38f0a85c-fb79-b525-5755-4bb382d09f27",
-			"headers": "Content-Type: application/x-www-form-urlencoded\n",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/x-www-form-urlencoded",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{idm}}/auth/realms/springboot/protocol/openid-connect/token",
-			"folder": "95292f08-013c-d9f8-e43d-6523fae8949f",
-			"queryParams": [],
-			"preRequestScript": "",
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "POST",
-			"data": [
-				{
-					"key": "client_id",
-					"value": "activiti",
-					"type": "text"
-				},
-				{
-					"key": "grant_type",
-					"value": "password",
-					"type": "text"
-				},
-				{
-					"key": "username",
-					"value": "hruser",
-					"type": "text"
-				},
-				{
-					"key": "password",
-					"value": "password",
-					"type": "text"
-				}
-			],
-			"dataMode": "urlencoded",
-			"tests": "var tokens=JSON.parse(responseBody); \npostman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); \npm.test(\"Setting the kcAccessToken.\", function () {\nvar tokens = JSON.parse(responseBody);\npm.globals.set(\"kcAccessToken\", tokens.access_token);\n});",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545620695,
-			"name": "getKeycloakToken",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": []
-		},
-		{
-			"id": "47e5ef8a-b691-e8f6-0495-42da35c73bba",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/tasks?status=COMPLETED&page=0&size=20",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [
-				{
-					"key": "status",
-					"value": "COMPLETED",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "page",
-					"value": "0",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "size",
-					"value": "20",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545814829,
-			"name": "queryCompletedTasks",
-			"description": "Retrieve tasks with status COMPLETED",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "4c09ab0a-a564-fe05-6e7f-1a8855abc4c6",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [
-				{
-					"key": "lastModifiedFrom",
-					"value": "2011-12-03",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "lastModifiedTo",
-					"value": "2040-12-03",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "page",
-					"value": "0",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "size",
-					"value": "20",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545730808,
-			"name": "queryProcessInstancesLastModified",
-			"description": "Retrieves process instances having last modified date between two given dates",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "4db658e2-5f5b-1bf4-8d92-5a20c9af4fa8",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/tasks?priority=50&page=0&size=20",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [
-				{
-					"key": "priority",
-					"value": "50",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "page",
-					"value": "0",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "size",
-					"value": "20",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545776559,
-			"name": "queryTasksWithPriority",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "4f6f6e31-8bd4-88b3-96c7-8a11c6a39d1f",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/tasks?status=ASSIGNED&page=0&size=20",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [
-				{
-					"key": "status",
-					"value": "ASSIGNED",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "page",
-					"value": "0",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "size",
-					"value": "20",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545807753,
-			"name": "queryAssignedTasks",
-			"description": "Retrieve tasks with status ASSIGNED",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "5a35e1b2-7ff0-726a-b351-cc33d424567f",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/tasks?status=CREATED&page=0&size=20",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [
-				{
-					"key": "status",
-					"value": "CREATED",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "page",
-					"value": "0",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "size",
-					"value": "20",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545787375,
-			"name": "queryCreatedTasks",
-			"description": "Retrieve tasks with status CREATED",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "5a88fe3e-4f94-b496-abc0-7d1608a422ed",
-			"headers": "Content-Type: application/json\nAuthorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/rb-my-app/v1/tasks/{taskId}",
-			"folder": "1f24aa45-eed4-1d8d-d5ee-381fca17e59f",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545690679,
-			"name": "getTask",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "64fbf8c9-4b68-b861-a362-ef021a638ce8",
-			"headers": "Content-Type: application/json\nAuthorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/rb-my-app/v1/process-instances",
-			"folder": "1f24aa45-eed4-1d8d-d5ee-381fca17e59f",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545666618,
-			"name": "startProcess",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
-		},
-		{
-			"id": "677dc563-6d00-c29c-9185-d96b454d8642",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/tasks?page=0&size=20",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [
-				{
-					"key": "page",
-					"value": "0",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "size",
-					"value": "20",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545765382,
-			"name": "queryTasks",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "7b773551-8735-a21f-f138-45c7ea666b92",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/rb-my-app/v1/tasks?page=0&size=10",
-			"folder": "1f24aa45-eed4-1d8d-d5ee-381fca17e59f",
-			"queryParams": [
-				{
-					"key": "page",
-					"value": "0",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "size",
-					"value": "10",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545686160,
-			"name": "getTasks",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "83229737-688d-6d0e-368e-43bbb367b769",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/process-instances?status=RUNNING&page=0&size=20",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [
-				{
-					"key": "status",
-					"value": "RUNNING",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "page",
-					"value": "0",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "size",
-					"value": "20",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545746001,
-			"name": "queryRunningProcessInstances",
-			"description": "Retrieve process instances with status RUNNING",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "87788f64-8d34-71be-d93c-8371ad1f8499",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/process-instances?status=COMPLETED&page=0&size=20",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [
-				{
-					"key": "status",
-					"value": "COMPLETED",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "page",
-					"value": "0",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "size",
-					"value": "20",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545755617,
-			"name": "queryCompletedProcessInstances",
-			"description": "Retrieve process instances with status COMPLETED",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "91dcdfb3-2482-5950-7386-8ca80187a065",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/modeling-app/v1/models",
-			"folder": "b578a53d-7657-7df3-8b78-63adde1c6dd8",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545823722,
-			"name": "getModels",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "985f3e54-39df-7850-82b3-f8b6566d1f48",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/rb-my-app/v1/process-instances/{processInstanceId}/variables",
-			"folder": "1f24aa45-eed4-1d8d-d5ee-381fca17e59f",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545672044,
-			"name": "getProcessVariables",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "acdbc905-545a-cb18-f0f9-7877676f5d7f",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/process-instances/{processInstanceId}/variables",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545737720,
-			"name": "queryProcessInstanceVariables",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "b15767c9-335d-5f83-632c-ef335828fdf0",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"enabled": true,
-					"description": ""
-				}
-			],
-			"url": "{{gateway}}/rb-my-app/v1/process-definitions",
-			"folder": "1f24aa45-eed4-1d8d-d5ee-381fca17e59f",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": null,
-			"helperAttributes": null,
-			"time": 1530545708503,
-			"name": "getProcessDefinitions",
-			"description": null,
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"isFromCollection": true,
-			"collectionRequestId": "b15767c9-335d-5f83-632c-ef335828fdf0",
-			"timestamp": null,
-			"auth": null,
-			"events": null,
-			"rawModeData": "",
-			"descriptionFormat": null,
-			"variables": null
-		},
-		{
-			"id": "c9b86a2c-1198-1357-89be-53acc993ef74",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/rb-my-app/v1/process-instances",
-			"folder": "1f24aa45-eed4-1d8d-d5ee-381fca17e59f",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545641495,
-			"name": "getProcessInstances",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "cedc9f30-92e7-84ea-c115-a429bb9764a5",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/query/v1/process-instances?page=0&size=20",
-			"folder": "ef605b01-27a5-02d0-86e2-c81ed7dedf7f",
-			"queryParams": [
-				{
-					"key": "page",
-					"value": "0",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "size",
-					"value": "20",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545721773,
-			"name": "queryProcessInstances",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "cfa1cc10-ff6a-906d-e128-5e70448215a1",
-			"headers": "Content-Type: application/json\nAuthorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/modeling-app/v1/models/process_model_id1",
-			"folder": "b578a53d-7657-7df3-8b78-63adde1c6dd8",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "PUT",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545837323,
-			"name": "updateProcessModels",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": "{\"id\":\"process_model_id1\",\"type\":\"PROCESS_MODEL\",\"refId\":\"process_model_refId1\",\"modelId\":\"process_model_refId1\",\"name\":\"Process Model\", \"content\":\"second process model\"}"
-		},
-		{
-			"id": "d07772c3-3c83-481a-9858-e70e86b41e8a",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\nContent-Type: application/json\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				},
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/rb-my-app/v1/tasks/{taskId}/complete",
-			"folder": "1f24aa45-eed4-1d8d-d5ee-381fca17e59f",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545704152,
-			"name": "completeTask",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "dbc93ded-96c6-1a02-27f6-531545d3faea",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/actuator/routes",
-			"folder": "652bc2ca-60c1-6372-e0ee-a076f1ae122c",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545379129,
-			"name": "routes",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "ea0a7b9e-7c86-b6c3-a0b4-eff606a334c4",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/audit/v1/events",
-			"folder": "eb721f0f-f362-c47f-839f-eb0bafec76cd",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545304563,
-			"name": "getEvents",
-			"description": "",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "ea512139-f621-1765-bb89-abe3a1bb45b5",
-			"headers": "Authorization: Bearer {{kcAccessToken}}\n",
-			"headerData": [
-				{
-					"key": "Authorization",
-					"value": "Bearer {{kcAccessToken}}",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{gateway}}/audit/v1/events?eventType={eventType}",
-			"folder": "eb721f0f-f362-c47f-839f-eb0bafec76cd",
-			"queryParams": [
-				{
-					"key": "eventType",
-					"value": "{eventType}",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1530545347233,
-			"name": "getEventsByType",
-			"description": "Filter events based on event type:\n- ProcessStartedEvent\n- TaskAssignedEvent\n- ...",
-			"collectionId": "597f17b2-6a38-50f6-9dd5-688c90352be8",
-			"responses": [],
-			"rawModeData": ""
+			]
 		}
 	]
 }
