@@ -118,8 +118,28 @@
 				{
 					"name": "routes",
 					"request": {
-						"url": "{{gateway}}/actuator/routes",
+						"url": "{{gateway}}/actuator/gateway/routes",
 						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"url": "{{gateway}}/actuator/gateway/refresh",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
@@ -243,7 +263,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"processDefinitionId\": \"SimpleProcess:1:4\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+							"raw": "{\n  \"processDefinitionKey\": \"SimpleProcess\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
 						},
 						"description": ""
 					},
