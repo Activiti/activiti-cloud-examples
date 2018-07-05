@@ -160,7 +160,7 @@
 						}
 					],
 					"request": {
-						"url": "{{idm}}/auth/realms/springboot/protocol/openid-connect/token",
+						"url": "{{idm}}/auth/realms/activiti/protocol/openid-connect/token",
 						"method": "POST",
 						"header": [
 							{
