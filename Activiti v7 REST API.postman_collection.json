@@ -162,7 +162,7 @@
 			"description": "",
 			"item": [
 				{
-					"name": "getKeycloakToken",
+					"name": "getKeycloakToken hruser",
 					"event": [
 						{
 							"listen": "test",
@@ -205,6 +205,120 @@
 								{
 									"key": "username",
 									"value": "hruser",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getKeycloakToken hradmin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var tokens=JSON.parse(responseBody); ",
+									"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); ",
+									"pm.test(\"Setting the kcAccessToken.\", function () {",
+									"var tokens = JSON.parse(responseBody);",
+									"pm.globals.set(\"kcAccessToken\", tokens.access_token);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{idm}}/auth/realms/activiti/protocol/openid-connect/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "activiti",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "hradmin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getKeycloakToken testuser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var tokens=JSON.parse(responseBody); ",
+									"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); ",
+									"pm.test(\"Setting the kcAccessToken.\", function () {",
+									"var tokens = JSON.parse(responseBody);",
+									"pm.globals.set(\"kcAccessToken\", tokens.access_token);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{idm}}/auth/realms/activiti/protocol/openid-connect/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "activiti",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "testuser",
 									"type": "text"
 								},
 								{
@@ -264,6 +378,31 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"processDefinitionKey\": \"SimpleProcess\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "startProcessWithVariables",
+					"request": {
+						"url": "{{gateway}}/rb-my-app/v1/process-instances",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"processDefinitionKey\": \"ProcessWithVariables\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
 						},
 						"description": ""
 					},
