@@ -1320,7 +1320,7 @@
 								}
 							],
 							"request": {
-								"url": "{{idm}}/auth/realms/activiti/protocol/openid-connect/token",
+								"url": "{{idm}}/auth/realms/{{realm}}/protocol/openid-connect/token",
 								"method": "POST",
 								"header": [
 									{
@@ -1553,7 +1553,7 @@
 								}
 							],
 							"request": {
-								"url": "{{idm}}/auth/realms/activiti/protocol/openid-connect/token",
+								"url": "{{idm}}/auth/realms/{{realm}}/protocol/openid-connect/token",
 								"method": "POST",
 								"header": [
 									{
@@ -1817,7 +1817,7 @@
 								}
 							],
 							"request": {
-								"url": "{{idm}}/auth/realms/activiti/protocol/openid-connect/token",
+								"url": "{{idm}}/auth/realms/{{realm}}/protocol/openid-connect/token",
 								"method": "POST",
 								"header": [
 									{
