@@ -12,6 +12,53 @@
 			"description": "",
 			"item": [
 				{
+					"name": "Admin endpoints",
+					"description": "",
+					"item": [
+						{
+							"name": "getEventsByProcessInstanceId - admin",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/audit/admin/v1/events?processInstanceId={processInstanceId}",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"audit",
+										"admin",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "processInstanceId",
+											"value": "{processInstanceId}",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "getEvents",
 					"request": {
 						"url": "{{gateway}}/audit/v1/events",
@@ -180,7 +227,7 @@
 						}
 					],
 					"request": {
-						"url": "{{idm}}/auth/realms/activiti/protocol/openid-connect/token",
+						"url": "{{idm}}/auth/realms/{{realm}}/protocol/openid-connect/token",
 						"method": "POST",
 						"header": [
 							{
@@ -237,7 +284,7 @@
 						}
 					],
 					"request": {
-						"url": "{{idm}}/auth/realms/activiti/protocol/openid-connect/token",
+						"url": "{{idm}}/auth/realms/{{realm}}/protocol/openid-connect/token",
 						"method": "POST",
 						"header": [
 							{
@@ -294,7 +341,7 @@
 						}
 					],
 					"request": {
-						"url": "{{idm}}/auth/realms/activiti/protocol/openid-connect/token",
+						"url": "{{idm}}/auth/realms/{{realm}}/protocol/openid-connect/token",
 						"method": "POST",
 						"header": [
 							{
@@ -338,6 +385,33 @@
 			"name": "rb-my-app",
 			"description": "",
 			"item": [
+				{
+					"name": "Admin endpoints",
+					"description": "",
+					"item": [
+						{
+							"name": "getProcessInstances - admin",
+							"request": {
+								"url": "{{gateway}}/rb-my-app/admin/v1/process-instances",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
 				{
 					"name": "getProcessInstances",
 					"request": {
@@ -595,6 +669,59 @@
 			"name": "query",
 			"description": "",
 			"item": [
+				{
+					"name": "Admin endpoints",
+					"description": "",
+					"item": [
+						{
+							"name": "queryProcessInstances - admin",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/query/admin/v1/process-instances?page=0&size=20",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"query",
+										"admin",
+										"v1",
+										"process-instances"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
 				{
 					"name": "queryProcessInstances",
 					"request": {
@@ -1163,6 +1290,769 @@
 						"description": ""
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Security Policies Scenarios",
+			"description": "This folder contains the neccesary calls, in the right order, to test the enforcement of the security policies ",
+			"item": [
+				{
+					"name": "Test User case",
+					"description": "",
+					"item": [
+						{
+							"name": "getKeycloakToken testuser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var tokens=JSON.parse(responseBody); ",
+											"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); ",
+											"pm.test(\"Setting the kcAccessToken.\", function () {",
+											"var tokens = JSON.parse(responseBody);",
+											"pm.globals.set(\"kcAccessToken\", tokens.access_token);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "{{idm}}/auth/realms/{{realm}}/protocol/openid-connect/token",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client_id",
+											"value": "activiti",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "testuser",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "startProcessWithVariables",
+							"request": {
+								"url": "{{gateway}}/rb-my-app/v1/process-instances",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"processDefinitionKey\": \"ProcessWithVariables\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "getProcessInstances",
+							"request": {
+								"url": "{{gateway}}/rb-my-app/v1/process-instances",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "queryProcessInstanceVariables",
+							"request": {
+								"url": "{{gateway}}/query/v1/process-instances/{processInstanceId}/variables",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "queryProcessInstances",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"query",
+										"v1",
+										"process-instances"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "queryProcessInstanceVariables - 2nd",
+							"request": {
+								"url": "{{gateway}}/query/v1/process-instances/{processInstanceId}/variables",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "getEventsByProcessInstanceId",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/audit/v1/events?processInstanceId={processInstanceId}",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"audit",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "processInstanceId",
+											"value": "{processInstanceId}",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "HR User case",
+					"description": "",
+					"item": [
+						{
+							"name": "getKeycloakToken hruser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var tokens=JSON.parse(responseBody); ",
+											"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); ",
+											"pm.test(\"Setting the kcAccessToken.\", function () {",
+											"var tokens = JSON.parse(responseBody);",
+											"pm.globals.set(\"kcAccessToken\", tokens.access_token);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "{{idm}}/auth/realms/{{realm}}/protocol/openid-connect/token",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client_id",
+											"value": "activiti",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "hruser",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "startProcessWithVariables",
+							"request": {
+								"url": "{{gateway}}/rb-my-app/v1/process-instances",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"processDefinitionKey\": \"ProcessWithVariables\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "getProcessInstances",
+							"request": {
+								"url": "{{gateway}}/rb-my-app/v1/process-instances",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "getTasks",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/rb-my-app/v1/tasks?page=0&size=10",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"rb-my-app",
+										"v1",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "queryProcessInstances",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"query",
+										"v1",
+										"process-instances"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "queryTasks",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/query/v1/tasks?page=0&size=20",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"query",
+										"v1",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "getEvents",
+							"request": {
+								"url": "{{gateway}}/audit/v1/events",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "HR Admin case",
+					"description": "",
+					"item": [
+						{
+							"name": "getKeycloakToken hradmin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var tokens=JSON.parse(responseBody); ",
+											"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); ",
+											"pm.test(\"Setting the kcAccessToken.\", function () {",
+											"var tokens = JSON.parse(responseBody);",
+											"pm.globals.set(\"kcAccessToken\", tokens.access_token);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "{{idm}}/auth/realms/{{realm}}/protocol/openid-connect/token",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client_id",
+											"value": "activiti",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "hradmin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "getProcessInstances - admin",
+							"request": {
+								"url": "{{gateway}}/rb-my-app/admin/v1/process-instances",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "queryProcessInstances - admin",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/query/admin/v1/process-instances?page=0&size=20",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"query",
+										"admin",
+										"v1",
+										"process-instances"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "getEventsByProcessInstanceId - admin",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/audit/admin/v1/events?processInstanceId={processInstanceId}",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"audit",
+										"admin",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "processInstanceId",
+											"value": "{processInstanceId}",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "queryProcessInstances",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"query",
+										"v1",
+										"process-instances"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "queryProcessInstances",
+							"request": {
+								"url": {
+									"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"query",
+										"v1",
+										"process-instances"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		}
