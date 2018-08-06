@@ -7,11 +7,21 @@ services:
       - activiti-cloud-registry
       - rabbitmq
     environment:
+#      - ACTIVITI_CLOUD_SECURITY_GROUP_HR_RBMYAPP_POLICY_WRITE=SimpleProcess
+#      - ACTIVITI_CLOUD_SECURITY_GROUP_TESTGROUP_RBMYAPP_POLICY_WRITE=*
       - ACT_AUDIT_PORT=8181
       - JAVA_OPTS=-Xmx128m -Xms128m
       - ACT_CLOUD_CONFIG_SERVER_ENABLED=false
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://rb-postgres:5432/activitidb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_GENERATE_DDL=true
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - ACTIVITI_CLOUD_SERVICE_VERSION="0.1"
       - ACTIVITI_CLOUD_APPLICATION_VERSION="0.1"
+      - KEYCLOAK_REALM=springboot
+      - KEYCLOAK_RESOURCE=springboot
     # activiti-cloud-audit:
         # image: activiti/activiti-cloud-audit-mongodb:latest
         # external_links:
@@ -38,16 +48,22 @@ services:
       - activiti-cloud-registry
       - rabbitmq
     environment:
+#      - ACTIVITI_CLOUD_SECURITY_GROUP_HR_RBMYAPP_POLICY_WRITE=SimpleProcess
+#      - ACTIVITI_CLOUD_SECURITY_GROUP_TESTGROUP_RBMYAPP_POLICY_WRITE=*
       - ACT_QUERY_PORT=8182
       - JAVA_OPTS=-Xmx128m -Xms128m
       - ACT_CLOUD_CONFIG_SERVER_ENABLED=false
-      - ACT_QUERY_DB_URI=jdbc:postgresql://rb-postgres:5432/activitidb
-      - ACT_QUERY_DB_USER=postgres
-      - ACT_QUERY_DB_PASS=password
-      - ACT_QUERY_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://rb-postgres:5432/activitidb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_GENERATE_DDL=true
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_ACTIVITI_CLOUD_SERVICES_NOTIFICATIONS_GATEWAY_ENABLED=true
       - SPRING_ACTIVITI_CLOUD_SERVICES_QUERY_GRAPHQL_ENABLED=true
       - SPRING_HATEOAS_USEHALASDEFAULTJSONMEDIATYPE=false
+      - KEYCLOAK_REALM=springboot
+      - KEYCLOAK_RESOURCE=springboot
       - ACTIVITI_CLOUD_SERVICE_VERSION="0.1"
       - ACTIVITI_CLOUD_APPLICATION_VERSION="0.1"
   # We define the name and the base image of our Runtime Bundle
@@ -65,18 +81,22 @@ services:
         - rb-postgres
       # You can launch as many Runtime Bundles as you want by changing these Env variables
       environment:
+#        - ACTIVITI_CLOUD_SECURITY_GROUP_HR_RBMYAPP_POLICY_WRITE=SimpleProcess
+#        - ACTIVITI_CLOUD_SECURITY_GROUP_TESTGROUP_RBMYAPP_POLICY_WRITE=*
         - ACT_RB_PORT=8081
         - ACT_RB_HOST=rb-my-app
         - ACT_RB_APP_NAME=rb-my-app
-        - ACT_RB_DB_URI=jdbc:postgresql://rb-postgres:5432/activitidb
-        - ACT_RB_DB_USER=postgres
-        - ACT_RB_DB_PASS=password
-        - ACT_RB_DB_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://rb-postgres:5432/activitidb
+        - SPRING_DATASOURCE_USERNAME=postgres
+        - SPRING_DATASOURCE_PASSWORD=password
+        - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
         - JAVA_OPTS=-Xmx256m -Xms256m
         - ACT_CLOUD_CONFIG_SERVER_ENABLED=false
         - SPRING_HATEOAS_USEHALASDEFAULTJSONMEDIATYPE=false
         - ACTIVITI_CLOUD_SERVICE_VERSION="0.1"
         - ACTIVITI_CLOUD_APPLICATION_VERSION="0.1"
+        - KEYCLOAK_REALM=springboot
+        - KEYCLOAK_RESOURCE=springboot
       networks:
         - infrastructure
   # We decided to configure our runtime bundle against a PostgreSQL instance
