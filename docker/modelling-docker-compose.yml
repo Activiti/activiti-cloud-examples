@@ -8,6 +8,6 @@ services:
       - rabbitmq
     environment:
       - ACT_MODELING_PORT=8088
-      - ACT_MODELING_HOST=modeling-app
-      - ACT_MODELING_APP_NAME=modeling-app
+      - ACT_MODELING_HOST=activiti-cloud-modeling
+      - ACT_MODELING_APP_NAME=activiti-cloud-modeling
       - ACT_CLOUD_CONFIG_SERVER_ENABLED=false
