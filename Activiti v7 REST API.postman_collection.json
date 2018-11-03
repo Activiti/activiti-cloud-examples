@@ -126,13 +126,36 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gatewayUrl}}/actuator/routes",
+							"raw": "{{gatewayUrl}}/actuator/gateway/routes",
 							"host": [
 								"{{gatewayUrl}}"
 							],
 							"path": [
 								"actuator",
+								"gateway",
 								"routes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "routes refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{gatewayUrl}}/actuator/refresh",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"actuator",
+								"refresh"
 							]
 						}
 					},
@@ -956,13 +979,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{gatewayUrl}}/modeling-app/v1/models",
+							"raw": "http://{{gatewayUrl}}/activiti-cloud-modeling-backend/v1/models",
 							"protocol": "http",
 							"host": [
 								"{{gatewayUrl}}"
 							],
 							"path": [
-								"modeling-app",
+								"activiti-cloud-modeling-backend",
 								"v1",
 								"models"
 							]
@@ -989,13 +1012,13 @@
 							"raw": "{\"id\":\"process_model_id1\",\"type\":\"PROCESS_MODEL\",\"refId\":\"process_model_refId1\",\"modelId\":\"process_model_refId1\",\"name\":\"Process Model\", \"content\":\"first process model\"}"
 						},
 						"url": {
-							"raw": "http://{{gatewayUrl}}/modeling-app/v1/models",
+							"raw": "http://{{gatewayUrl}}/activiti-cloud-modeling-backend/v1/models",
 							"protocol": "http",
 							"host": [
 								"{{gatewayUrl}}"
 							],
 							"path": [
-								"modeling-app",
+								"activiti-cloud-modeling-backend",
 								"v1",
 								"models"
 							]
@@ -1022,13 +1045,13 @@
 							"raw": "{\"id\":\"process_model_id1\",\"type\":\"PROCESS_MODEL\",\"refId\":\"process_model_refId1\",\"modelId\":\"process_model_refId1\",\"name\":\"Process Model\", \"content\":\"second process model\"}"
 						},
 						"url": {
-							"raw": "http://{{gatewayUrl}}/modeling-app/v1/models/process_model_id1",
+							"raw": "http://{{gatewayUrl}}/activiti-cloud-modeling-backend/v1/models/process_model_id1",
 							"protocol": "http",
 							"host": [
 								"{{gatewayUrl}}"
 							],
 							"path": [
-								"modeling-app",
+								"activiti-cloud-modeling-backend",
 								"v1",
 								"models",
 								"process_model_id1"
