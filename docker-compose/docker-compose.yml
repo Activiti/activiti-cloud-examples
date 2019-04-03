@@ -1,0 +1,115 @@
+version: '2'
+
+services:
+  nginx: 
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80   
+      - 443:443
+    restart: unless-stopped  
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: activiti/rabbitmq-stomp:7.0.0.RC1
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+     - rabbitmq-data
+    restart: unless-stopped
+
+  keycloak:
+    container_name: keycloak
+    image: activiti/activiti-keycloak
+    ports:
+      - 8180:8180
+    volumes:
+      - ./activiti-realm.json:/opt/jboss/keycloak/activiti-realm.json
+    restart: unless-stopped
+
+  example-runtime-bundle:
+    container_name: example-runtime-bundle
+    image: activiti/example-runtime-bundle:${VERSION}
+    environment:
+      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+      SPRING_JMX_ENABLED: "false"
+      ACT_KEYCLOAK_URL: "http://${DOCKER_IP}.nip.io/auth"
+      SPRING_RABBITMQ_HOST: "rabbitmq"
+    restart: unless-stopped
+
+  example-cloud-connector:
+    container_name: example-cloud-connector
+    image: activiti/example-cloud-connector:${VERSION}
+    environment:
+      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+      SPRING_JMX_ENABLED: "false"
+      SPRING_RABBITMQ_HOST: "rabbitmq"
+      ACT_KEYCLOAK_URL: "http://${DOCKER_IP}.nip.io/auth"
+    restart: unless-stopped
+
+  activiti-cloud-query:
+    container_name: activiti-cloud-query
+    image: activiti/activiti-cloud-query:${VERSION}
+    environment:
+      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+      SPRING_JMX_ENABLED: "false"
+      SPRING_RABBITMQ_HOST: "rabbitmq"
+      ACT_KEYCLOAK_URL: "http://${DOCKER_IP}.nip.io/auth"
+    restart: unless-stopped      
+  
+  activiti-cloud-audit:
+    container_name: activiti-cloud-audit
+    image: activiti/activiti-cloud-audit:${VERSION}
+    environment:
+      # JA`VA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+      SPRING_JMX_ENABLED: "false"
+      SPRING_RABBITMQ_HOST: "rabbitmq"
+      ACT_KEYCLOAK_URL: "http://${DOCKER_IP}.nip.io/auth"
+    restart: unless-stopped      
+
+  activiti-cloud-notifications-graphql:  
+    container_name: activiti-cloud-notifications-graphql
+    image: activiti/activiti-cloud-notifications-graphql:${VERSION}
+    environment:
+      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+      SPRING_JMX_ENABLED: "false"
+      SPRING_RABBITMQ_HOST: "rabbitmq"
+      ACT_KEYCLOAK_URL: "http://${DOCKER_IP}.nip.io/auth"
+    restart: unless-stopped
+  
+  activiti-cloud-modeling:
+    container_name: activiti-cloud-modeling
+    image: activiti/activiti-modeling-app:${VERSION}
+    environment:
+      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+      APP_CONFIG_OAUTH2_HOST: "http://${DOCKER_IP}.nip.io/auth/realms/${KEYCLOAK_REALM}"
+      APP_CONFIG_OAUTH2_CLIENTID: "${KEYCLOAK_REALM}"
+      API_URL: "http://${DOCKER_IP}.nip.io"
+      BASE_PATH: /activiti-cloud-modeling/
+      APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI: /activiti-cloud-modeling/assets/silent-refresh.html
+      APP_CONFIG_OAUTH2_REDIRECT_LOGIN: /activiti-cloud-modeling
+      APP_CONFIG_OAUTH2_REDIRECT_LOGOUT: /activiti-cloud-modeling
+      API_PATH_PREFIX: activiti-cloud-modeling-backend
+    restart: unless-stopped
+
+  activiti-cloud-modeling-backend:
+    container_name: activiti-cloud-modeling-backend
+    image: activiti/activiti-cloud-modeling:${VERSION}
+    ports:
+      - 8888:8080
+    environment:
+      JAVA_OPTS:                    -Xmx1024m -Xms512m -XX:+UnlockExperimentalVMOptions   -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+      SPRING_APPLICATION_NAME:      activiti-cloud-modeling-backend
+      SERVER_PORT:                  8080
+      ACT_KEYCLOAK_URL:             http://${DOCKER_IP}.nip.io/auth
+      ACT_KEYCLOAK_REALM:           ${KEYCLOAK_REALM}
+      ACT_KEYCLOAK_RESOURCE:        ${KEYCLOAK_RESOURCE}
+      ACTIVITI_CLOUD_MODELING_URL:  localhost:8080
+
+volumes:
+  rabbitmq-data:
+
+    
