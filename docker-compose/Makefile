@@ -7,6 +7,7 @@ COMPOSE := docker-compose
 SERVICE_COMMANDS := pull build down kill rm ps stop events unpause restart port pause create
 COMPOSE_COMMANDS := config version $(SERVICE_COMMANDS)
 SERVICES := $(shell $(COMPOSE) config --services)
+include .env
 
 .PHONY: $(SERVICES)
 
@@ -20,31 +21,43 @@ help: ## This info
 all: up ## Brings up all services, see docker-compose.yml
 
 infra: nginx keycloak ## Brings up infrastructure services
-
+	@echo
+	@echo
+	@echo Keycloak path  $(DOCKER_IP)/auth
+	@echo
 infra/stop: ## Stops infrastructure services
 	make nginx/stop keycloak/stop 
 
 application: infra rabbitmq ## Brings up Activiti application services
 	make example-runtime-bundle example-cloud-connector activiti-cloud-query activiti-cloud-audit activiti-cloud-notifications-graphql 
-
+	@echo Runtime bundle entry point: http://$(DOCKER_IP)/rb-my-app
 application/stop: ## Stops up Activiti application services
 	make rabbitmq/stop
 	make example-runtime-bundle/stop example-cloud-connector/stop activiti-cloud-query/stop activiti-cloud-audit/stop activiti-cloud-notifications-graphql/stop
 
 modeler: infra ## Brings up Modeler services, see docker-compose.yml
 	make activiti-cloud-modeling activiti-cloud-modeling-backend 
-
+	@echo
+	@echo
+	@echo Modeling app: http://$(DOCKER_IP)/activiti-cloud-modeling
+	@echo	
 modeler/stop:  ## Stop Modeler services
 	make activiti-cloud-modeling/stop activiti-cloud-modeling-backend/stop
 
 up: ## Bring system up, see docker-compose.yml
+	@echo
+	@echo
+	@echo Keycloak path:  http://$(DOCKER_IP)/auth
+	@echo Modeling app: http://$(DOCKER_IP)/activiti-cloud-modeling
+	@echo Runtime bundle entry point: http://$(DOCKER_IP)/rb-my-app
+	@echo	
 	$(COMPOSE) up -d
 
 logs: ## Follow all container logs in terminal
 	$(COMPOSE) logs -f
 
 clean: ## Clean Docker System Temporary Files
-	docker system prune -f
+	docker system prune -foreach
 
 reboot: ## Reboot All Services
 	make down up
