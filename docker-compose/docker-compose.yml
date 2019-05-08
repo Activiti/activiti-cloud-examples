@@ -168,6 +168,8 @@ services:
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
       SPRING_JPA_GENERATE_DDL: "false"
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SERVER_SERVLET_CONTEXT_PATH: "/notifications"
+      SPRING_JPA_PROPERTIES_HIBERNATE_TEMP_USE_JDBC_METADATA_DEFAULTS: "false"
     restart: unless-stopped
     depends_on:
       - nginx
