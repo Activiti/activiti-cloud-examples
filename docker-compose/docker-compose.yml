@@ -185,10 +185,10 @@ services:
       APP_CONFIG_OAUTH2_CLIENTID: "${KEYCLOAK_REALM}"
       API_URL: "http://${DOCKER_IP}"
       BASE_PATH: /activiti-cloud-modeling/
+      APP_CONFIG_BPM_HOST: "http://${DOCKER_IP}/activiti-cloud-modeling-backend"
       APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI: /activiti-cloud-modeling/assets/silent-refresh.html
       APP_CONFIG_OAUTH2_REDIRECT_LOGIN: /activiti-cloud-modeling
       APP_CONFIG_OAUTH2_REDIRECT_LOGOUT: /activiti-cloud-modeling
-      API_PATH_PREFIX: activiti-cloud-modeling-backend
     restart: unless-stopped
 
   activiti-cloud-modeling-backend:
