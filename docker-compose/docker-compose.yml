@@ -166,8 +166,8 @@ services:
       SPRING_DATASOURCE_USERNAME: activiti
       SPRING_DATASOURCE_PASSWORD: mypassword
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
-      SPRING_JPA_GENERATE_DDL: "true"
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_GENERATE_DDL: "false"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
     restart: unless-stopped
     depends_on:
       - nginx
