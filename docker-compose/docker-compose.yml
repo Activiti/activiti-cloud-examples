@@ -1,6 +1,19 @@
 version: '2'
 
 services:
+
+  activiti-postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_USER=activiti
+      - POSTGRES_DB=activitidb
+    volumes:
+      - "pgdata:/var/lib/postgresql/data"  
+    restart: unless-stopped
+
   nginx: 
     image: nginx:latest
     container_name: nginx
@@ -39,6 +52,9 @@ services:
       ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
       SPRING_RABBITMQ_HOST: "rabbitmq"
       SERVER_SERVLET_CONTEXT_PATH: /rb-my-app
+      SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
+      SPRING_DATASOURCE_USERNAME: activiti
+      SPRING_DATASOURCE_PASSWORD: mypassword
       # ACTIVITI_SECURITY_POLICIES_0_NAME: "HR Group restricted to SimpleProcess and ConnectorProcess"
       # ACTIVITI_SECURITY_POLICIES_0_GROUPS: "hr"
       # ACTIVITI_SECURITY_POLICIES_0_ACCESS: "WRITE"
@@ -54,6 +70,7 @@ services:
       - nginx
       - keycloak
       - rabbitmq 
+      - activiti-postgres
 
   example-cloud-connector:
     container_name: example-cloud-connector
@@ -78,6 +95,10 @@ services:
       SPRING_RABBITMQ_HOST: "rabbitmq"
       ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
       SERVER_SERVLET_CONTEXT_PATH: /query
+      SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
+      SPRING_DATASOURCE_USERNAME: activiti
+      SPRING_DATASOURCE_PASSWORD: mypassword
+
       # ACTIVITI_SECURITY_POLICIES_0_NAME: "HR Group restricted to SimpleProcess and ConnectorProcess"
       # ACTIVITI_SECURITY_POLICIES_0_GROUPS: "hr"
       # ACTIVITI_SECURITY_POLICIES_0_ACCESS: "WRITE"
@@ -92,7 +113,8 @@ services:
     depends_on:
       - nginx
       - keycloak
-      - rabbitmq      
+      - rabbitmq
+      - activiti-postgres      
   
   activiti-cloud-audit:
     container_name: activiti-cloud-audit
@@ -103,6 +125,9 @@ services:
       SPRING_RABBITMQ_HOST: "rabbitmq"
       ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
       SERVER_SERVLET_CONTEXT_PATH: /audit
+      SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
+      SPRING_DATASOURCE_USERNAME: activiti
+      SPRING_DATASOURCE_PASSWORD: mypassword
       # ACTIVITI_SECURITY_POLICIES_0_NAME: "HR Group restricted to SimpleProcess and ConnectorProcess"
       # ACTIVITI_SECURITY_POLICIES_0_GROUPS: "hr"
       # ACTIVITI_SECURITY_POLICIES_0_ACCESS: "WRITE"
@@ -117,7 +142,8 @@ services:
     depends_on:
       - nginx
       - keycloak
-      - rabbitmq      
+      - rabbitmq
+      - activiti-postgres      
 
   activiti-cloud-notifications-graphql:  
     container_name: activiti-cloud-notifications-graphql
@@ -127,11 +153,15 @@ services:
       SPRING_JMX_ENABLED: "false"
       SPRING_RABBITMQ_HOST: "rabbitmq"
       ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
+      SPRING_DATASOURCE_USERNAME: activiti
+      SPRING_DATASOURCE_PASSWORD: mypassword
     restart: unless-stopped
     depends_on:
       - nginx
       - keycloak
       - rabbitmq
+      - activiti-postgres
   
   activiti-cloud-modeling:
     container_name: activiti-cloud-modeling
@@ -165,5 +195,6 @@ services:
 
 volumes:
   rabbitmq-data:
+  pgdata:
 
     
