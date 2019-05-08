@@ -55,6 +55,9 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
       SPRING_DATASOURCE_USERNAME: activiti
       SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_GENERATE_DDL: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
       # ACTIVITI_SECURITY_POLICIES_0_NAME: "HR Group restricted to SimpleProcess and ConnectorProcess"
       # ACTIVITI_SECURITY_POLICIES_0_GROUPS: "hr"
       # ACTIVITI_SECURITY_POLICIES_0_ACCESS: "WRITE"
@@ -98,6 +101,9 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
       SPRING_DATASOURCE_USERNAME: activiti
       SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_GENERATE_DDL: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
       # ACTIVITI_SECURITY_POLICIES_0_NAME: "HR Group restricted to SimpleProcess and ConnectorProcess"
       # ACTIVITI_SECURITY_POLICIES_0_GROUPS: "hr"
@@ -128,6 +134,9 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
       SPRING_DATASOURCE_USERNAME: activiti
       SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_GENERATE_DDL: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
       # ACTIVITI_SECURITY_POLICIES_0_NAME: "HR Group restricted to SimpleProcess and ConnectorProcess"
       # ACTIVITI_SECURITY_POLICIES_0_GROUPS: "hr"
       # ACTIVITI_SECURITY_POLICIES_0_ACCESS: "WRITE"
@@ -156,6 +165,9 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
       SPRING_DATASOURCE_USERNAME: activiti
       SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_GENERATE_DDL: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     restart: unless-stopped
     depends_on:
       - nginx
