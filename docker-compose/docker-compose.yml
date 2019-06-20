@@ -51,7 +51,7 @@ services:
       SPRING_JMX_ENABLED: "false"
       ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
       SPRING_RABBITMQ_HOST: "rabbitmq"
-      SERVER_SERVLET_CONTEXT_PATH: /rb-my-app
+      SERVER_SERVLET_CONTEXT_PATH: /rb
       SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
       SPRING_DATASOURCE_USERNAME: activiti
       SPRING_DATASOURCE_PASSWORD: mypassword
@@ -186,11 +186,11 @@ services:
       APP_CONFIG_OAUTH2_HOST: "http://${DOCKER_IP}/auth/realms/${KEYCLOAK_REALM}"
       APP_CONFIG_OAUTH2_CLIENTID: "${KEYCLOAK_REALM}"
       API_URL: "http://${DOCKER_IP}"
-      BASE_PATH: /activiti-cloud-modeling/
-      APP_CONFIG_BPM_HOST: "http://${DOCKER_IP}/activiti-cloud-modeling-backend"
-      APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI: /activiti-cloud-modeling/assets/silent-refresh.html
-      APP_CONFIG_OAUTH2_REDIRECT_LOGIN: /activiti-cloud-modeling
-      APP_CONFIG_OAUTH2_REDIRECT_LOGOUT: /activiti-cloud-modeling
+      BASE_PATH: /modeling/
+      APP_CONFIG_BPM_HOST: "http://${DOCKER_IP}/modeling-service"
+      APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI: /modeling/assets/silent-refresh.html
+      APP_CONFIG_OAUTH2_REDIRECT_LOGIN: /modeling
+      APP_CONFIG_OAUTH2_REDIRECT_LOGOUT: /modeling
     restart: unless-stopped
 
   activiti-cloud-modeling-backend:
@@ -199,13 +199,13 @@ services:
     #image: activiti/activiti-cloud-modeling:7.1.76
     environment:
       JAVA_OPTS:                    -Xmx1024m -Xms512m -XX:+UnlockExperimentalVMOptions   -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
-      SPRING_APPLICATION_NAME:      activiti-cloud-modeling-backend
+      SPRING_APPLICATION_NAME:      modeling-service
       SERVER_PORT:                  8080
       ACT_KEYCLOAK_URL:             http://${DOCKER_IP}/auth
       ACT_KEYCLOAK_REALM:           ${KEYCLOAK_REALM}
       ACT_KEYCLOAK_RESOURCE:        ${KEYCLOAK_RESOURCE}
       ACTIVITI_CLOUD_MODELING_URL:  localhost:8080
-      SERVER_SERVLET_CONTEXT_PATH:  /activiti-cloud-modeling-backend 
+      SERVER_SERVLET_CONTEXT_PATH:  /modeling-service
 
 volumes:
   rabbitmq-data:
