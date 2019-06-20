@@ -492,7 +492,7 @@
 		},
 		{
 			"_postman_id": "54c28108-6c57-496e-92e5-ab8f30dd9f91",
-			"name": "rb-my-app",
+			"name": "rb",
 			"item": [
 				{
 					"_postman_id": "df73a0dd-3dcf-4575-8b36-7c4eeb0228a0",
@@ -514,12 +514,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{gateway}}/rb-my-app/admin/v1/process-instances",
+									"raw": "{{gateway}}/rb/admin/v1/process-instances",
 									"host": [
 										"{{gateway}}"
 									],
 									"path": [
-										"rb-my-app",
+										"rb",
 										"admin",
 										"v1",
 										"process-instances"
@@ -547,12 +547,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gateway}}/rb-my-app/v1/process-instances",
+							"raw": "{{gateway}}/rb/v1/process-instances",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"rb-my-app",
+								"rb",
 								"v1",
 								"process-instances"
 							]
@@ -576,12 +576,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gateway}}/rb-my-app/v2/api-docs",
+							"raw": "{{gateway}}/rb/v2/api-docs",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"rb-my-app",
+								"rb",
 								"v2",
 								"api-docs"
 							]
@@ -609,12 +609,12 @@
 							"raw": "{\n  \"processDefinitionKey\": \"SimpleProcess\",\n  \"payloadType\": \"StartProcessPayload\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
 						},
 						"url": {
-							"raw": "{{gateway}}/rb-my-app/v1/process-instances",
+							"raw": "{{gateway}}/rb/v1/process-instances",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"rb-my-app",
+								"rb",
 								"v1",
 								"process-instances"
 							]
@@ -642,12 +642,12 @@
 							"raw": "{\n  \"processDefinitionKey\": \"ProcessWithVariables\",\n  \"payloadType\": \"StartProcessPayload\",\n   \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
 						},
 						"url": {
-							"raw": "{{gateway}}/rb-my-app/v1/process-instances",
+							"raw": "{{gateway}}/rb/v1/process-instances",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"rb-my-app",
+								"rb",
 								"v1",
 								"process-instances"
 							]
@@ -671,12 +671,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gateway}}/rb-my-app/v1/process-instances/{processInstanceId}/variables",
+							"raw": "{{gateway}}/rb/v1/process-instances/{processInstanceId}/variables",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"rb-my-app",
+								"rb",
 								"v1",
 								"process-instances",
 								"{processInstanceId}",
@@ -702,12 +702,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gateway}}/rb-my-app/v1/tasks?page=0&size=10",
+							"raw": "{{gateway}}/rb/v1/tasks?page=0&size=10",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"rb-my-app",
+								"rb",
 								"v1",
 								"tasks"
 							],
@@ -745,12 +745,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gateway}}/rb-my-app/v1/tasks/{taskId}",
+							"raw": "{{gateway}}/rb/v1/tasks/{taskId}",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"rb-my-app",
+								"rb",
 								"v1",
 								"tasks",
 								"{taskId}"
@@ -779,12 +779,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gateway}}/rb-my-app/v1/tasks/{taskId}/claim?assignee=hruser",
+							"raw": "{{gateway}}/rb/v1/tasks/{taskId}/claim?assignee=hruser",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"rb-my-app",
+								"rb",
 								"v1",
 								"tasks",
 								"{taskId}",
@@ -820,12 +820,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gateway}}/rb-my-app/v1/tasks/{taskId}/complete",
+							"raw": "{{gateway}}/rb/v1/tasks/{taskId}/complete",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"rb-my-app",
+								"rb",
 								"v1",
 								"tasks",
 								"{taskId}",
@@ -851,12 +851,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gateway}}/rb-my-app/v1/process-definitions",
+							"raw": "{{gateway}}/rb/v1/process-definitions",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"rb-my-app",
+								"rb",
 								"v1",
 								"process-definitions"
 							]
@@ -1429,12 +1429,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{gateway}}/modeling-app/v1/models",
+							"raw": "{{gateway}}/modeling/v1/models",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"modeling-app",
+								"modeling",
 								"v1",
 								"models"
 							]
@@ -1462,12 +1462,12 @@
 							"raw": "{\"id\":\"process_model_id1\",\"type\":\"PROCESS_MODEL\",\"refId\":\"process_model_refId1\",\"modelId\":\"process_model_refId1\",\"name\":\"Process Model\", \"content\":\"first process model\"}"
 						},
 						"url": {
-							"raw": "{{gateway}}/modeling-app/v1/models",
+							"raw": "{{gateway}}/modeling/v1/models",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"modeling-app",
+								"modeling",
 								"v1",
 								"models"
 							]
@@ -1495,12 +1495,12 @@
 							"raw": "{\"id\":\"process_model_id1\",\"type\":\"PROCESS_MODEL\",\"refId\":\"process_model_refId1\",\"modelId\":\"process_model_refId1\",\"name\":\"Process Model\", \"content\":\"second process model\"}"
 						},
 						"url": {
-							"raw": "{{gateway}}/modeling-app/v1/models/process_model_id1",
+							"raw": "{{gateway}}/modeling/v1/models/process_model_id1",
 							"host": [
 								"{{gateway}}"
 							],
 							"path": [
-								"modeling-app",
+								"modeling",
 								"v1",
 								"models",
 								"process_model_id1"
@@ -1608,12 +1608,12 @@
 									"raw": "{\n  \"processDefinitionKey\": \"ProcessWithVariables\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
 								},
 								"url": {
-									"raw": "{{gateway}}/rb-my-app/v1/process-instances",
+									"raw": "{{gateway}}/rb/v1/process-instances",
 									"host": [
 										"{{gateway}}"
 									],
 									"path": [
-										"rb-my-app",
+										"rb",
 										"v1",
 										"process-instances"
 									]
@@ -1637,12 +1637,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{gateway}}/rb-my-app/v1/process-instances",
+									"raw": "{{gateway}}/rb/v1/process-instances",
 									"host": [
 										"{{gateway}}"
 									],
 									"path": [
-										"rb-my-app",
+										"rb",
 										"v1",
 										"process-instances"
 									]
@@ -1882,12 +1882,12 @@
 									"raw": "{\n  \"processDefinitionKey\": \"ProcessWithVariables\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
 								},
 								"url": {
-									"raw": "{{gateway}}/rb-my-app/v1/process-instances",
+									"raw": "{{gateway}}/rb/v1/process-instances",
 									"host": [
 										"{{gateway}}"
 									],
 									"path": [
-										"rb-my-app",
+										"rb",
 										"v1",
 										"process-instances"
 									]
@@ -1911,12 +1911,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{gateway}}/rb-my-app/v1/process-instances",
+									"raw": "{{gateway}}/rb/v1/process-instances",
 									"host": [
 										"{{gateway}}"
 									],
 									"path": [
-										"rb-my-app",
+										"rb",
 										"v1",
 										"process-instances"
 									]
@@ -1940,12 +1940,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{gateway}}/rb-my-app/v1/tasks?page=0&size=10",
+									"raw": "{{gateway}}/rb/v1/tasks?page=0&size=10",
 									"host": [
 										"{{gateway}}"
 									],
 									"path": [
-										"rb-my-app",
+										"rb",
 										"v1",
 										"tasks"
 									],
@@ -2162,12 +2162,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{gateway}}/rb-my-app/admin/v1/process-instances",
+									"raw": "{{gateway}}/rb/admin/v1/process-instances",
 									"host": [
 										"{{gateway}}"
 									],
 									"path": [
-										"rb-my-app",
+										"rb",
 										"admin",
 										"v1",
 										"process-instances"
