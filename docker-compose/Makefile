@@ -48,7 +48,7 @@ up: ## Bring system up, see docker-compose.yml
 	@echo
 	@echo
 	@echo Keycloak path:  http://$(DOCKER_IP)/auth
-	@echo Modeling app: http://$(DOCKER_IP)/activiti-cloud-modeling
+	@echo Modeling app: http://$(DOCKER_IP)/modeling
 	@echo Runtime bundle entry point: http://$(DOCKER_IP)/rb-my-app
 	@echo	
 	$(COMPOSE) up -d
