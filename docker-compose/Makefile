@@ -30,7 +30,7 @@ infra/stop: ## Stops infrastructure services
 
 application: infra rabbitmq ## Brings up Activiti application services
 	make example-runtime-bundle example-cloud-connector activiti-cloud-query activiti-cloud-audit activiti-cloud-notifications-graphql 
-	@echo Runtime bundle entry point: http://$(DOCKER_IP)/rb-my-app
+	@echo Runtime bundle entry point: http://$(DOCKER_IP)/rb
 application/stop: ## Stops up Activiti application services
 	make rabbitmq/stop
 	make example-runtime-bundle/stop example-cloud-connector/stop activiti-cloud-query/stop activiti-cloud-audit/stop activiti-cloud-notifications-graphql/stop
@@ -39,7 +39,7 @@ modeler: infra ## Brings up Modeler services, see docker-compose.yml
 	make activiti-cloud-modeling activiti-cloud-modeling-backend 
 	@echo
 	@echo
-	@echo Modeling app: http://$(DOCKER_IP)/activiti-cloud-modeling
+	@echo Modeling app: http://$(DOCKER_IP)/modeling
 	@echo	
 modeler/stop:  ## Stop Modeler services
 	make activiti-cloud-modeling/stop activiti-cloud-modeling-backend/stop
@@ -49,7 +49,7 @@ up: ## Bring system up, see docker-compose.yml
 	@echo
 	@echo Keycloak path:  http://$(DOCKER_IP)/auth
 	@echo Modeling app: http://$(DOCKER_IP)/modeling
-	@echo Runtime bundle entry point: http://$(DOCKER_IP)/rb-my-app
+	@echo Runtime bundle entry point: http://$(DOCKER_IP)/rb
 	@echo	
 	$(COMPOSE) up -d
 
