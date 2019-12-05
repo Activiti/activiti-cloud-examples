@@ -187,7 +187,7 @@ services:
       APP_CONFIG_OAUTH2_CLIENTID: "${KEYCLOAK_REALM}"
       API_URL: "http://${DOCKER_IP}"
       BASE_PATH: /modeling/
-      APP_CONFIG_BPM_HOST: "http://${DOCKER_IP}/modeling-service"
+      APP_CONFIG_BPM_HOST: "http://${DOCKER_IP}"
       APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI: /modeling/assets/silent-refresh.html
       APP_CONFIG_OAUTH2_REDIRECT_LOGIN: /modeling
       APP_CONFIG_OAUTH2_REDIRECT_LOGOUT: /modeling
