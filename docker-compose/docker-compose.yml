@@ -26,7 +26,7 @@ services:
 
   rabbitmq:
     container_name: rabbitmq
-    image: activiti/rabbitmq-stomp:7.0.0.RC1
+    image: rabbitmq:management
     ports:
       - 5672:5672
       - 15672:15672
@@ -180,7 +180,6 @@ services:
   activiti-cloud-modeling:
     container_name: activiti-cloud-modeling
     image: activiti/activiti-modeling-app:${VERSION}
-    #image: activiti/activiti-modeling-app:0.0.41
     environment:
       # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
       APP_CONFIG_OAUTH2_HOST: "http://${DOCKER_IP}/auth/realms/${KEYCLOAK_REALM}"
@@ -196,7 +195,6 @@ services:
   activiti-cloud-modeling-backend:
     container_name: activiti-cloud-modeling-backend
     image: activiti/activiti-cloud-modeling:${VERSION}
-    #image: activiti/activiti-cloud-modeling:7.1.76
     environment:
       JAVA_OPTS:                    -Xmx1024m -Xms512m -XX:+UnlockExperimentalVMOptions   -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
       SPRING_APPLICATION_NAME:      modeling-service
