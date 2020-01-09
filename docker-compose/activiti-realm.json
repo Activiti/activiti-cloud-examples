@@ -846,6 +846,19 @@
         "attribute.nameformat" : "Basic",
         "attribute.name" : "Role"
       }
+    }, {
+      "id": "5f5272d0-dd32-49ba-b1ab-ac2e6a66d4aa",
+      "name": "group list",
+      "protocol": "openid-connect",
+      "protocolMapper": "oidc-group-membership-mapper",
+      "consentRequired": false,
+      "config": {
+        "full.path": "false",
+        "id.token.claim": "true",
+        "access.token.claim": "true",
+        "claim.name": "groups",
+        "userinfo.token.claim": "true"
+      }
     } ],
     "useTemplateConfig" : false,
     "useTemplateScope" : false,
