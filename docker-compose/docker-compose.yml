@@ -90,6 +90,20 @@ services:
       - keycloak
       - rabbitmq
 
+  dice-connector:
+    container_name: dice-connector
+    image: kdamir/damir:1.0
+    environment:
+      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+      SPRING_JMX_ENABLED: "false"
+      SPRING_RABBITMQ_HOST: "rabbitmq"
+      ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
+    restart: unless-stopped
+    depends_on:
+      - nginx
+      - keycloak
+      - rabbitmq
+
   activiti-cloud-query:
     container_name: activiti-cloud-query
     image: activiti/activiti-cloud-query:${VERSION}
