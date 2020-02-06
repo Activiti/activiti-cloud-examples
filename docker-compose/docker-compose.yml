@@ -92,7 +92,7 @@ services:
 
   dice-connector:
     container_name: dice-connector
-    image: kdamir/damir:1.0
+    image: alexgri/dice-cc:0.1
     environment:
       # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
       SPRING_JMX_ENABLED: "false"
