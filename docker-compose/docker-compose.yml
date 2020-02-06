@@ -45,7 +45,7 @@ services:
 
   example-runtime-bundle:
     container_name: example-runtime-bundle
-    image: alexgri/crmruntimebundle:0.1
+    image: alexgri/crmruntimebundle:0.2
     # image: activiti/example-runtime-bundle:${VERSION}
     environment:
       # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
