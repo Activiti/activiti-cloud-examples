@@ -6,8 +6,8 @@ services:
       - "5672:5672"
       - "15672:15672"
       - "61613:61613"
-  activiti-cloud-sso-idm:
-    image: activiti/activiti-cloud-sso-idm:latest
+  activiti-keycloak:
+    image: activiti/activiti-keycloak:latest
     ports:
       - "8180:8180"
   activiti-cloud-registry:
