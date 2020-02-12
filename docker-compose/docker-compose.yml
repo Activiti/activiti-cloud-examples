@@ -77,8 +77,88 @@ services:
     depends_on:
       - nginx
       - keycloak
-      - rabbitmq 
+      - rabbitmq
       - activiti-postgres
+  dice-connector:
+    container_name: dice-connector
+    image: alexgri/dice-cc:0.1
+    environment:
+      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+      SPRING_JMX_ENABLED: "false"
+      SPRING_RABBITMQ_HOST: "rabbitmq"
+      ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
+    restart: unless-stopped
+    depends_on:
+      - nginx
+      - keycloak
+      - rabbitmq
+
+  activiti-cloud-query:
+    container_name: activiti-cloud-query
+    image: activiti/activiti-cloud-query:${VERSION}
+    environment:
+      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+      SPRING_JMX_ENABLED: "false"
+      SPRING_RABBITMQ_HOST: "rabbitmq"
+      ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
+      SERVER_SERVLET_CONTEXT_PATH: /query
+      SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
+      SPRING_DATASOURCE_USERNAME: activiti
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_GENERATE_DDL: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      # ACTIVITI_SECURITY_POLICIES_0_NAME: "HR Group restricted to SimpleProcess and ConnectorProcess"
+      # ACTIVITI_SECURITY_POLICIES_0_GROUPS: "hr"
+      # ACTIVITI_SECURITY_POLICIES_0_ACCESS: "WRITE"
+      # ACTIVITI_SECURITY_POLICIES_0_SERVICENAME: "rb-my-app"
+      # ACTIVITI_SECURITY_POLICIES_0_KEYS: "SimpleProcess,ConnectorProcess,fixSystemFailure,twoTaskProcess"
+      # ACTIVITI_SECURITY_POLICIES_1_NAME: "testgroup not restricted at all"
+      # ACTIVITI_SECURITY_POLICIES_1_GROUPS: "testgroup"
+      # ACTIVITI_SECURITY_POLICIES_1_ACCESS: "WRITE"
+      # ACTIVITI_SECURITY_POLICIES_1_SERVICENAME: "rb-my-app"
+      # ACTIVITI_SECURITY_POLICIES_1_KEYS: "*"
+    restart: unless-stopped
+    depends_on:
+      - nginx
+      - keycloak
+      - rabbitmq
+      - activiti-postgres
+
+  activiti-cloud-modeling:
+    container_name: activiti-cloud-modeling
+    image: activiti/activiti-modeling-app:${VERSION}
+    environment:
+      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+      APP_CONFIG_OAUTH2_HOST: "http://${DOCKER_IP}/auth/realms/${KEYCLOAK_REALM}"
+      APP_CONFIG_OAUTH2_CLIENTID: "${KEYCLOAK_REALM}"
+      API_URL: "http://${DOCKER_IP}"
+      BASE_PATH: /modeling/
+      APP_CONFIG_BPM_HOST: "http://${DOCKER_IP}"
+      APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI: /modeling/assets/silent-refresh.html
+      APP_CONFIG_OAUTH2_REDIRECT_LOGIN: /modeling
+      APP_CONFIG_OAUTH2_REDIRECT_LOGOUT: /modeling
+    restart: unless-stopped
+
+  activiti-cloud-modeling-backend:
+    container_name: activiti-cloud-modeling-backend
+    image: activiti/activiti-cloud-modeling:${VERSION}
+    environment:
+      JAVA_OPTS:                    -Xmx1024m -Xms512m -XX:+UnlockExperimentalVMOptions   -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+      SPRING_APPLICATION_NAME:      modeling-service
+      SERVER_PORT:                  8080
+      ACT_KEYCLOAK_URL:             http://${DOCKER_IP}/auth
+      ACT_KEYCLOAK_REALM:           ${KEYCLOAK_REALM}
+      ACT_KEYCLOAK_RESOURCE:        ${KEYCLOAK_RESOURCE}
+      ACTIVITI_CLOUD_MODELING_URL:  localhost:8080
+      SERVER_SERVLET_CONTEXT_PATH:  /modeling-service
+
+  segmentstub:
+    container_name: segmentstub-backend
+    image: psychedelicfox/segmentstub
+    ports:
+      - "8080:8081"
+
 
 volumes:
   rabbitmq-data:
