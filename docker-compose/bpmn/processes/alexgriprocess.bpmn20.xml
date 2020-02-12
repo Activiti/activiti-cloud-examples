@@ -1,39 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:activiti="http://activiti.org/bpmn" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-  <bpmn2:process id="process-64ec938c-c4a8-41ab-8eb2-c23f37eba610" name="alexgriprocess" isExecutable="true">
-    <bpmn2:documentation />
-    <bpmn2:startEvent id="StartEvent_1">
-      <bpmn2:outgoing>SequenceFlow_0j939si</bpmn2:outgoing>
-    </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_0j939si" sourceRef="StartEvent_1" targetRef="UserTask_0dslsea" />
-    <bpmn2:userTask id="UserTask_0dslsea" activiti:assignee="modeler">
-      <bpmn2:incoming>SequenceFlow_0j939si</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_09z341n</bpmn2:outgoing>
-    </bpmn2:userTask>
-    <bpmn2:endEvent id="EndEvent_1vteto7">
-      <bpmn2:incoming>SequenceFlow_09z341n</bpmn2:incoming>
-    </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_09z341n" sourceRef="UserTask_0dslsea" targetRef="EndEvent_1vteto7" />
-  </bpmn2:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="process-64ec938c-c4a8-41ab-8eb2-c23f37eba610">
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="412" y="240" width="36" height="36" />
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <process id="process-5b19e860-d255-4703-99ae-f4d9bfabf357" name="alexgriprocess" isExecutable="true">
+    <startEvent id="StartEvent_1">
+      <outgoing>SequenceFlow_0j939si</outgoing>
+    </startEvent>
+    <sequenceFlow id="SequenceFlow_0j939si" sourceRef="StartEvent_1" targetRef="ParallelGateway_0aq24gs" />
+    <userTask id="UserTask_0dslsea" name="успеть за одну минуту" activiti:assignee="testuser">
+      <incoming>SequenceFlow_0k0dnui</incoming>
+    </userTask>
+    <sequenceFlow id="SequenceFlow_09z341n" sourceRef="UserTask_0dslsea" targetRef="ScriptTask_0bp8dpi" />
+    <sequenceFlow id="SequenceFlow_0k0dnui" sourceRef="ParallelGateway_0aq24gs" targetRef="UserTask_0dslsea" />
+    <scriptTask id="ScriptTask_0bp8dpi" name="set success" scriptFormat="JavaScript">
+      <incoming>SequenceFlow_09z341n</incoming>
+      <outgoing>SequenceFlow_0odus6o</outgoing>
+      <script>var scriptVar = "success";
+        execution.setVariable("result", scriptVar);</script>
+    </scriptTask>
+    <sequenceFlow id="SequenceFlow_0odus6o" sourceRef="ScriptTask_0bp8dpi" targetRef="EndEvent_1vteto7" />
+    <scriptTask id="ScriptTask_0vvai53" name="set failure" scriptFormat="JavaScript">
+      <incoming>SequenceFlow_0rlfpbe</incoming>
+      <outgoing>SequenceFlow_1s785nc</outgoing>
+      <script>var scriptVar = "failure";
+        execution.setVariable("result", scriptVar);</script>
+    </scriptTask>
+    <sequenceFlow id="SequenceFlow_1s785nc" sourceRef="ScriptTask_0vvai53" targetRef="EndEvent_1vteto7" />
+    <parallelGateway id="ParallelGateway_0aq24gs">
+      <incoming>SequenceFlow_0j939si</incoming>
+      <outgoing>SequenceFlow_0k0dnui</outgoing>
+      <outgoing>SequenceFlow_02cv6u4</outgoing>
+    </parallelGateway>
+    <sequenceFlow id="SequenceFlow_02cv6u4" sourceRef="ParallelGateway_0aq24gs" targetRef="IntermediateCatchEvent_1mx0k2e" />
+    <sequenceFlow id="SequenceFlow_0rlfpbe" sourceRef="IntermediateCatchEvent_1mx0k2e" targetRef="ScriptTask_0vvai53" />
+    <intermediateCatchEvent id="IntermediateCatchEvent_1mx0k2e">
+      <incoming>SequenceFlow_02cv6u4</incoming>
+      <outgoing>SequenceFlow_0rlfpbe</outgoing>
+      <timerEventDefinition>
+        <timeDuration xsi:type="tFormalExpression">PT1M</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <endEvent id="EndEvent_1vteto7">
+      <incoming>SequenceFlow_0odus6o</incoming>
+      <incoming>SequenceFlow_1s785nc</incoming>
+      <terminateEventDefinition />
+    </endEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_process-5b19e860-d255-4703-99ae-f4d9bfabf357">
+    <bpmndi:BPMNPlane id="BPMNPlane_process-5b19e860-d255-4703-99ae-f4d9bfabf357" bpmnElement="process-5b19e860-d255-4703-99ae-f4d9bfabf357">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
+        <omgdc:Bounds x="265" y="240" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0j939si_di" bpmnElement="SequenceFlow_0j939si">
-        <di:waypoint x="448" y="258" />
-        <di:waypoint x="546" y="258" />
+      <bpmndi:BPMNShape id="BPMNShape_UserTask_0dslsea" bpmnElement="UserTask_0dslsea">
+        <omgdc:Bounds x="548" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_0j939si" bpmnElement="SequenceFlow_0j939si">
+        <omgdi:waypoint x="301" y="258" />
+        <omgdi:waypoint x="354" y="258" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_06kixq8_di" bpmnElement="UserTask_0dslsea">
-        <dc:Bounds x="546" y="218" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_1vteto7_di" bpmnElement="EndEvent_1vteto7">
-        <dc:Bounds x="740" y="240" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_09z341n_di" bpmnElement="SequenceFlow_09z341n">
-        <di:waypoint x="646" y="258" />
-        <di:waypoint x="740" y="258" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_09z341n" bpmnElement="SequenceFlow_09z341n">
+        <omgdi:waypoint x="648" y="258" />
+        <omgdi:waypoint x="867" y="258" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0k0dnui_di" bpmnElement="SequenceFlow_0k0dnui">
+        <omgdi:waypoint x="404" y="258" />
+        <omgdi:waypoint x="548" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_0bp8dpi_di" bpmnElement="ScriptTask_0bp8dpi">
+        <omgdc:Bounds x="867" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0odus6o_di" bpmnElement="SequenceFlow_0odus6o">
+        <omgdi:waypoint x="967" y="258" />
+        <omgdi:waypoint x="1003" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_0vvai53_di" bpmnElement="ScriptTask_0vvai53">
+        <omgdc:Bounds x="867" y="323" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1s785nc_di" bpmnElement="SequenceFlow_1s785nc">
+        <omgdi:waypoint x="967" y="363" />
+        <omgdi:waypoint x="1021" y="363" />
+        <omgdi:waypoint x="1021" y="276" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ParallelGateway_0evsoyy_di" bpmnElement="ParallelGateway_0aq24gs">
+        <omgdc:Bounds x="354" y="233" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_02cv6u4_di" bpmnElement="SequenceFlow_02cv6u4">
+        <omgdi:waypoint x="379" y="283" />
+        <omgdi:waypoint x="379" y="345" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0rlfpbe_di" bpmnElement="SequenceFlow_0rlfpbe">
+        <omgdi:waypoint x="397" y="363" />
+        <omgdi:waypoint x="867" y="363" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_0869bgt_di" bpmnElement="IntermediateCatchEvent_1mx0k2e">
+        <omgdc:Bounds x="361" y="345" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1onrqqf_di" bpmnElement="EndEvent_1vteto7">
+        <omgdc:Bounds x="1003" y="240" width="36" height="36" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
-</bpmn2:definitions>
+</definitions>

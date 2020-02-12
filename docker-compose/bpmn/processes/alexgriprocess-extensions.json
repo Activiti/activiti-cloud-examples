@@ -1,0 +1,12 @@
+{
+  "mappings": {},
+  "constants": {},
+  "properties": {
+    "87c35ad9-65c7-4138-a344-c11776aa819d": {
+      "id": "87c35ad9-65c7-4138-a344-c11776aa819d",
+      "name": "result",
+      "type": "string",
+      "required": false
+    }
+  }
+}

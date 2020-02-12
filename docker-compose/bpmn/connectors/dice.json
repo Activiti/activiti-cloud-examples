@@ -5,7 +5,11 @@
     "rollAction": {
       "id": "rollActionId",
       "name": "roll",
-      "inputs": [],
+      "inputs": [{
+        "id": "pin",
+        "name": "clientId",
+        "type": "string"
+      }],
       "outputs": [
         {
           "id": "randomId",

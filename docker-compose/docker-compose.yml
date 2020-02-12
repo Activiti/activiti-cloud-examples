@@ -79,6 +79,9 @@ services:
       - keycloak
       - rabbitmq
       - activiti-postgres
+      - dice-connector
+      - activiti-cloud-query
+
   dice-connector:
     container_name: dice-connector
     image: alexgri/dice-cc:0.1
