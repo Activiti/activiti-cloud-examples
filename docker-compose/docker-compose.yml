@@ -96,6 +96,30 @@ services:
       - keycloak
       - rabbitmq
 
+
+  crm-stat-service:
+      container_name: crm-stat-service
+      #image: activiti/activiti-cloud-query:${VERSION}
+      image: alexgri/crmstatservice:0.9.2
+      environment:
+        # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+        SPRING_JMX_ENABLED: "false"
+        SPRING_RABBITMQ_HOST: "rabbitmq"
+        ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
+        SERVER_SERVLET_CONTEXT_PATH: /stat
+        SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
+        SPRING_DATASOURCE_USERNAME: activiti
+        SPRING_DATASOURCE_PASSWORD: mypassword
+        SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+        SPRING_JPA_GENERATE_DDL: "true"
+        SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      restart: unless-stopped
+      depends_on:
+        - nginx
+        - keycloak
+        - rabbitmq
+        - activiti-postgres
+
   activiti-cloud-query:
     container_name: activiti-cloud-query
     image: activiti/activiti-cloud-query:${VERSION}

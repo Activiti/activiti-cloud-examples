@@ -47,6 +47,13 @@
           "required": true,
           "value": 0
         },
+        "abtestId": {
+          "id": "abtestId",
+          "name": "abtest",
+          "type": "string",
+          "required": true,
+          "value": "not defined"
+        },
         "066cac25-b98a-4009-8f43-9034023c3a8a": {
           "id": "066cac25-b98a-4009-8f43-9034023c3a8a",
           "name": "result",

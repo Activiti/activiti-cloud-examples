@@ -5,35 +5,26 @@
       <outgoing>SequenceFlow_174ki97</outgoing>
     </startEvent>
     <sequenceFlow id="SequenceFlow_174ki97" sourceRef="StartEvent_1" targetRef="ParallelGateway_16h86fn" />
-    <serviceTask id="ServiceTask_0qlvkxh" name="a/b test&#10;отправить смс или позвонить&#10;" implementation="dice.roll">
-      <incoming>SequenceFlow_0mo05b9</incoming>
-    </serviceTask>
+    <serviceTask id="ServiceTask_0qlvkxh" name="a/b test&#10;отправить смс или позвонить&#10;" implementation="dice.roll" />
     <exclusiveGateway id="ExclusiveGateway_0vsokls">
-      <incoming>SequenceFlow_1truxe8</incoming>
+      <incoming>SequenceFlow_0la2bgx</incoming>
       <outgoing>SequenceFlow_0ftj44v</outgoing>
       <outgoing>SequenceFlow_03b48nn</outgoing>
     </exclusiveGateway>
-    <sequenceFlow id="SequenceFlow_1truxe8" sourceRef="ServiceTask_0qlvkxh" targetRef="ExclusiveGateway_0vsokls" />
+    <sequenceFlow id="SequenceFlow_1truxe8" sourceRef="ServiceTask_0qlvkxh" targetRef="ScriptTask_1h2z5g0" />
     <sequenceFlow id="SequenceFlow_0ftj44v" name="90 % смс" sourceRef="ExclusiveGateway_0vsokls" targetRef="ServiceTask_09e57d3">
-      <conditionExpression xsi:type="tFormalExpression">${abtest_var_output &lt;= 90}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${abtest == 'sendSms'}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="SequenceFlow_0p7snl7" sourceRef="ScriptTask_1bwvilh" targetRef="EndEvent_0g5eu8j" />
     <scriptTask id="ScriptTask_1bwvilh" name="set result" scriptFormat="JavaScript" activiti:autoStoreVariables="false">
-      <incoming>SequenceFlow_0ta5p5z</incoming>
-      <script>var scriptVar = smsSendResult >= 80 ? "fail" : "success";
+      <script>var scriptVar = smsSendResult &gt;= 80 ? "fail" : "success";
         execution.setVariable("result", scriptVar);</script>
     </scriptTask>
     <sequenceFlow id="SequenceFlow_03b48nn" sourceRef="ExclusiveGateway_0vsokls" targetRef="UserTask_116oc31">
-      <conditionExpression xsi:type="tFormalExpression">${abtest_var_output &gt; 90}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${abtest == 'call'}</conditionExpression>
     </sequenceFlow>
-    <userTask id="UserTask_116oc31" name="позвонить клиенту" activiti:assignee="testuser">
-      <incoming>SequenceFlow_03b48nn</incoming>
-      <outgoing>SequenceFlow_073eyue</outgoing>
-    </userTask>
-    <serviceTask id="ServiceTask_09e57d3" name="отправить смс" implementation="dice.roll">
-      <incoming>SequenceFlow_0ftj44v</incoming>
-      <outgoing>SequenceFlow_0ta5p5z</outgoing>
-    </serviceTask>
+    <userTask id="UserTask_116oc31" name="позвонить клиенту" activiti:assignee="testuser" />
+    <serviceTask id="ServiceTask_09e57d3" name="отправить смс" implementation="dice.roll" />
     <sequenceFlow id="SequenceFlow_0ta5p5z" sourceRef="ServiceTask_09e57d3" targetRef="ScriptTask_1bwvilh" />
     <sequenceFlow id="SequenceFlow_0mo05b9" sourceRef="ParallelGateway_16h86fn" targetRef="ServiceTask_0qlvkxh" />
     <parallelGateway id="ParallelGateway_16h86fn">
@@ -46,42 +37,43 @@
       <incoming>SequenceFlow_1w2llya</incoming>
       <outgoing>SequenceFlow_09h2031</outgoing>
       <timerEventDefinition>
-        <timeDuration xsi:type="tFormalExpression">PT2M</timeDuration>
+        <timeDuration>PT2M</timeDuration>
       </timerEventDefinition>
     </intermediateCatchEvent>
     <sequenceFlow id="SequenceFlow_09h2031" sourceRef="IntermediateCatchEvent_0q6ven5" targetRef="ScriptTask_0iir1h0" />
-    <scriptTask id="ScriptTask_0iir1h0" name="set fail" scriptFormat="JavaScript">
-      <incoming>SequenceFlow_09h2031</incoming>
-      <outgoing>SequenceFlow_0p4haxv</outgoing>
+    <scriptTask id="ScriptTask_0iir1h0" name="set fail" scriptFormat="JavaScript" activiti:autoStoreVariables="false">
+      <outgoing>SequenceFlow_15v10s0</outgoing>
       <script>var scriptVar = "fail";
         execution.setVariable("result", scriptVar);</script>
     </scriptTask>
-    <sequenceFlow id="SequenceFlow_0p4haxv" sourceRef="ScriptTask_0iir1h0" targetRef="EndEvent_0ezv08z" />
-    <endEvent id="EndEvent_0ezv08z">
-      <incoming>SequenceFlow_0p4haxv</incoming>
-      <terminateEventDefinition id="TerminateEventDefinition_0v4dyzz" />
-    </endEvent>
     <endEvent id="EndEvent_0g5eu8j">
       <incoming>SequenceFlow_0p7snl7</incoming>
       <incoming>SequenceFlow_07tn4l8</incoming>
-      <terminateEventDefinition id="TerminateEventDefinition_2" />
+      <incoming>SequenceFlow_15v10s0</incoming>
+      <terminateEventDefinition />
     </endEvent>
-    <scriptTask id="ScriptTask_0sq8f8r" name="set success" scriptFormat="JavaScript">
-      <incoming>SequenceFlow_073eyue</incoming>
-      <outgoing>SequenceFlow_07tn4l8</outgoing>
+    <scriptTask id="ScriptTask_0sq8f8r" name="set success" scriptFormat="JavaScript" activiti:autoStoreVariables="false">
       <script>var scriptVar = "success";
         execution.setVariable("result", scriptVar);</script>
     </scriptTask>
     <sequenceFlow id="SequenceFlow_073eyue" sourceRef="UserTask_116oc31" targetRef="ScriptTask_0sq8f8r" />
     <sequenceFlow id="SequenceFlow_07tn4l8" sourceRef="ScriptTask_0sq8f8r" targetRef="EndEvent_0g5eu8j" />
+    <sequenceFlow id="SequenceFlow_15v10s0" sourceRef="ScriptTask_0iir1h0" targetRef="EndEvent_0g5eu8j" />
+    <scriptTask id="ScriptTask_1h2z5g0" name="fill variables" scriptFormat="JavaScript">
+      <incoming>SequenceFlow_1truxe8</incoming>
+      <outgoing>SequenceFlow_0la2bgx</outgoing>
+      <script>var scriptVar = (abtest_var_output &lt;= 90 ? 'sendSms' : 'call');
+        execution.setVariable("abtest", scriptVar);</script>
+    </scriptTask>
+    <sequenceFlow id="SequenceFlow_0la2bgx" sourceRef="ScriptTask_1h2z5g0" targetRef="ExclusiveGateway_0vsokls" />
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_process-9ef8a3fa-8169-4bb0-aa1f-f54feafaf5da">
-    <bpmndi:BPMNPlane id="BPMNPlane_process-9ef8a3fa-8169-4bb0-aa1f-f54feafaf5da" bpmnElement="process-9ef8a3fa-8169-4bb0-aa1f-f54feafaf5da">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_process-07e0b370-d867-410b-b1f9-5d78840890d8">
+    <bpmndi:BPMNPlane id="BPMNPlane_process-07e0b370-d867-410b-b1f9-5d78840890d8" bpmnElement="process-07e0b370-d867-410b-b1f9-5d78840890d8">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
-        <omgdc:Bounds x="285" y="240" width="36" height="36" />
+        <omgdc:Bounds x="232" y="240" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_ServiceTask_0qlvkxh" bpmnElement="ServiceTask_0qlvkxh">
-        <omgdc:Bounds x="505" y="218" width="100" height="80" />
+        <omgdc:Bounds x="380" y="218" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_0vsokls" bpmnElement="ExclusiveGateway_0vsokls" isMarkerVisible="true">
         <omgdc:Bounds x="665" y="233" width="50" height="50" />
@@ -89,13 +81,34 @@
       <bpmndi:BPMNShape id="BPMNShape_ScriptTask_1bwvilh" bpmnElement="ScriptTask_1bwvilh">
         <omgdc:Bounds x="923" y="79" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_UserTask_116oc31" bpmnElement="UserTask_116oc31">
+        <omgdc:Bounds x="751" y="263" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_09e57d3" bpmnElement="ServiceTask_09e57d3">
+        <omgdc:Bounds x="751" y="79" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ParallelGateway_16h86fn" bpmnElement="ParallelGateway_16h86fn">
+        <omgdc:Bounds x="305" y="233" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_IntermediateCatchEvent_0q6ven5" bpmnElement="IntermediateCatchEvent_0q6ven5">
+        <omgdc:Bounds x="312" y="362" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_0iir1h0" bpmnElement="ScriptTask_0iir1h0">
+        <omgdc:Bounds x="526" y="340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_0g5eu8j" bpmnElement="EndEvent_0g5eu8j">
+        <omgdc:Bounds x="1108" y="232" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_0sq8f8r" bpmnElement="ScriptTask_0sq8f8r">
+        <omgdc:Bounds x="910" y="263" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_174ki97" bpmnElement="SequenceFlow_174ki97">
-        <omgdi:waypoint x="321" y="258" />
-        <omgdi:waypoint x="358" y="258" />
+        <omgdi:waypoint x="268" y="258" />
+        <omgdi:waypoint x="305" y="258" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1truxe8" bpmnElement="SequenceFlow_1truxe8">
-        <omgdi:waypoint x="605" y="258" />
-        <omgdi:waypoint x="665" y="258" />
+        <omgdi:waypoint x="480" y="258" />
+        <omgdi:waypoint x="526" y="258" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_0ftj44v" bpmnElement="SequenceFlow_0ftj44v">
         <omgdi:waypoint x="690" y="233" />
@@ -116,59 +129,43 @@
         <omgdi:waypoint x="690" y="303" />
         <omgdi:waypoint x="751" y="303" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_116oc31_di" bpmnElement="UserTask_116oc31">
-        <omgdc:Bounds x="751" y="263" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_09e57d3_di" bpmnElement="ServiceTask_09e57d3">
-        <omgdc:Bounds x="751" y="79" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0ta5p5z_di" bpmnElement="SequenceFlow_0ta5p5z">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_0ta5p5z" bpmnElement="SequenceFlow_0ta5p5z">
         <omgdi:waypoint x="851" y="119" />
         <omgdi:waypoint x="923" y="119" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0mo05b9_di" bpmnElement="SequenceFlow_0mo05b9">
-        <omgdi:waypoint x="408" y="258" />
-        <omgdi:waypoint x="505" y="258" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_0mo05b9" bpmnElement="SequenceFlow_0mo05b9">
+        <omgdi:waypoint x="355" y="258" />
+        <omgdi:waypoint x="380" y="258" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ParallelGateway_06rcg5a_di" bpmnElement="ParallelGateway_16h86fn">
-        <omgdc:Bounds x="358" y="233" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1w2llya_di" bpmnElement="SequenceFlow_1w2llya">
-        <omgdi:waypoint x="383" y="283" />
-        <omgdi:waypoint x="383" y="362" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1w2llya" bpmnElement="SequenceFlow_1w2llya">
+        <omgdi:waypoint x="330" y="283" />
+        <omgdi:waypoint x="330" y="362" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="IntermediateCatchEvent_1h62sxa_di" bpmnElement="IntermediateCatchEvent_0q6ven5">
-        <omgdc:Bounds x="365" y="362" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_09h2031_di" bpmnElement="SequenceFlow_09h2031">
-        <omgdi:waypoint x="401" y="380" />
-        <omgdi:waypoint x="505" y="380" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_09h2031" bpmnElement="SequenceFlow_09h2031">
+        <omgdi:waypoint x="348" y="380" />
+        <omgdi:waypoint x="526" y="380" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ScriptTask_0iir1h0_di" bpmnElement="ScriptTask_0iir1h0">
-        <omgdc:Bounds x="505" y="340" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0p4haxv_di" bpmnElement="SequenceFlow_0p4haxv">
-        <omgdi:waypoint x="605" y="380" />
-        <omgdi:waypoint x="1090" y="380" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="EndEvent_0ezv08z_di" bpmnElement="EndEvent_0ezv08z">
-        <omgdc:Bounds x="1090" y="362" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_0q5qgjl_di" bpmnElement="EndEvent_0g5eu8j">
-        <omgdc:Bounds x="1108" y="232" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ScriptTask_0sq8f8r_di" bpmnElement="ScriptTask_0sq8f8r">
-        <omgdc:Bounds x="910" y="263" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_073eyue_di" bpmnElement="SequenceFlow_073eyue">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_073eyue" bpmnElement="SequenceFlow_073eyue">
         <omgdi:waypoint x="851" y="303" />
         <omgdi:waypoint x="910" y="303" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_07tn4l8_di" bpmnElement="SequenceFlow_07tn4l8">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_07tn4l8" bpmnElement="SequenceFlow_07tn4l8">
         <omgdi:waypoint x="1010" y="303" />
         <omgdi:waypoint x="1050" y="303" />
         <omgdi:waypoint x="1050" y="250" />
         <omgdi:waypoint x="1108" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_15v10s0_di" bpmnElement="SequenceFlow_15v10s0">
+        <omgdi:waypoint x="626" y="380" />
+        <omgdi:waypoint x="1126" y="380" />
+        <omgdi:waypoint x="1126" y="268" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1h2z5g0_di" bpmnElement="ScriptTask_1h2z5g0">
+        <omgdc:Bounds x="526" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0la2bgx_di" bpmnElement="SequenceFlow_0la2bgx">
+        <omgdi:waypoint x="626" y="258" />
+        <omgdi:waypoint x="665" y="258" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
