@@ -20,7 +20,7 @@
     <sequenceFlow id="SequenceFlow_0p7snl7" sourceRef="ScriptTask_1bwvilh" targetRef="EndEvent_0g5eu8j" />
     <scriptTask id="ScriptTask_1bwvilh" name="set result" scriptFormat="JavaScript" activiti:autoStoreVariables="false">
       <incoming>SequenceFlow_0ta5p5z</incoming>
-      <script>var scriptVar = smsSendResult >= 80 ? "success" : "fail";
+      <script>var scriptVar = smsSendResult >= 80 ? "fail" : "success";
         execution.setVariable("result", scriptVar);</script>
     </scriptTask>
     <sequenceFlow id="SequenceFlow_03b48nn" sourceRef="ExclusiveGateway_0vsokls" targetRef="UserTask_116oc31">
