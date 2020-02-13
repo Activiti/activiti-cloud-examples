@@ -24,14 +24,16 @@ services:
       - 443:443
     restart: unless-stopped
 
-  rabbitmq:
+  rabbitmq:    
     container_name: rabbitmq
-    image: rabbitmq:management
+    image: rabbitmq
     ports:
-      - 5672:5672
+      - 5673:5672 # AMQP host port changed to avoid conflict with ActiveMQ
       - 15672:15672
+      - 61614:61613 # STOMP host port changed to avoid conflict with ActiveMQ
     volumes:
-     - rabbitmq-data
+      - ./enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - rabbitmq-data
     restart: unless-stopped
 
   keycloak:
