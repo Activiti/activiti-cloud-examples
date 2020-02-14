@@ -28,9 +28,9 @@ services:
     container_name: rabbitmq
     image: rabbitmq
     ports:
-      - 5673:5672 # AMQP host port changed to avoid conflict with ActiveMQ
+      - 5672:5672
       - 15672:15672
-      - 61614:61613 # STOMP host port changed to avoid conflict with ActiveMQ
+      - 61613:61613
     volumes:
       - ./enabled_plugins:/etc/rabbitmq/enabled_plugins
       - rabbitmq-data
