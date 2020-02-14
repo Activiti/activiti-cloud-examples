@@ -105,7 +105,7 @@ services:
       SPRING_JMX_ENABLED: "false"
       SPRING_RABBITMQ_HOST: "rabbitmq"
       ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
-      SEGMENT_STUB_APP_URL: http://segmentstub:8081
+      SEGMENT_STUB_APP_URL: http://segmentstub:8080
       SEGMENT_SCHEDULER_RATE: 10000
     restart: unless-stopped
     depends_on:
