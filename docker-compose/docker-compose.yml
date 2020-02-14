@@ -99,7 +99,7 @@ services:
 
   segment-reading-connector:
     container_name: segment-reading-connector
-    image: kdamir/segment-reading-cc:1.0
+    image: alexgri/crmsegmentcc:0.1
     environment:
       SPRING_JMX_ENABLED: "false"
       SPRING_RABBITMQ_HOST: "rabbitmq"
