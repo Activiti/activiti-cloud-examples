@@ -137,6 +137,19 @@ services:
         - rabbitmq
         - activiti-postgres
 
+  bpstarter:
+      container_name: bpstarter
+      image: psychedelicfox/bpstarter:latest
+      environment:
+        # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
+        service-ip: "${DOCKER_IP}"
+        feign.client.bp.clientSecret: "45f6f620-9003-4b45-99d2-ef54af406d13"
+      restart: unless-stopped
+      depends_on:
+        - nginx
+        - keycloak
+        - segmentstub-backend
+
   activiti-cloud-query:
     container_name: activiti-cloud-query
     image: activiti/activiti-cloud-query:${VERSION}
@@ -200,8 +213,8 @@ services:
   segmentstub-backend:
     container_name: segmentstub-backend
     image: psychedelicfox/segmentstub
-    ports:
-      - "8080:8081"
+    depends_on:
+      - nginx
 
 
 volumes:
