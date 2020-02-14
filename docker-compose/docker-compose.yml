@@ -143,7 +143,7 @@ services:
       environment:
         service-ip: "${DOCKER_IP}"
         feign.client.bp.clientSecret: "45f6f620-9003-4b45-99d2-ef54af406d13"
-        segment.a: "process-9ef8a3fa-8169-4bb0-aa1f-f54feafaf5da"
+        segment.A: "process-9ef8a3fa-8169-4bb0-aa1f-f54feafaf5da"
       restart: unless-stopped
       depends_on:
         - nginx
