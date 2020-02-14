@@ -180,7 +180,7 @@ services:
       ACTIVITI_CLOUD_MODELING_URL:  localhost:8080
       SERVER_SERVLET_CONTEXT_PATH:  /modeling-service
 
-  segmentstub:
+  segmentstub-backend:
     container_name: segmentstub-backend
     image: psychedelicfox/segmentstub
     ports:
