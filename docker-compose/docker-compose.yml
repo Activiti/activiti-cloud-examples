@@ -139,7 +139,7 @@ services:
 
   bpstarter:
       container_name: bpstarter
-      image: psychedelicfox/bpstarter:latest
+      image: alexgri/bpstarter:0.1
       environment:
         service-ip: "${DOCKER_IP}"
         feign.client.bp.clientSecret: "45f6f620-9003-4b45-99d2-ef54af406d13"
