@@ -1,0 +1,82 @@
+{
+  "id": "process-85e87c7b-23d2-4666-89af-c51b733d281eModel",
+  "name": "abtestsample.bpmn",
+  "version": "0.0.2",
+  "extensions": {
+    "process-85e87c7b-23d2-4666-89af-c51b733d281e": {
+      "constants": {
+        "SegmentServiceTask": {
+          "segment_name": {
+            "value": "B"
+          }
+        }
+      },
+      "mappings": {
+        "ServiceTask_0qlvkxh": {
+          "inputs": {},
+          "outputs": {
+            "abtest_var_output": {
+              "type": "variable",
+              "value": "random"
+            }
+          }
+        },
+        "ServiceTask_09e57d3": {
+          "outputs": {
+            "smsSendResult": {
+              "type": "variable",
+              "value": "random"
+            }
+          }
+        },
+        "SegmentServiceTask": {
+          "inputs": {
+            "clientId": {
+              "type": "variable",
+              "value": "clientId"
+            },
+            "segment_name_in_var": {
+              "type": "variable",
+              "value": "segment_name"
+            }
+          },
+          "outputs": {}
+        }
+      },
+      "properties": {
+        "794a9cfd-3e8c-452d-ba79-599aa33c0ab8": {
+          "id": "794a9cfd-3e8c-452d-ba79-599aa33c0ab8",
+          "name": "abtest_var_output",
+          "type": "integer",
+          "required": true,
+          "value": 0
+        },
+        "abtestId": {
+          "id": "abtestId",
+          "name": "abtest",
+          "type": "string",
+          "required": true,
+          "value": "not defined"
+        },
+        "066cac25-b98a-4009-8f43-9034023c3a8a": {
+          "id": "066cac25-b98a-4009-8f43-9034023c3a8a",
+          "name": "result",
+          "type": "string",
+          "required": false
+        },
+        "ee2721de-4ff3-4285-9522-bf272e624f86": {
+          "id": "ee2721de-4ff3-4285-9522-bf272e624f86",
+          "name": "clientId",
+          "type": "string",
+          "required": true
+        },
+        "smsSendResult": {
+          "id": "smsSendResultId",
+          "name": "smsSendResult",
+          "type": "integer",
+          "required": false
+        }
+      }
+    }
+  }
+}

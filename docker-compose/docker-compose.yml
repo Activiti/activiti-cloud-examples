@@ -101,11 +101,10 @@ services:
     container_name: segment-reading-connector
     image: kdamir/segment-reading-cc:1.0
     environment:
-      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
       SPRING_JMX_ENABLED: "false"
       SPRING_RABBITMQ_HOST: "rabbitmq"
       ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
-      SEGMENT_STUB_APP_URL: http://segmentstub:8080
+      SEGMENT_STUB_APP_URL: "http://segmentstub-backend:8080"
       SEGMENT_SCHEDULER_RATE: 10000
     restart: unless-stopped
     depends_on:
@@ -143,7 +142,7 @@ services:
       environment:
         service-ip: "http://${DOCKER_IP}"
         feign.client.bp.clientSecret: "45f6f620-9003-4b45-99d2-ef54af406d13"
-        segment.A: "process-9ef8a3fa-8169-4bb0-aa1f-f54feafaf5da"
+        segment.A: "process-85e87c7b-23d2-4666-89af-c51b733d281e"
       restart: unless-stopped
       depends_on:
         - nginx

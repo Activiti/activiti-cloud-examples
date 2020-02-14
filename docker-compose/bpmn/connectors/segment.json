@@ -1,0 +1,23 @@
+{
+  "name": "segment",
+  "description": "",
+  "actions": {
+    "segmentAction": {
+      "id": "segmentActionId",
+      "name": "read",
+      "inputs": [
+        {
+          "id": "pin",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "id": "segmentNameId",
+          "name": "segment_name",
+          "type": "string"
+        }
+      ],
+      "outputs": []
+    }
+  }
+}
