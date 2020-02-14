@@ -141,9 +141,9 @@ services:
       container_name: bpstarter
       image: psychedelicfox/bpstarter:latest
       environment:
-        # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
         service-ip: "${DOCKER_IP}"
         feign.client.bp.clientSecret: "45f6f620-9003-4b45-99d2-ef54af406d13"
+        segment.a: "process-9ef8a3fa-8169-4bb0-aa1f-f54feafaf5da"
       restart: unless-stopped
       depends_on:
         - nginx
