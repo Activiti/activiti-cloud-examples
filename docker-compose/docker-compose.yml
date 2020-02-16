@@ -231,6 +231,6 @@ services:
 volumes:
   rabbitmq-data:
   pgdata:
-  stat-postgres:
+  statpgdata:
 
     
