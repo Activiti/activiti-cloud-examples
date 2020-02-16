@@ -21,7 +21,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=mypassword
       - POSTGRES_USER=activiti
-      - POSTGRES_DB=activitidb
+      - POSTGRES_DB=statdb
     volumes:
       - "statpgdata:/var/lib/postgresql/data"
     restart: unless-stopped
@@ -135,7 +135,7 @@ services:
         SPRING_RABBITMQ_HOST: "rabbitmq"
         ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
         SERVER_SERVLET_CONTEXT_PATH: /stat
-        SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
+        SPRING_DATASOURCE_URL: jdbc:postgresql://stat-postgres:5432/activitidb
         SPRING_DATASOURCE_USERNAME: activiti
         SPRING_DATASOURCE_PASSWORD: mypassword
         SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
