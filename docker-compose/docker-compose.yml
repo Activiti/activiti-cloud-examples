@@ -11,7 +11,19 @@ services:
       - POSTGRES_USER=activiti
       - POSTGRES_DB=activitidb
     volumes:
-      - "pgdata:/var/lib/postgresql/data"  
+      - "pgdata:/var/lib/postgresql/data"
+    restart: unless-stopped
+
+  stat-postgres:
+    image: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_USER=activiti
+      - POSTGRES_DB=activitidb
+    volumes:
+      - "statpgdata:/var/lib/postgresql/data"
     restart: unless-stopped
 
   nginx: 
@@ -134,7 +146,7 @@ services:
         - nginx
         - keycloak
         - rabbitmq
-        - activiti-postgres
+        - stat-postgres
 
   bpstarter:
       container_name: bpstarter
@@ -219,5 +231,6 @@ services:
 volumes:
   rabbitmq-data:
   pgdata:
+  stat-postgres:
 
     
