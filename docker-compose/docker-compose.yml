@@ -138,7 +138,7 @@ services:
 
   bpstarter:
       container_name: bpstarter
-      image: alexgri/bpstarter:0.5
+      image: alexgri/bpstarter:0.6
       environment:
         service-ip: "http://${DOCKER_IP}"
         feign.client.bp.clientSecret: "45f6f620-9003-4b45-99d2-ef54af406d13"
