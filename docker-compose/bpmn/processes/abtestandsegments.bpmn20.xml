@@ -41,32 +41,32 @@
                 execution.setVariable("result", scriptVar);</script>
         </scriptTask>
         <endEvent id="EndEvent_0g5eu8j">
-            <incoming>SequenceFlow_07tn4l8</incoming>
-            <incoming>SequenceFlow_15v10s0</incoming>
+            <incoming>SequenceFlow_0w4pd4y</incoming>
             <terminateEventDefinition />
         </endEvent>
         <scriptTask id="ScriptTask_0sq8f8r" name="set success" scriptFormat="JavaScript" activiti:autoStoreVariables="false">
-            <incoming>SequenceFlow_0ijyeli</incoming>
             <script>var scriptVar = "success";
                 execution.setVariable("result", scriptVar);</script>
         </scriptTask>
         <sequenceFlow id="SequenceFlow_073eyue" sourceRef="UserTask_116oc31" targetRef="SegmentServiceTask" />
-        <sequenceFlow id="SequenceFlow_07tn4l8" sourceRef="ScriptTask_0sq8f8r" targetRef="EndEvent_0g5eu8j" />
-        <sequenceFlow id="SequenceFlow_15v10s0" sourceRef="ScriptTask_0iir1h0" targetRef="EndEvent_0g5eu8j" />
+        <sequenceFlow id="SequenceFlow_07tn4l8" sourceRef="ScriptTask_0sq8f8r" targetRef="Task_0kqx149" />
+        <sequenceFlow id="SequenceFlow_15v10s0" sourceRef="ScriptTask_0iir1h0" targetRef="Task_0kqx149" />
         <scriptTask id="ScriptTask_1h2z5g0" name="fill variables" scriptFormat="JavaScript" activiti:autoStoreVariables="false">
             <script>var scriptVar = (abtest_var_output &lt;= 90 ? 'sendSms' : 'call');
                 execution.setVariable("abtest", scriptVar);</script>
         </scriptTask>
         <sequenceFlow id="SequenceFlow_0la2bgx" sourceRef="ScriptTask_1h2z5g0" targetRef="ExclusiveGateway_0vsokls" />
-        <serviceTask id="SegmentServiceTask" name="ожидать попадание пользователя в нужную нам категорию" implementation="segment.read">
-            <incoming>SequenceFlow_0ta5p5z</incoming>
-            <incoming>SequenceFlow_073eyue</incoming>
-            <outgoing>SequenceFlow_0ijyeli</outgoing>
-        </serviceTask>
+        <serviceTask id="SegmentServiceTask" name="ожидать попадание пользователя в нужную нам категорию" implementation="segment.read" />
         <sequenceFlow id="SequenceFlow_0ijyeli" sourceRef="SegmentServiceTask" targetRef="ScriptTask_0sq8f8r" />
+        <task id="Task_0kqx149" name="complete">
+            <incoming>SequenceFlow_15v10s0</incoming>
+            <incoming>SequenceFlow_07tn4l8</incoming>
+            <outgoing>SequenceFlow_0w4pd4y</outgoing>
+        </task>
+        <sequenceFlow id="SequenceFlow_0w4pd4y" sourceRef="Task_0kqx149" targetRef="EndEvent_0g5eu8j" />
     </process>
-    <bpmndi:BPMNDiagram id="BPMNDiagram_process-85e87c7b-23d2-4666-89af-c51b733d281e">
-        <bpmndi:BPMNPlane id="BPMNPlane_process-85e87c7b-23d2-4666-89af-c51b733d281e" bpmnElement="process-85e87c7b-23d2-4666-89af-c51b733d281e">
+    <bpmndi:BPMNDiagram id="BPMNDiagram_process-7681c22d-1fc7-4e24-b53e-ac1ca5660321">
+        <bpmndi:BPMNPlane id="BPMNPlane_process-7681c22d-1fc7-4e24-b53e-ac1ca5660321" bpmnElement="process-85e87c7b-23d2-4666-89af-c51b733d281e">
             <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
                 <omgdc:Bounds x="232" y="240" width="36" height="36" />
             </bpmndi:BPMNShape>
@@ -92,13 +92,16 @@
                 <omgdc:Bounds x="526" y="340" width="100" height="80" />
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape id="BPMNShape_EndEvent_0g5eu8j" bpmnElement="EndEvent_0g5eu8j">
-                <omgdc:Bounds x="1286" y="240" width="36" height="36" />
+                <omgdc:Bounds x="1456" y="240" width="36" height="36" />
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape id="BPMNShape_ScriptTask_0sq8f8r" bpmnElement="ScriptTask_0sq8f8r">
-                <omgdc:Bounds x="1134" y="218" width="100" height="80" />
+                <omgdc:Bounds x="1077" y="218" width="100" height="80" />
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape id="BPMNShape_ScriptTask_1h2z5g0" bpmnElement="ScriptTask_1h2z5g0">
                 <omgdc:Bounds x="526" y="218" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_SegmentServiceTask" bpmnElement="SegmentServiceTask">
+                <omgdc:Bounds x="919" y="218" width="100" height="80" />
             </bpmndi:BPMNShape>
             <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_174ki97" bpmnElement="SequenceFlow_174ki97">
                 <omgdi:waypoint x="268" y="258" />
@@ -146,24 +149,28 @@
                 <omgdi:waypoint x="919" y="274" />
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_07tn4l8" bpmnElement="SequenceFlow_07tn4l8">
-                <omgdi:waypoint x="1234" y="258" />
-                <omgdi:waypoint x="1286" y="258" />
+                <omgdi:waypoint x="1177" y="258" />
+                <omgdi:waypoint x="1293" y="258" />
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_15v10s0" bpmnElement="SequenceFlow_15v10s0">
                 <omgdi:waypoint x="626" y="380" />
-                <omgdi:waypoint x="1304" y="380" />
-                <omgdi:waypoint x="1304" y="276" />
+                <omgdi:waypoint x="1343" y="380" />
+                <omgdi:waypoint x="1343" y="298" />
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_0la2bgx" bpmnElement="SequenceFlow_0la2bgx">
                 <omgdi:waypoint x="626" y="258" />
                 <omgdi:waypoint x="665" y="258" />
             </bpmndi:BPMNEdge>
-            <bpmndi:BPMNShape id="SegmentServiceTask_di" bpmnElement="SegmentServiceTask">
-                <omgdc:Bounds x="919" y="218" width="100" height="80" />
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNEdge id="SequenceFlow_0ijyeli_di" bpmnElement="SequenceFlow_0ijyeli">
+            <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_0ijyeli" bpmnElement="SequenceFlow_0ijyeli">
                 <omgdi:waypoint x="1019" y="258" />
-                <omgdi:waypoint x="1134" y="258" />
+                <omgdi:waypoint x="1077" y="258" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="Task_0nk0636_di" bpmnElement="Task_0kqx149">
+                <omgdc:Bounds x="1293" y="218" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_0w4pd4y_di" bpmnElement="SequenceFlow_0w4pd4y">
+                <omgdi:waypoint x="1393" y="258" />
+                <omgdi:waypoint x="1456" y="258" />
             </bpmndi:BPMNEdge>
         </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>
