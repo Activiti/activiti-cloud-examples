@@ -141,6 +141,7 @@ services:
         SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
         SPRING_JPA_GENERATE_DDL: "true"
         SPRING_JPA_HIBERNATE_DDL_AUTO: update
+        spring.jpa.hibernate.ddl-auto: update
       restart: unless-stopped
       depends_on:
         - nginx
