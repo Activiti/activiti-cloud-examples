@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:activiti="http://activiti.org/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <bpmn2:process id="process-ae007e19-1ea6-40ee-b60c-979bd6daf49a" name="simpleprocess" isExecutable="true">
     <bpmn2:documentation />
     <bpmn2:startEvent id="StartEvent_1">
       <bpmn2:outgoing>SequenceFlow_1pby6wi</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_1pby6wi" sourceRef="StartEvent_1" targetRef="UserTask_1uvb9ze" />
-    <bpmn2:userTask id="UserTask_1uvb9ze" name="work" activiti:assignee="testuser">
-      <bpmn2:incoming>SequenceFlow_1pby6wi</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_1havsry</bpmn2:outgoing>
-    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1pby6wi" sourceRef="StartEvent_1" targetRef="ServiceTask_1uvb9ze" />
     <bpmn2:endEvent id="EndEvent_0v24e8z">
       <bpmn2:incoming>SequenceFlow_1havsry</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_1havsry" sourceRef="UserTask_1uvb9ze" targetRef="EndEvent_0v24e8z" />
+    <bpmn2:sequenceFlow id="SequenceFlow_1havsry" sourceRef="ServiceTask_1uvb9ze" targetRef="EndEvent_0v24e8z" />
+    <bpmn2:serviceTask id="ServiceTask_1uvb9ze" name="work" implementation="dice.roll">
+      <bpmn2:incoming>SequenceFlow_1pby6wi</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1havsry</bpmn2:outgoing>
+    </bpmn2:serviceTask>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="process-ae007e19-1ea6-40ee-b60c-979bd6daf49a">
@@ -24,9 +24,6 @@
         <di:waypoint x="448" y="258" />
         <di:waypoint x="518" y="258" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_16gevxe_di" bpmnElement="UserTask_1uvb9ze">
-        <dc:Bounds x="518" y="218" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_0v24e8z_di" bpmnElement="EndEvent_0v24e8z">
         <dc:Bounds x="743" y="240" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -34,6 +31,9 @@
         <di:waypoint x="618" y="258" />
         <di:waypoint x="743" y="258" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_126ifxd_di" bpmnElement="ServiceTask_1uvb9ze">
+        <dc:Bounds x="518" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn2:definitions>
