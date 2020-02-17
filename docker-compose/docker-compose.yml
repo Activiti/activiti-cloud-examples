@@ -128,7 +128,7 @@ services:
   crm-stat-service:
       container_name: crm-stat-service
       #image: activiti/activiti-cloud-query:${VERSION}
-      image: alexgri/crmstatservice:allevents
+      image: alexgri/crmstatservice:1.0
       environment:
         # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
         SPRING_JMX_ENABLED: "false"
