@@ -1,11 +1,13 @@
 version: '2'
 services:
   rabbitmq:
-    image: activiti/rabbitmq-stomp
+    image: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
       - "61613:61613"
+    volumes:
+      - ./enabled_plugins:/etc/rabbitmq/enabled_plugins
   activiti-keycloak:
     image: activiti/activiti-keycloak:latest
     ports:
