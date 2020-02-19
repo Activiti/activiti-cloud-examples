@@ -1,20 +1,17 @@
 {
 	"info": {
-		"_postman_id": "6646ad1c-9cdc-453a-bc50-43c8f0ed6c9c",
+		"_postman_id": "0544ece8-afb4-465b-8cad-c87ab677506c",
 		"name": "Activiti v7 REST API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"_postman_id": "c90d99e6-f138-4fd2-97ba-ecd470c63616",
 			"name": "audit",
 			"item": [
 				{
-					"_postman_id": "3ebc702b-e3c7-4273-a08c-604c3d24b0ce",
 					"name": "Admin endpoints",
 					"item": [
 						{
-							"_postman_id": "3290e154-d35c-4405-9891-e763d4ed9329",
 							"name": "getEvents - admin",
 							"request": {
 								"method": "GET",
@@ -24,10 +21,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/audit/admin/v1/events",
 									"host": [
@@ -44,7 +37,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "c3217e74-084b-4939-a225-9b6f20548a3d",
 							"name": "getEventsByEntityId - admin",
 							"request": {
 								"method": "GET",
@@ -54,10 +46,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/audit/admin/v1/events?search=entityId:<UUID>",
 									"host": [
@@ -80,10 +68,10 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
-					"_postman_id": "0cd2a773-2c9b-4d78-b82f-71af813db036",
 					"name": "getEvents",
 					"request": {
 						"method": "GET",
@@ -93,10 +81,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/audit/v1/events",
 							"host": [
@@ -112,7 +96,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "d21051ca-38e6-4789-a072-5910030f4a80",
 					"name": "Swagger Docs",
 					"request": {
 						"method": "GET",
@@ -122,10 +105,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/audit/v1/events",
 							"host": [
@@ -141,7 +120,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "c7500846-b236-4442-a51e-5b1494f1cd6a",
 					"name": "getEventsByEntityId",
 					"request": {
 						"method": "GET",
@@ -151,10 +129,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/audit/v1/events?search=entityId:<UUID>",
 							"host": [
@@ -176,7 +150,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "1703d9d8-4064-4f03-b759-208506ccd579",
 					"name": "getEventsByType",
 					"request": {
 						"method": "GET",
@@ -186,10 +159,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/audit/v1/events?eventType={eventType}",
 							"host": [
@@ -211,14 +180,13 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"_postman_id": "204e40cf-2912-4698-baab-afce17666cd4",
 			"name": "gateway",
 			"item": [
 				{
-					"_postman_id": "124d7052-dc2f-4a55-a2e6-d4fc5e4731d7",
 					"name": "routes",
 					"request": {
 						"method": "GET",
@@ -228,10 +196,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/actuator/gateway/routes",
 							"host": [
@@ -247,7 +211,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "7ec71311-b909-43ec-9ce4-4a29736f61f0",
 					"name": "refresh",
 					"request": {
 						"method": "POST",
@@ -275,14 +238,13 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"_postman_id": "4bbc3663-587b-4d8f-8f41-fa0444cca829",
 			"name": "keycloak",
 			"item": [
 				{
-					"_postman_id": "2588b43c-3295-432f-acc4-5f1d66ed0e01",
 					"name": "getKeycloakToken hruser",
 					"event": [
 						{
@@ -351,7 +313,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "3b5e25a1-636a-4f0f-83e1-f2fa39af415e",
 					"name": "getKeycloakToken hradmin",
 					"event": [
 						{
@@ -420,7 +381,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "24bf0905-d182-4e96-94b5-e7f411b2605e",
 					"name": "getKeycloakToken testuser",
 					"event": [
 						{
@@ -487,19 +447,85 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getKeycloakToken modeler",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var tokens=JSON.parse(responseBody); ",
+									"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); ",
+									"pm.test(\"Setting the kcAccessToken.\", function () {",
+									"var tokens = JSON.parse(responseBody);",
+									"pm.globals.set(\"kcAccessToken\", tokens.access_token);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "activiti",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "testuser",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{idm}}/auth/realms/{{realm}}/protocol/openid-connect/token",
+							"host": [
+								"{{idm}}"
+							],
+							"path": [
+								"auth",
+								"realms",
+								"{{realm}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"_postman_id": "54c28108-6c57-496e-92e5-ab8f30dd9f91",
 			"name": "rb",
 			"item": [
 				{
-					"_postman_id": "df73a0dd-3dcf-4575-8b36-7c4eeb0228a0",
 					"name": "Admin endpoints",
 					"item": [
 						{
-							"_postman_id": "0e53e2df-1e80-46c2-88c4-de32e230e6f5",
 							"name": "getProcessInstances - admin",
 							"request": {
 								"method": "GET",
@@ -509,10 +535,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/rb/admin/v1/process-instances",
 									"host": [
@@ -529,10 +551,10 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
-					"_postman_id": "9486dd43-d703-4b90-9b85-425014b97f37",
 					"name": "getProcessInstances",
 					"request": {
 						"method": "GET",
@@ -542,10 +564,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/rb/v1/process-instances",
 							"host": [
@@ -561,7 +579,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "5c96c7c9-995e-4e7a-b245-cc5ff6b4fcbe",
 					"name": "Swagger Docs",
 					"request": {
 						"method": "GET",
@@ -571,10 +588,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/rb/v2/api-docs",
 							"host": [
@@ -590,7 +603,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "7c63771d-ff3b-4f06-94cf-3677ee58ade9",
 					"name": "startProcess",
 					"request": {
 						"method": "POST",
@@ -606,7 +618,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"processDefinitionKey\": \"SimpleProcess\",\n  \"payloadType\": \"StartProcessPayload\",\n  \"variables\": {\n    \"firstName\": \"Paulo\",\n    \"lastName\": \"Silva\",\n    \"age\": 25\n  },\n  \"commandType\":\"StartProcessInstanceCmd\"\n}"
+							"raw": "{\n  \"processDefinitionKey\": \"process-85e87c7b-23d2-4666-89af-c51b733d281e\",\n  \"payloadType\": \"StartProcessPayload\",\n  \"variables\": {\n    \"clientId\": \"17\"\n  }\n}"
 						},
 						"url": {
 							"raw": "{{gateway}}/rb/v1/process-instances",
@@ -623,7 +635,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "ae71e433-f10f-4c49-a9c6-1514b4c12525",
 					"name": "startProcessWithVariables",
 					"request": {
 						"method": "POST",
@@ -656,7 +667,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "f4a298fd-60f4-4dfc-a92c-e67ed92bd87d",
 					"name": "getProcessVariables",
 					"request": {
 						"method": "GET",
@@ -666,10 +676,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/rb/v1/process-instances/{processInstanceId}/variables",
 							"host": [
@@ -687,7 +693,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "4a1c4438-9717-4f96-938e-4f5ce0ad29f3",
 					"name": "getTasks",
 					"request": {
 						"method": "GET",
@@ -697,10 +702,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/rb/v1/tasks?page=0&size=10",
 							"host": [
@@ -726,7 +727,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "f55d1faa-8f90-4593-a86f-1b951c5b2882",
 					"name": "getTask",
 					"request": {
 						"method": "GET",
@@ -740,10 +740,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/rb/v1/tasks/{taskId}",
 							"host": [
@@ -760,7 +756,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "e2fa525a-50af-4a31-869b-c059c4109faa",
 					"name": "claimTask",
 					"request": {
 						"method": "POST",
@@ -801,7 +796,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "73b3186d-54fa-4e95-8bf9-74a4c31af322",
 					"name": "completeTask",
 					"request": {
 						"method": "POST",
@@ -836,20 +830,15 @@
 					"response": []
 				},
 				{
-					"_postman_id": "d4cd03d8-b1e0-4d1e-9eee-c7e75cad36b4",
 					"name": "getProcessDefinitions",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{kcAccessToken}}"
+								"value": "bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/rb/v1/process-definitions",
 							"host": [
@@ -864,18 +853,16 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"_postman_id": "a80a8433-9f34-4511-a836-fbefa5f12684",
 			"name": "query",
 			"item": [
 				{
-					"_postman_id": "208f09f3-aa43-43e4-95b0-bb2860b75503",
 					"name": "Admin endpoints",
 					"item": [
 						{
-							"_postman_id": "94a3fa28-4bba-48b8-aba8-df48ceea76ef",
 							"name": "queryProcessInstances - admin",
 							"request": {
 								"method": "GET",
@@ -885,10 +872,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/query/admin/v1/process-instances?page=0&size=20",
 									"host": [
@@ -915,10 +898,10 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
-					"_postman_id": "9789a0c5-c19d-4d5c-bb87-d9f802f36108",
 					"name": "queryProcessInstances",
 					"request": {
 						"method": "GET",
@@ -928,10 +911,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
 							"host": [
@@ -957,7 +936,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "e05475ec-39ac-4ea8-93b1-c318e2098ad6",
 					"name": "Swagger Docs",
 					"request": {
 						"method": "GET",
@@ -967,10 +945,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
 							"host": [
@@ -996,7 +970,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "43f375b3-8706-4298-bfd8-018fd5b05985",
 					"name": "queryProcessInstancesLastModified",
 					"request": {
 						"method": "GET",
@@ -1006,10 +979,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/query/v1/process-instances?lastModifiedFrom=2011-12-03&lastModifiedTo=2040-12-03&page=0&size=20",
 							"host": [
@@ -1044,8 +1013,19 @@
 					"response": []
 				},
 				{
-					"_postman_id": "0a09111d-2c5c-418a-9c07-61c38120c49c",
 					"name": "queryProcessInstanceVariables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4eb87e74-de79-4333-899d-710b42034fb7",
+								"exec": [
+									"pm.variables.set(\"processInstanceId\", \"40eaf787-50b3-11ea-b507-0242ac120009\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1054,12 +1034,8 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
-							"raw": "{{gateway}}/query/v1/process-instances/{processInstanceId}/variables",
+							"raw": "{{gateway}}/query/v1/process-instances/{{processInstanceId}}/variables",
 							"host": [
 								"{{gateway}}"
 							],
@@ -1067,7 +1043,7 @@
 								"query",
 								"v1",
 								"process-instances",
-								"{processInstanceId}",
+								"{{processInstanceId}}",
 								"variables"
 							]
 						}
@@ -1075,7 +1051,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "74fd3ab0-566d-4039-8955-6a0e41f9efd3",
 					"name": "queryRunningProcessInstances",
 					"request": {
 						"method": "GET",
@@ -1085,12 +1060,8 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
-							"raw": "{{gateway}}/query/v1/process-instances?status=RUNNING&page=0&size=20",
+							"raw": "{{gateway}}/query/v1/process-instances?status=CANCELLED&page=0&size=40",
 							"host": [
 								"{{gateway}}"
 							],
@@ -1102,7 +1073,7 @@
 							"query": [
 								{
 									"key": "status",
-									"value": "RUNNING"
+									"value": "CANCELLED"
 								},
 								{
 									"key": "page",
@@ -1110,7 +1081,7 @@
 								},
 								{
 									"key": "size",
-									"value": "20"
+									"value": "40"
 								}
 							]
 						},
@@ -1119,7 +1090,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "af06bf51-3c25-4445-99c2-d6a8ba25d3c6",
 					"name": "queryCompletedProcessInstances",
 					"request": {
 						"method": "GET",
@@ -1129,10 +1099,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/query/v1/process-instances?status=COMPLETED&page=0&size=20",
 							"host": [
@@ -1163,7 +1129,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "a88d4938-4cc1-4b5c-920e-dc62566465ba",
 					"name": "queryTasks",
 					"request": {
 						"method": "GET",
@@ -1173,10 +1138,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/query/v1/tasks?page=0&size=20",
 							"host": [
@@ -1202,7 +1163,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "83fb0395-5c9b-4b26-969d-582372ae097d",
 					"name": "queryTaskVariables",
 					"request": {
 						"method": "GET",
@@ -1212,10 +1172,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/query/v1/tasks/{taskId}/variables",
 							"host": [
@@ -1233,7 +1189,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "6fca8436-0313-4dbe-9a33-08b944258f1b",
 					"name": "queryTasksWithPriority",
 					"request": {
 						"method": "GET",
@@ -1243,10 +1198,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/query/v1/tasks?priority=50&page=0&size=20",
 							"host": [
@@ -1276,7 +1227,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "2f2fed08-bab0-41e9-90fd-c5bc100d6f00",
 					"name": "queryCreatedTasks",
 					"request": {
 						"method": "GET",
@@ -1286,10 +1236,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/query/v1/tasks?status=CREATED&page=0&size=20",
 							"host": [
@@ -1320,7 +1266,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "e70b0e06-a381-4678-a1ea-eed359d5d6a7",
 					"name": "queryAssignedTasks",
 					"request": {
 						"method": "GET",
@@ -1330,10 +1275,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/query/v1/tasks?status=ASSIGNED&page=0&size=20",
 							"host": [
@@ -1364,7 +1305,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "f3d67702-023e-48c4-b32b-b67dfe52dd17",
 					"name": "queryCompletedTasks",
 					"request": {
 						"method": "GET",
@@ -1374,10 +1314,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/query/v1/tasks?status=COMPLETED&page=0&size=20",
 							"host": [
@@ -1407,14 +1343,13 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"_postman_id": "1cedd19b-7df0-49b7-aa5e-65e81285063e",
 			"name": "modeling",
 			"item": [
 				{
-					"_postman_id": "f49bd870-f6a0-4378-bb9a-1a0d41072fd4",
 					"name": "getModels",
 					"request": {
 						"method": "GET",
@@ -1424,10 +1359,6 @@
 								"value": "Bearer {{kcAccessToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{gateway}}/modeling/v1/models",
 							"host": [
@@ -1443,7 +1374,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "64c915c3-ef4c-4547-ada0-0a42f2821e62",
 					"name": "createProcessModels",
 					"request": {
 						"method": "POST",
@@ -1476,7 +1406,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "7fcb7ee5-13ee-47b9-9c0c-a6fb16642d46",
 					"name": "updateProcessModels",
 					"request": {
 						"method": "PUT",
@@ -1509,18 +1438,16 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"_postman_id": "2ef7be66-04fe-44b1-9254-63b125e675e2",
 			"name": "Security Policies Scenarios",
 			"item": [
 				{
-					"_postman_id": "8e3ed275-2e0a-427c-97be-b222223d1824",
 					"name": "Test User case",
 					"item": [
 						{
-							"_postman_id": "ba39e3d2-037d-4a18-8486-1563a2397caf",
 							"name": "getKeycloakToken testuser",
 							"event": [
 								{
@@ -1589,7 +1516,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "e4f45c75-26f5-4217-abcb-56f5fa348598",
 							"name": "startProcessWithVariables",
 							"request": {
 								"method": "POST",
@@ -1622,7 +1548,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "d3f56019-311e-4fcc-a17e-256d7fb8197a",
 							"name": "getProcessInstances",
 							"request": {
 								"method": "GET",
@@ -1632,10 +1557,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/rb/v1/process-instances",
 									"host": [
@@ -1651,7 +1572,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "f19e6c87-b1c7-43cc-aeaa-b3f71999ec8f",
 							"name": "queryProcessInstanceVariables",
 							"request": {
 								"method": "GET",
@@ -1661,10 +1581,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/query/v1/process-instances/{processInstanceId}/variables",
 									"host": [
@@ -1682,7 +1598,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "fc58562c-38b0-4f62-877b-97b3d0b730db",
 							"name": "queryProcessInstances",
 							"request": {
 								"method": "GET",
@@ -1692,10 +1607,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
 									"host": [
@@ -1721,7 +1632,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "8987bcb4-f918-4e81-b882-d85df59568db",
 							"name": "queryProcessInstanceVariables - 2nd",
 							"request": {
 								"method": "GET",
@@ -1731,10 +1641,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/query/v1/process-instances/{processInstanceId}/variables",
 									"host": [
@@ -1752,7 +1658,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "4c1b9b43-e10a-40f9-8158-6a9d9711f20c",
 							"name": "getEventsByProcessInstanceId",
 							"request": {
 								"method": "GET",
@@ -1762,10 +1667,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/audit/v1/events?processInstanceId={processInstanceId}",
 									"host": [
@@ -1787,20 +1688,19 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
-					"_postman_id": "132f2656-f96c-448a-b64a-18f84b60cdc9",
 					"name": "HR User case",
 					"item": [
 						{
-							"_postman_id": "75103d6c-56ca-4c77-a769-198adfea0efa",
 							"name": "getKeycloakToken hruser",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
+										"id": "fe590b47-4141-4ee3-a9d7-32103b47e9fe",
 										"exec": [
 											"var tokens=JSON.parse(responseBody); ",
 											"postman.setGlobalVariable(\"kcAccessToken\", tokens.access_token); ",
@@ -1808,7 +1708,8 @@
 											"var tokens = JSON.parse(responseBody);",
 											"pm.globals.set(\"kcAccessToken\", tokens.access_token);",
 											"});"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1835,7 +1736,7 @@
 										},
 										{
 											"key": "username",
-											"value": "hruser",
+											"value": "testuser",
 											"type": "text"
 										},
 										{
@@ -1863,7 +1764,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "61c12e1e-83af-4219-b946-0f0db92f1e36",
 							"name": "startProcessWithVariables",
 							"request": {
 								"method": "POST",
@@ -1896,7 +1796,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "90548e98-4b32-4418-a07e-d1accd5d163d",
 							"name": "getProcessInstances",
 							"request": {
 								"method": "GET",
@@ -1906,10 +1805,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/rb/v1/process-instances",
 									"host": [
@@ -1925,7 +1820,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "9fbb10eb-96a3-44e0-bb7a-b7c459a2676e",
 							"name": "getTasks",
 							"request": {
 								"method": "GET",
@@ -1935,10 +1829,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/rb/v1/tasks?page=0&size=10",
 									"host": [
@@ -1964,7 +1854,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "2c89fbae-4d0e-4b53-88c2-089ffef29831",
 							"name": "queryProcessInstances",
 							"request": {
 								"method": "GET",
@@ -1974,10 +1863,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
 									"host": [
@@ -2003,7 +1888,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "74dcb150-e5d2-4388-be5c-3de03906971d",
 							"name": "queryTasks",
 							"request": {
 								"method": "GET",
@@ -2013,10 +1897,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/query/v1/tasks?page=0&size=20",
 									"host": [
@@ -2042,7 +1922,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "3071750e-82c5-4019-a2a3-815de62b13d7",
 							"name": "getEvents",
 							"request": {
 								"method": "GET",
@@ -2052,10 +1931,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/audit/v1/events",
 									"host": [
@@ -2071,14 +1946,13 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
-					"_postman_id": "473492a5-ac61-4f00-ac46-e362fa201101",
 					"name": "HR Admin case",
 					"item": [
 						{
-							"_postman_id": "20e96a83-9b82-4f22-8bde-761e28f2b985",
 							"name": "getKeycloakToken hradmin",
 							"event": [
 								{
@@ -2147,7 +2021,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "479142be-0727-438f-a0d8-e3a8eb094621",
 							"name": "getProcessInstances - admin",
 							"request": {
 								"method": "GET",
@@ -2157,10 +2030,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/rb/admin/v1/process-instances",
 									"host": [
@@ -2177,7 +2046,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "6beea0b2-7e83-4eca-9200-d16dc472ec86",
 							"name": "queryProcessInstances - admin",
 							"request": {
 								"method": "GET",
@@ -2187,10 +2055,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/query/admin/v1/process-instances?page=0&size=20",
 									"host": [
@@ -2217,7 +2081,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "2c4b6ba3-3f13-45cd-9d83-ee5c4e8430a0",
 							"name": "getEventsByProcessInstanceId - admin",
 							"request": {
 								"method": "GET",
@@ -2227,10 +2090,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/audit/admin/v1/events?processInstanceId={processInstanceId}",
 									"host": [
@@ -2253,7 +2112,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "be2c20e7-0010-4874-9a1a-73452e99743c",
 							"name": "queryProcessInstances",
 							"request": {
 								"method": "GET",
@@ -2263,10 +2121,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
 									"host": [
@@ -2292,7 +2146,6 @@
 							"response": []
 						},
 						{
-							"_postman_id": "be39e9a1-3fe8-44c1-992c-1344a190e2ff",
 							"name": "queryProcessInstances",
 							"request": {
 								"method": "GET",
@@ -2302,10 +2155,6 @@
 										"value": "Bearer {{kcAccessToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{gateway}}/query/v1/process-instances?page=0&size=20",
 									"host": [
@@ -2331,10 +2180,154 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
 			],
-			"description": "This folder contains the neccesary calls, in the right order, to test the enforcement of the security policies "
+			"description": "This folder contains the neccesary calls, in the right order, to test the enforcement of the security policies ",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "segments",
+			"item": [
+				{
+					"name": "{{gateway}}/segments/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway}}/segments/all",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"segments",
+								"all"
+							]
+						},
+						"description": "request all segments"
+					},
+					"response": []
+				},
+				{
+					"name": "{{gateway}}/segments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gateway}}/segments/?segmentName=A&since=0",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"segments",
+								""
+							],
+							"query": [
+								{
+									"key": "segmentName",
+									"value": "A"
+								},
+								{
+									"key": "since",
+									"value": "0"
+								}
+							]
+						},
+						"description": "add user to segment"
+					},
+					"response": []
+				},
+				{
+					"name": "{{gateway}}/segments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\":113,\n\t\"segmentName\":\"A\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gateway}}/segments/",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"segments",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "stat",
+			"item": [
+				{
+					"name": "{{gateway}}/stat/overall",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway}}/stat/overall",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"stat",
+								"overall"
+							]
+						},
+						"description": "overall stat"
+					},
+					"response": []
+				},
+				{
+					"name": "{{gateway}}/stat/count/{clientId}/{processDefinitionId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway}}/stat/count/{clientId}/{processDefinitionId}",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"stat",
+								"count",
+								"{clientId}",
+								"{processDefinitionId}"
+							]
+						},
+						"description": "count ps call per process"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
