@@ -2,6 +2,7 @@ version: '2'
 
 services:
 
+  # СУБД для движка БП, сервиса аудита, сервиса запросов
   activiti-postgres:
     image: postgres
     ports:
@@ -14,6 +15,7 @@ services:
       - "pgdata:/var/lib/postgresql/data"
     restart: unless-stopped
 
+  # СУБД для сервиса статистики
   stat-postgres:
     image: postgres
     ports:
@@ -46,6 +48,7 @@ services:
      - "rabbitmq-data:/var/lib/rabbitmq"
     restart: unless-stopped
 
+  # sso
   keycloak:
     container_name: keycloak
     image: activiti/activiti-keycloak
@@ -55,6 +58,7 @@ services:
     depends_on:
       - nginx
 
+  # движок БП, сборка кастомизирована так чтобы описание процессов подтягивалось из файловой системы (по умолчанию - из скомпилированного jar)
   # https://gitlab-ee.fbsvc.bz/litota/backend-projects/crmruntimebundle master
   example-runtime-bundle:
     container_name: example-runtime-bundle
@@ -96,6 +100,9 @@ services:
       - activiti-cloud-query
       - segment-reading-connector
 
+  # тестовый cloud connector (CC) - микросервис, который выполняет service task бизнес-процесса вне движка,
+  # для этого он создает в rabbitMq durable queue, откуда вычитывает задачи, выполняет их и оповещает движок о выполнении через exchange integrationResult_rb
+  # задача этого коннектора - сгенерировать рандомное число от 0 до 100 и передать в процесс
   # https://gitlab-ee.fbsvc.bz/litota/backend-projects/crmrolladicecloudconnector master
   dice-connector:
     container_name: dice-connector
@@ -111,6 +118,8 @@ services:
       - keycloak
       - rabbitmq
 
+  # СС который принимает в качестве параметра имя сегмента и id пользователя и периодически опрашивает сервер сегментов.
+  # если пользователь попал в сегмент - успешно завершаем задачу
   # https://gitlab-ee.fbsvc.bz/litota/backend-projects/crmsegmentreadingcc master
   segment-reading-connector:
     container_name: segment-reading-connector
@@ -128,6 +137,11 @@ services:
       - rabbitmq
 
 
+  # сервис статистики. пока что заточен на наличие конкретных переменных процесса:
+  # id клиента, abtest, result
+  # слушает системные события, порождаемые движком БП, из эксчэнджа engineEvents
+  # сохраняет статистику в плоской таблице для удобства и быстроты выборок.
+  # содержит метод определения числа завершенных процессов для данного клиента по processDefinitionId - это может использоваться для ограничения кол-ва запусков одного процесса для пользователя
   # https://gitlab-ee.fbsvc.bz/litota/backend-projects/crmcustomqueryservice master
   crm-stat-service:
       container_name: crm-stat-service
@@ -153,6 +167,9 @@ services:
         - rabbitmq
         - stat-postgres
 
+  # сервис запуска бизнес процессов
+  # сервис содержит конфигурацию какой процесс следует запускать при вхождении пользователя в сегмент
+  # сервис периодически опрашивает сервис сегментов и для каждого нового пользователя запускает указанный процесс
   # https://gitlab-ee.fbsvc.bz/litota/backend-projects/bpstarter master
   bpstarter:
       container_name: bpstarter
@@ -167,7 +184,18 @@ services:
         - keycloak
         - segmentstub-backend
 
+  # сервис сегментов(заглушка)
+  # хранит в памяти принадлежность пользователя сегменту, на основании этих данных работают другие сервисы
+  # https://gitlab-ee.fbsvc.bz/litota/backend-projects/segmentstub
+  segmentstub-backend:
+    container_name: segmentstub-backend
+    image: psychedelicfox/segmentstub
+    depends_on:
+      - nginx
+
+
   # оригинальный котейнер https://github.com/Activiti/activiti-cloud-query который использует https://github.com/Activiti/activiti-cloud-query-service
+  # слушает системные события, порождаемые движком БП, из эксчэнджа engineEvents и на их основе обновляет *текущее состояние* процесса
   activiti-cloud-query:
     container_name: activiti-cloud-query
     image: activiti/activiti-cloud-query:${VERSION}
@@ -229,13 +257,6 @@ services:
       ACT_KEYCLOAK_RESOURCE:        ${KEYCLOAK_RESOURCE}
       ACTIVITI_CLOUD_MODELING_URL:  localhost:8080
       SERVER_SERVLET_CONTEXT_PATH:  /modeling-service
-
-  # https://gitlab-ee.fbsvc.bz/litota/backend-projects/segmentstub
-  segmentstub-backend:
-    container_name: segmentstub-backend
-    image: psychedelicfox/segmentstub
-    depends_on:
-      - nginx
 
 
 volumes:
