@@ -55,6 +55,7 @@ services:
     depends_on:
       - nginx
 
+  # https://gitlab-ee.fbsvc.bz/litota/backend-projects/crmruntimebundle master
   example-runtime-bundle:
     container_name: example-runtime-bundle
     image: alexgri/crmruntimebundle:1.0
@@ -95,6 +96,7 @@ services:
       - activiti-cloud-query
       - segment-reading-connector
 
+  # https://gitlab-ee.fbsvc.bz/litota/backend-projects/crmrolladicecloudconnector master
   dice-connector:
     container_name: dice-connector
     image: alexgri/dice-cc:0.1
@@ -109,6 +111,7 @@ services:
       - keycloak
       - rabbitmq
 
+  # https://gitlab-ee.fbsvc.bz/litota/backend-projects/crmsegmentreadingcc master
   segment-reading-connector:
     container_name: segment-reading-connector
     image: alexgri/crmsegmentcc:0.4
@@ -125,6 +128,7 @@ services:
       - rabbitmq
 
 
+  # https://gitlab-ee.fbsvc.bz/litota/backend-projects/crmcustomqueryservice master
   crm-stat-service:
       container_name: crm-stat-service
       #image: activiti/activiti-cloud-query:${VERSION}
@@ -149,6 +153,7 @@ services:
         - rabbitmq
         - stat-postgres
 
+  # https://gitlab-ee.fbsvc.bz/litota/backend-projects/bpstarter master
   bpstarter:
       container_name: bpstarter
       image: alexgri/bpstarter:0.8
@@ -162,6 +167,7 @@ services:
         - keycloak
         - segmentstub-backend
 
+  # оригинальный котейнер https://github.com/Activiti/activiti-cloud-query который использует https://github.com/Activiti/activiti-cloud-query-service
   activiti-cloud-query:
     container_name: activiti-cloud-query
     image: activiti/activiti-cloud-query:${VERSION}
@@ -194,6 +200,7 @@ services:
       - rabbitmq
       - activiti-postgres
 
+  # оригинальный контейнер вроде бы https://github.com/Activiti/activiti-modeling-app
   activiti-cloud-modeling:
     container_name: activiti-cloud-modeling
     image: activiti/activiti-modeling-app:${VERSION}
@@ -209,6 +216,7 @@ services:
       APP_CONFIG_OAUTH2_REDIRECT_LOGOUT: /modeling
     restart: unless-stopped
 
+  # оригинальный контейнер вроде бы https://github.com/Activiti/activiti-cloud-modeling
   activiti-cloud-modeling-backend:
     container_name: activiti-cloud-modeling-backend
     image: activiti/activiti-cloud-modeling:${VERSION}
@@ -222,6 +230,7 @@ services:
       ACTIVITI_CLOUD_MODELING_URL:  localhost:8080
       SERVER_SERVLET_CONTEXT_PATH:  /modeling-service
 
+  # https://gitlab-ee.fbsvc.bz/litota/backend-projects/segmentstub
   segmentstub-backend:
     container_name: segmentstub-backend
     image: psychedelicfox/segmentstub
