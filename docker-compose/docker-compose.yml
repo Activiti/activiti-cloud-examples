@@ -93,7 +93,7 @@ services:
 
   activiti-cloud-query:
     container_name: activiti-cloud-query
-    image:  davidecerbo/activiti-cloud-query:aae2114
+    image: activiti/activiti-cloud-query:${VERSION}
     environment:
       # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
       SPRING_JMX_ENABLED: "false"
