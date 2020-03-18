@@ -11,20 +11,20 @@ services:
       - POSTGRES_USER=activiti
       - POSTGRES_DB=activitidb
     volumes:
-      - "pgdata:/var/lib/postgresql/data"  
+      - "pgdata:/var/lib/postgresql/data"
     restart: unless-stopped
 
-  nginx: 
+  nginx:
     image: nginx:latest
     container_name: nginx
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - 80:80   
+      - 80:80
       - 443:443
     restart: unless-stopped
 
-  rabbitmq:    
+  rabbitmq:
     container_name: rabbitmq
     image: rabbitmq
     ports:
@@ -74,7 +74,7 @@ services:
     depends_on:
       - nginx
       - keycloak
-      - rabbitmq 
+      - rabbitmq
       - activiti-postgres
 
   example-cloud-connector:
@@ -99,13 +99,15 @@ services:
       SPRING_JMX_ENABLED: "false"
       SPRING_RABBITMQ_HOST: "rabbitmq"
       ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
-      SERVER_SERVLET_CONTEXT_PATH: /query
       SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
       SPRING_DATASOURCE_USERNAME: activiti
       SPRING_DATASOURCE_PASSWORD: mypassword
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
       SPRING_JPA_GENERATE_DDL: "true"
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING.GRAPHQL_JPA_QUERY_PATH: /notifications/graphql
+      GRAPHIQL_GRAPHQL_WEB_PATH: /notifications/graphql
+      GRAPHIQL_GRAPHQL_WS_PATH: /notifications/ws/graphql
 
       # ACTIVITI_SECURITY_POLICIES_0_NAME: "HR Group restricted to SimpleProcess and ConnectorProcess"
       # ACTIVITI_SECURITY_POLICIES_0_GROUPS: "hr"
@@ -117,68 +119,13 @@ services:
       # ACTIVITI_SECURITY_POLICIES_1_ACCESS: "WRITE"
       # ACTIVITI_SECURITY_POLICIES_1_SERVICENAME: "rb-my-app"
       # ACTIVITI_SECURITY_POLICIES_1_KEYS: "*"
-    restart: unless-stopped
-    depends_on:
-      - nginx
-      - keycloak
-      - rabbitmq
-      - activiti-postgres      
-  
-  activiti-cloud-audit:
-    container_name: activiti-cloud-audit
-    image: activiti/activiti-cloud-audit:${VERSION}
-    environment:
-      # JA`VA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
-      SPRING_JMX_ENABLED: "false"
-      SPRING_RABBITMQ_HOST: "rabbitmq"
-      ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
-      SERVER_SERVLET_CONTEXT_PATH: /audit
-      SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
-      SPRING_DATASOURCE_USERNAME: activiti
-      SPRING_DATASOURCE_PASSWORD: mypassword
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
-      SPRING_JPA_GENERATE_DDL: "true"
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      # ACTIVITI_SECURITY_POLICIES_0_NAME: "HR Group restricted to SimpleProcess and ConnectorProcess"
-      # ACTIVITI_SECURITY_POLICIES_0_GROUPS: "hr"
-      # ACTIVITI_SECURITY_POLICIES_0_ACCESS: "WRITE"
-      # ACTIVITI_SECURITY_POLICIES_0_SERVICENAME: "rb-my-app"
-      # ACTIVITI_SECURITY_POLICIES_0_KEYS: "SimpleProcess,ConnectorProcess,fixSystemFailure,twoTaskProcess"
-      # ACTIVITI_SECURITY_POLICIES_1_NAME: "testgroup not restricted at all"
-      # ACTIVITI_SECURITY_POLICIES_1_GROUPS: "testgroup"
-      # ACTIVITI_SECURITY_POLICIES_1_ACCESS: "WRITE"
-      # ACTIVITI_SECURITY_POLICIES_1_SERVICENAME: "rb-my-app"
-      # ACTIVITI_SECURITY_POLICIES_1_KEYS: "*"
-    restart: unless-stopped
-    depends_on:
-      - nginx
-      - keycloak
-      - rabbitmq
-      - activiti-postgres      
-
-  activiti-cloud-notifications-graphql:  
-    container_name: activiti-cloud-notifications-graphql
-    image: activiti/activiti-cloud-notifications-graphql:${VERSION}
-    environment:
-      # JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -noverify"
-      SPRING_JMX_ENABLED: "false"
-      SPRING_RABBITMQ_HOST: "rabbitmq"
-      ACT_KEYCLOAK_URL: "http://${DOCKER_IP}/auth"
-      SPRING_DATASOURCE_URL: jdbc:postgresql://activiti-postgres:5432/activitidb
-      SPRING_DATASOURCE_USERNAME: activiti
-      SPRING_DATASOURCE_PASSWORD: mypassword
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
-      SPRING_JPA_GENERATE_DDL: "false"
-      SPRING_JPA_HIBERNATE_DDL_AUTO: none
-      SERVER_SERVLET_CONTEXT_PATH: "/notifications"
-      SPRING_JPA_PROPERTIES_HIBERNATE_TEMP_USE_JDBC_METADATA_DEFAULTS: "false"
     restart: unless-stopped
     depends_on:
       - nginx
       - keycloak
       - rabbitmq
       - activiti-postgres
-  
+
   activiti-cloud-modeling:
     container_name: activiti-cloud-modeling
     image: activiti/activiti-modeling-app:${VERSION}
