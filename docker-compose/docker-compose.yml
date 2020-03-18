@@ -192,7 +192,21 @@ services:
     image: psychedelicfox/segmentstub
     depends_on:
       - nginx
+      - mongodb
 
+  # mongodb для segmentstub-backend:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: adminUser
+      MONGO_INITDB_ROOT_PASSWORD: adminPassword
+      MONGO_INITDB_DATABASE: segments
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
   # оригинальный котейнер https://github.com/Activiti/activiti-cloud-query который использует https://github.com/Activiti/activiti-cloud-query-service
   # слушает системные события, порождаемые движком БП, из эксчэнджа engineEvents и на их основе обновляет *текущее состояние* процесса
