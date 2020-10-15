@@ -527,6 +527,41 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "assignTask - admin",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"taskId\": \"\",\n    \"assignee\": \"\",\n    \"payloadType\": \"AssignTaskPayload\"\n}"
+								},
+								"url": {
+									"raw": "{{gateway}}/rb/admin/v1/tasks/{taskId}/assign",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"rb",
+										"admin",
+										"v1",
+										"tasks",
+										"{taskId}",
+										"assign"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
@@ -801,7 +836,40 @@
 					"response": []
 				},
 				{
-					"_postman_id": "73b3186d-54fa-4e95-8bf9-74a4c31af322",
+					"name": "assignTask",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"taskId\": \"\",\n    \"assignee\": \"\",\n    \"payloadType\": \"AssignTaskPayload\"\n}"
+						},
+						"url": {
+							"raw": "{{gateway}}/rb/v1/tasks/{taskId}/assign",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"rb",
+								"v1",
+								"tasks",
+								"{taskId}",
+								"assign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "completeTask",
 					"request": {
 						"method": "POST",
