@@ -981,8 +981,34 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "queryApplications - admin",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{kcAccessToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{gateway}}/query/admin/v1/applications",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"query",
+										"admin",
+										"v1",
+										"applications"
+									]
+								}
+							},
+							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -1025,7 +1051,30 @@
 					"response": []
 				},
 				{
-					"_postman_id": "e05475ec-39ac-4ea8-93b1-c318e2098ad6",
+					"name": "queryApplications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{kcAccessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{gateway}}/query/v1/applications",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"query",
+								"v1",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Swagger Docs",
 					"request": {
 						"method": "GET",
