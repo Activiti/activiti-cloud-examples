@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 VERSION := 1.0.1
-# If you need to put your Makefile in a different directory to your compose 
+# If you need to put your Makefile in a different directory to your compose
 # file, you will need to edit the variable below
 DOCKER_FILE := docker-compose.yml
 COMPOSE := docker-compose
@@ -16,7 +16,7 @@ help: ## This info
 	@echo '| Make targets: |'
 	@echo '-----------------'
 	@cat Makefile | grep -E '^[a-zA-Z\/_-]+:.*?## .*$$' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-	@echo 
+	@echo
 
 all: up ## Brings up all services, see docker-compose.yml
 
@@ -26,21 +26,21 @@ infra: nginx keycloak ## Brings up infrastructure services
 	@echo Keycloak path  $(DOCKER_IP)/auth
 	@echo
 infra/stop: ## Stops infrastructure services
-	make nginx/stop keycloak/stop 
+	make nginx/stop keycloak/stop
 
 application: infra rabbitmq ## Brings up Activiti application services
-	make example-runtime-bundle example-cloud-connector activiti-cloud-query activiti-cloud-audit activiti-cloud-notifications-graphql 
+	make example-runtime-bundle example-cloud-connector activiti-cloud-query
 	@echo Runtime bundle entry point: http://$(DOCKER_IP)/rb
 application/stop: ## Stops up Activiti application services
 	make rabbitmq/stop
-	make example-runtime-bundle/stop example-cloud-connector/stop activiti-cloud-query/stop activiti-cloud-audit/stop activiti-cloud-notifications-graphql/stop
+	make example-runtime-bundle/stop example-cloud-connector/stop activiti-cloud-query/stop
 
 modeler: infra ## Brings up Modeler services, see docker-compose.yml
-	make activiti-cloud-modeling activiti-cloud-modeling-backend 
+	make activiti-cloud-modeling activiti-cloud-modeling-backend
 	@echo
 	@echo
 	@echo Modeling app: http://$(DOCKER_IP)/modeling
-	@echo	
+	@echo
 modeler/stop:  ## Stop Modeler services
 	make activiti-cloud-modeling/stop activiti-cloud-modeling-backend/stop
 
@@ -50,7 +50,7 @@ up: ## Bring system up, see docker-compose.yml
 	@echo Keycloak path:  http://$(DOCKER_IP)/auth
 	@echo Modeling app: http://$(DOCKER_IP)/modeling
 	@echo Runtime bundle entry point: http://$(DOCKER_IP)/rb
-	@echo	
+	@echo
 	$(COMPOSE) up -d
 
 logs: ## Follow all container logs in terminal
