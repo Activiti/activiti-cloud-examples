@@ -1,7 +1,13 @@
 #  Easy way to run activiti7 with docker compose 
 
 ### Prerequisite:
-Change DOCKER_IP to your ip in .env
+Change `DOCKER_IP` to your Docker host IP in `.env` file
+
+If running Docker for Desktop with WSL2 on Windows 10, use `host.docker.internal` for `DOCKER_IP` and add the following entry in Windows `hosts`:
+
+```
+127.0.0.1 host.docker.internal
+```
 
 ### Start options
 For starting whole system
