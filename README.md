@@ -9,7 +9,7 @@ This repository contains some example deployment files using Docker Compose and 
 
 ## Quickstart
 
-Take a look at our [GitBook Getting Started Section](https://activiti.gitbooks.io/activiti-7-developers-guide/content/getting-started/getting-started.html)
+Take a look at our [GitBook Getting Started Section](https://activiti.gitbook.io/activiti-7-developers-guide/getting-started)
 
 
 ## Question / Issues / Comments
